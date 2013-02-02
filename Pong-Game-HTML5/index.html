@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Pong Game</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        
+        <link href="styles/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="styles/css/styles.css" rel="stylesheet" type="text/css" />
+        
+
+
+    </head>
+
+    <body onLoad="init()">
+
+		<section id="canvas">
+
+			<article id="paddle">
+			</article>
+
+			<article id="ball">
+			</article>
+
+			<article id="ball2">
+			</article>
+
+			<article id="score">
+			</article>
+
+			
+		</section>
+
+		<article id="restart-btn" class="example">
+			<button onclick="restartGame()" class="btn disabled">Restart</button>
+		</article>
+
+		<canvas id="html5-canvas">
+
+		</canvas>
+
+		<script src="js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="js/pong.js" type="text/javascript"></script>
+        <script src="js/canvas.js" type="text/javascript"></script>
+    </body>
+
+
+</html>

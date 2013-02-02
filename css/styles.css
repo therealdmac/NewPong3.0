@@ -1,0 +1,51 @@
+h3 {
+	margin-top: 0;
+}
+canvas {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	background: transparent;
+	}
+#background {
+	z-index: -2;
+	border: 1px solid black;
+	background-color: black;
+}
+#main {
+	z-index: -1;
+}
+#paddle {
+	z-index: 0;
+}
+
+#debug-console {
+	color: white;
+	background-color: rgb(92, 91, 99);
+	float: right;
+	padding: 20px;
+}
+#debug {
+	position: absolute;
+	top: 550px;
+	display: none;
+}
+
+
+	article {
+		float: left;
+		margin-right: 20px;
+		border: 1px solid black;
+		padding: 20px;
+	}
+
+	#timer-debug {
+		display: block;
+	}
+
+	#wall-alarm {
+		width: 20px;
+		height: 20px;
+		background-color: red;
+		float: left;
+	}
