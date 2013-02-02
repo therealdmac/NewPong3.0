@@ -318,9 +318,6 @@ function Game() {
 			Shooter.prototype.context = this.paddleContext;
 			Shooter.prototype.canvasWidth = this.paddleCanvas.width;
 			Shooter.prototype.canvasHeight = this.paddleCanvas.height;
-			
-			// Initialise collision handler
-			this.colHandler = new CollisionHandler(this.mainCanvas.width, this.mainCanvas.height);
 	
 			// Initialize the Object Pool		
 			this.pool = new ObjectPool(10);	
@@ -333,6 +330,7 @@ function Game() {
 			
 			this.background = new Background();
 			
+			this.colHandler = new CollisionHandler();			
 
 			// *************************
 			// Initialize the objects' starting location
@@ -405,17 +403,14 @@ function animate() {
 	requestAnimFrame( animate );
 	
 	// Rendering
+	debugContext.clearRect(0,0,debugCanvas.width, debugCanvas.height);
+	//var colHandler = new CollisionHandler();
+	game.colHandler.subDivide(game.pool.allObj);
 	game.paddle.move();
 	game.paddle.draw();
 	game.shooter.draw();
 	game.pool.animate();
-	//for(var i=0; i<game.pool.allObj.length;i++){
-	//alert(""+i+" "+game.pool.allObj[i].x+" "+game.pool.allObj[i].y);
-	//	for(var j=i+1; j<game.pool.allObj.length;j++){
-		//	collisionDetection(game.pool.allObj[i], game.pool.allObj[j]);
-		//}
-	//}
-	game.colHandler.subDivide(game.pool.allObj);
+	
 }
 
 

@@ -80,11 +80,11 @@ function Drawable() {
 		for(var i=0; i<this.allObj.length; i++){
 			this.allObj[i].move();
 			this.draw();
-			game.paddleContext.clearRect(this.allObj[i].x-15, this.allObj[i].y-30, 50 ,50 );
+			//debugContext.clearRect(this.allObj[i].x-15, this.allObj[i].y-30, 50 ,50 );
 			if(debugFlag){
-				game.paddleContext.font="20px Arial";
-				game.paddleContext.fillStyle = 'yellow';
-				game.paddleContext.fillText(this.num[i],this.allObj[i].x,this.allObj[i].y);
+				debugContext.font="20px Arial";
+				debugContext.fillStyle = 'yellow';
+				debugContext.fillText(this.num[i],this.allObj[i].x,this.allObj[i].y);
 			}
 		}
 	}
