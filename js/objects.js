@@ -231,23 +231,32 @@ function Shooter() {
 }
 Shooter.prototype = new Rectangle();
 
+
+
 /**
  * Ball class
  */
  
- function Ball() {
+function Ball() {
 
  	this.radius = 0;
  	this.centerX = 0;
  	this.centerY = 0;
  	this.direction = 0;
 
- 	this.speed = 2;
-    this.speedX = this.speed;
-    this.speedY = this.speed;
+	this.speed = 2;
+	this.speedX = this.speed;
+	this.speedY = this.speed;
 
- }
- Ball.prototype = new Drawable();
+}
+Ball.prototype = new Drawable();
+
+/* Ability to get class Name of an object */
+Ball.prototype.getName = function() { 
+   var funcNameRegex = /function (.{1,})\(/;
+   var results = (funcNameRegex).exec((this).constructor.toString());
+   return (results && results.length > 1) ? results[1] : "";
+}
 
 /**
  * Create the Main Ball object that the player controls. The Main Ball is
@@ -255,6 +264,8 @@ Shooter.prototype = new Rectangle();
  * around the screen.
  */
 function Mainball() {
+
+	this.collisionCounter = 0;
  	
 
     this.leftEdge = 0;
@@ -334,7 +345,7 @@ function Enemyball() {
     this.topEdge = 0;
     this.bottomEdge = this.canvasHeight;
 
-    this.mass = 3
+    this.mass = 3;
 
 	//Move the main ball
 	this.draw = function() {

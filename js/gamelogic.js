@@ -237,6 +237,9 @@ function collisionDetection(obj1, obj2) {
 	var distance1Y = (y2 - y1)*(y2 - y1);
 	var distance1 = Math.sqrt(( distance1X + distance1Y ));
 
+//  if (obj1 || obj2 === )
+  //  console.log
+
 	if( ( distance1 ) < 50) {
 		physicsEngine(obj1, obj2);
 	}

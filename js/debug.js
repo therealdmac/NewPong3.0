@@ -48,6 +48,8 @@ function debugTool() {
 
 	function showDebug() {
 
+		console.log(game.mainball.getName());
+
 		document.getElementById("debug").style.display = 'block';
 		document.getElementById("debug-status").innerHTML = 'ON';
 		debugFlag = 1;
@@ -63,9 +65,17 @@ function shootBall() {
 	game.shooter.shoot();
 }
 
+function destroyBall() {
+	game.pool.DeleteObj(1);
+}
+
 function shootBigBall() {
-	console.log('here');
 	game.shooter.shootBig();
+}
+
+function destroyBigBall() {
+	game.pool.animate();
+	game.pool.DeleteObj(2);
 }
 
 function startTimer() {
