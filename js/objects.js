@@ -264,12 +264,6 @@ function Ball() {
 }
 Ball.prototype = new Drawable();
 
-/* Ability to get class Name of an object */
-Ball.prototype.getName = function() { 
-   var funcNameRegex = /function (.{1,})\(/;
-   var results = (funcNameRegex).exec((this).constructor.toString());
-   return (results && results.length > 1) ? results[1] : "";
-}
 
 /**
  * Create the Main Ball object that the player controls. The Main Ball is
@@ -422,7 +416,6 @@ function EnemyballBig() {
 
 	    this.x += this.speedX;
 	    this.y += this.speedY;
-
 	    
 	    // X Collision
 	    if (this.x <= this.leftEdge) {       
@@ -431,7 +424,6 @@ function EnemyballBig() {
 	    else if (this.x >= this.rightEdge - this.width) {
 	      this.speedX = -this.speed;
 	    }
-
 
 	    // Y Collision
 	    if (this.y >= this.bottomEdge - this.height - 16) {
@@ -448,8 +440,6 @@ function EnemyballBig() {
 	    }
 
 		this.context.drawImage(imageRepository.enemyballBig, this.x, this.y);
-
-
 	};
 
 

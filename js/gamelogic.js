@@ -249,7 +249,6 @@ function collisionDetection(obj1, obj2) {
   if ( distance < combinedRadius) {
 
     // clear it
-    
     obj2.clip();
 
     var overlapDistance = combinedRadius - distance + 2; //+2 is a buffer
@@ -271,8 +270,6 @@ function collisionDetection(obj1, obj2) {
     obj2.y = obj2.y - moveY;
 
     obj2.draw();
-
-    
   }
 
   //  console.log
