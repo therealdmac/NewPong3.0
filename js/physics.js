@@ -1,5 +1,9 @@
 
 
+/* We need to find a way to initialise these global variables only once...
+ * not everytime the physics engine is called - maybe that could also be a problem of 
+ * the sticky ball thingy 
+ */
 
 //Global for now
 var ballOneXCoordinate,
@@ -53,7 +57,7 @@ var normalXVectorVelocityOfBallTwo,
 
 
 
-function computeNewTrajectory(){
+function resolveBallCollisons(){
 
 		
 	
@@ -70,13 +74,10 @@ function computeNewTrajectory(){
 	unitTangentXVector = -unitNormalYVector;
 	unitTangentYVector = unitNormalXVector;
 
-
-	
 	//Resolve velocity of each ball into normal and tangential components
 	normalScalarVelocityOfBallOne = unitNormalXVector * xVelocityOfBallOne + unitNormalYVector * yVelocityOfBallOne;	//scalar normal velocity of ballOne
 
 	tangentScalarVelocityOfBallOne = unitTangentXVector * xVelocityOfBallOne + unitTangentYVector * yVelocityOfBallOne;
-
 
 		//scalar tangent velocity of ballOne
 	normalScalarVelocityOfBallTwo = unitNormalXVector * xVelocityOfBallTwo + unitNormalYVector * yVelocityOfBallTwo;
@@ -117,14 +118,6 @@ function setObjectOneParameters(thisObject){
 	massOfBallOne = thisObject.mass;//mass
 	xVelocityOfBallOne = thisObject.speedX;//x velocity of object
 	yVelocityOfBallOne = thisObject.speedY;//y velocity of object
-
-/*
-	console.log(ballOneXCoordinate);
-	console.log(ballOneYCoordinate);
-	console.log(massOfBallOne);
-	console.log(xVelocityOfBallOne);
-	console.log(yVelocityOfBallOne); */
-	
 }
 function setObjectTwoParameters(thisObject){
 	ballTwoXCoordinate = thisObject.x;//Xcoordinate
@@ -132,50 +125,32 @@ function setObjectTwoParameters(thisObject){
 	massOfBallTwo = thisObject.mass;//mass
 	xVelocityOfBallTwo = thisObject.speedX;//x velocity of object
 	yVelocityOfBallTwo = thisObject.speedY;//y velocity of object
-
-
 }
-
-
 
 //This is the function that will be called by the program, the rest of them are private functions
 function physicsEngine(objectOne, objectTwo){
 
-	setObjectOneParameters(objectOne);
-	setObjectTwoParameters(objectTwo);
+	/* To implement the interaction with the shooter object, 
+	 * we need to check if the one of the object references is a shooter object
+	 * and then call the appropriate functions
+	 */
+	 if(typeof(objectOne) === Shooter){
 
+	 }else if(typeof(objectTwo) === Shooter){
 
-	
-	/*First Implementation
-	* we can do it this way meaning that we create a new object having 2 fields:
-	* allOne's new trajectory and ballTwo's new trajectory
-	* and return that object
-	*/
-	
-	//var computeTrajectoryObject = new computeNewTrajectory();
-	//return computedTrajectoryObject;
-	
-	/*Second Implementation
-	* Or we can assume that the calling objet has both the fields:
-	* ballOne's newtrajectory and ballTwo's new trajectory
-	* and we update it accordingly after computing
-	*/
-	
-	computeNewTrajectory();
+	 }else{
+	 	//The 2 references belong to normal ball objects
+		setObjectOneParameters(objectOne);
+		setObjectTwoParameters(objectTwo);
+		resolveBallCollisons();
+		//Find final velocity vectors
+		objectOne.speedX = normalXVectorVelocityOfBallOne + tangentXVectorVelocityOfBallOne;
+		objectOne.speedY = normalYVectorVelocityOfBallOne + tangentYVectorVelocityOfBallOne;
+		objectTwo.speedX = normalXVectorVelocityOfBallTwo + tangentXVectorVelocityOfBallTwo;
+		objectTwo.speedY = normalYVectorVelocityOfBallTwo + tangentXVectorVelocityOfBallTwo;
+	}
 
+}
+function resolveBallCollisionWithShooter(){
 
-
-
-	//Find final velocity vectors
-	objectOne.speedX = normalXVectorVelocityOfBallOne + tangentXVectorVelocityOfBallOne;
-	objectOne.speedY = normalYVectorVelocityOfBallOne + tangentYVectorVelocityOfBallOne;
-
-
-	objectTwo.speedX = normalXVectorVelocityOfBallTwo + tangentXVectorVelocityOfBallTwo;
-	objectTwo.speedY = normalYVectorVelocityOfBallTwo + tangentXVectorVelocityOfBallTwo;
-
-
-
-	//this.ball trajectory variable 1 of calling object = computedTrajectpryOfBallOne;
-	//this.ball trajectory variable 2 of calling object = computedTrajectoryOfBallTwo;
 }

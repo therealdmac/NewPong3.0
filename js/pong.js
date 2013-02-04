@@ -84,8 +84,9 @@ function isTimeForManipulation(){
 	setGameBallXDirection();
 	setGameBallRegion();
 	setPaddleCurrentRegion();
-	//Determine if the gameball be manipulated
-	if(game.mainball.ballMovingDown)	
+	//Determine if the gameball has collided with the edges and also is moving down
+	if(game.mainball.ballMovingDown && 
+	  (game.mainball.collidedwithrightEdge || game.mainball.collidedwithleftEdge))	
 		manipulateGameBall();
 }
 
@@ -106,6 +107,7 @@ function manipulateGameBall(){
 
 				
 				//console.log('manipulated! at left');
+
 			}
 			break;
 
@@ -113,6 +115,7 @@ function manipulateGameBall(){
 			//console.log('paddle is at the right');
 			//console.log('Gameball region is at ' +game.mainball.ballRegion);
 			if(game.mainball.ballRegion == "left" && game.mainball.collidedwithleftEdge){
+
 				game.mainball.speedY += 8;
 
 				manipulated++;
@@ -144,7 +147,7 @@ function gameTimer(){
 
 	// setTimeout("gameTimer()", 1000);
 
-	//console.log('game time is ' +gameTime);
+
 }
 function startWorker() {
 	console.log('entered startworkers');

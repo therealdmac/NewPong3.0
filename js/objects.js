@@ -48,12 +48,10 @@ function Drawable() {
 	
  }
  Wall.prototype = new Drawable();
-
-
  /**
  * Object Pool class
  */
- 
+
  function ObjectPool(m) {
 	
 	this.maxSize = m;
