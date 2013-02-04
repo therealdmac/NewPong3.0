@@ -368,7 +368,9 @@ function Enemyball() {
 	    	if (this.x + 25 > game.paddle.x && this.x < game.paddle.x + 64)
 	    		this.speedY = -this.speed; // reverse speed
 	    	else
-	    		restartGame();
+	    		this.speedY = -this.speed;
+	    		// temporary hold
+	    		//restartGame();
 	    } else if (this.y <= this.topEdge) { // if hit the top
 	    	this.speedY = this.speed;
 	    }
@@ -422,7 +424,9 @@ function EnemyballBig() {
 	    	if (this.x + 25 > game.paddle.x && this.x < game.paddle.x + 64)
 	    		this.speedY = -this.speed; // reverse speed
 	    	else
-	    		restartGame();
+	    		this.speedY = -this.speed;
+	    		// temporary hold
+	    		//restartGame();
 	    } else if (this.y <= this.topEdge) { // if hit the top
 	    	this.speedY = this.speed;
 	    }
