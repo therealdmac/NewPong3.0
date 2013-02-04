@@ -239,57 +239,52 @@ function collisionDetection(obj1, obj2) {
 	var distanceY = (y2 - y1)*(y2 - y1);
 	var distance = Math.sqrt(( distanceX + distanceY ));
 
+
+
+  /*
+  Sticky ball solution:
+  Check how much each ball overlaps, and then push it back by that amount of pixel. This code will choose a ball to push back instead of pushing both
+  */
   // Check how much it overlaps
   if ( distance < combinedRadius) {
 
     // clear it
-    obj2.context.clearRect(obj2.x, obj2.y, obj2.width, obj2.height);
+    
+    obj2.clip();
 
-    var overlapDistance = combinedRadius - distance;
+    var overlapDistance = combinedRadius - distance + 2; //+2 is a buffer
     var radian = Math.acos( (distanceX/distance)*Math.PI/180 );
-    //console.log('*****************');  
-    //console.log('Radian is ' +radian);  
-    //console.log('distanceX/distance is ' +distanceX/distance);  
+
     var moveX = overlapDistance*Math.cos(radian);
     var moveY = overlapDistance*Math.sin(radian);
 
-    /*
-    console.log('Object 1 is ' +obj1.typeofball);
-    console.log('Object 2 is ' +obj2.typeofball);
-    console.log('Total distance is ' +distance);
-    console.log('Overlap Distance is ' +overlapDistance);  
-    console.log('MoveX is ' +moveX); 
-    console.log('MoveY is ' +moveY); 
-    */
     if(y2 > y1) {
       moveY = -moveY;
     }
 
-    //console.log('obj2 x is ' +obj2.x);
-    //console.log('obj2 y is ' +obj2.y);
-
+    console.log('Object 1 is ' +obj1.typeofball);
+    console.log('Object 2 is ' +obj2.typeofball);
+    console.log('Total distance is ' +distance);
+    console.log('Overlap Distance is ' +overlapDistance);
+    
     obj2.x = obj2.x - moveX;
     obj2.y = obj2.y - moveY;
-
-    //console.log('new obj2 x is ' +obj2.x);
-    //console.log('new obj2 y is ' +obj2.y);
-
-    /*
-    obj2.context.fillStyle="#FFFF00";
-    obj2.context.fillRect(obj2.x+obj2.width/2,obj2.y+obj2.height/2,2,2); */
 
     obj2.draw();
 
     
   }
 
-  
   //  console.log
 
-	if( overlapDistance) {
+  // if there is a collision 
+	if(distance <= combinedRadius) {
     //alert('colided');
 		physicsEngine(obj1, obj2);
 	}
 	
 	return false;
 }
+
+
+

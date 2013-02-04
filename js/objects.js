@@ -250,6 +250,17 @@ function Ball() {
 
 	this.typeofball = null;
 
+	this.clip = function() {
+    	this.context.save();
+		this.context.beginPath();
+		this.context.arc(this.x+this.width/2,this.y+this.height/2,this.height/2, 0, 2*Math.PI,true);
+		this.context.fill();
+		this.context.closePath();		
+		this.context.clip();
+		this.context.clearRect(this.x, this.y, this.width, this.height);
+		this.context.restore();
+    }
+
 }
 Ball.prototype = new Drawable();
 
@@ -293,14 +304,7 @@ function Mainball() {
 		this.collidedwithleftEdge = false;
 		this.collidedwithrightEdge = false;
 		
-		this.context.save();
-		this.context.beginPath();
-		this.context.arc(this.x+this.width/2,this.y+this.height/2,this.height/2, 0, 2*Math.PI,true);
-		this.context.fill();
-		this.context.closePath();		
-		this.context.clip();
-		this.context.clearRect(this.x, this.y, this.width, this.height);
-		this.context.restore();
+		this.clip();
 
 	    this.x += this.speedX;
 	    this.y += this.speedY;
@@ -358,16 +362,7 @@ function Enemyball() {
 	//Move the main ball
 	this.draw = function() {
 		
-		this.context.save();
-		this.context.beginPath();
-		this.context.arc(this.x+this.width/2,this.y+this.height/2,this.height/2, 0, 2*Math.PI,true);
-		this.context.fill();
-		this.context.closePath();		
-		this.context.clip();
-		this.context.clearRect(this.x, this.y, this.width, this.height);
-		this.context.restore();
-
-		
+		this.clip();
 
 	    this.x += this.speedX;
 	    this.y += this.speedY;
@@ -415,20 +410,15 @@ function EnemyballBig() {
     this.topEdge = 0;
     this.bottomEdge = this.canvasHeight;
 
-    this.mass = 10;
+    this.mass = 3;
     this.typeofball = 'big enemyball';
+
+
 
 	//Move the main ball
 	this.draw = function() {
 		
-		this.context.save();
-		this.context.beginPath();
-		this.context.arc(this.x+this.width/2,this.y+this.height/2,this.height/2, 0, 2*Math.PI,true);
-		this.context.fill();
-		this.context.closePath();		
-		this.context.clip();
-		this.context.clearRect(this.x, this.y, this.width, this.height);
-		this.context.restore();
+		this.clip();
 
 	    this.x += this.speedX;
 	    this.y += this.speedY;
