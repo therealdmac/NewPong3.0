@@ -44,6 +44,7 @@ function setGameBallYDirection(){
 	}else{
 		game.mainball.ballMovingDown = false;
 	}
+	//console.log('is ball in y direction:' + game.mainball.ballMovingDown);
 }
 function setGameBallXDirection(){
 	//If the ball is moving to the right, it is deemed to have positive direction
@@ -52,6 +53,7 @@ function setGameBallXDirection(){
 	}else{
 		game.mainball.ballMovingRight = false;
 	}
+	//console.log('is ball moving right:' + game.mainball.ballMovingRight);
 }
 function setPaddleCurrentRegion(){
 	//console.log('The current paddle location is: ' + game.paddle.x);
@@ -64,6 +66,7 @@ function setPaddleCurrentRegion(){
 		game.paddle.paddleIsInTheRightRegionOfCanvas = false;
 		game.paddle.paddleRegion = "left";
 	}
+	//console.log('paddle is in:' + game.paddle.paddleRegion + ' region');
 }
 function setGameBallRegion(){
 	//Get the region the game ball is in
@@ -73,11 +76,11 @@ function setGameBallRegion(){
 	}else{
 		game.mainball.ballRegion  = "right";
 	}
+	//console.log('ball is in :' + game.mainball.ballMovingDown + ' region');
 }
 function isTimeForManipulation(){
 
 	document.getElementById("executed-status-box").style.background = 'red';
-
 
 	//Set the gameBallParameters parameters
 	setGameBallYDirection();
@@ -85,19 +88,20 @@ function isTimeForManipulation(){
 	setGameBallRegion();
 	setPaddleCurrentRegion();
 	//Determine if the gameball has collided with the edges and also is moving down
-	if(game.mainball.ballMovingDown && 
-	  (game.mainball.collidedwithrightEdge || game.mainball.collidedwithleftEdge))	
+	if(//game.mainball.ballMovingDown && 
+	   (game.mainball.collidedwithrightEdge || game.mainball.collidedwithleftEdge) &&
+	   game.mainball.ballMovingDown){	
+	  	console.log('gonna manipulate!');
 		manipulateGameBall();
+	}
 }
 
 function manipulateGameBall(){
 
-	
-
 	switch (game.paddle.paddleRegion){
 		case 'left': 	
 	
-			if(game.mainball.ballRegion == "right" && game.mainball.collidedwithrightEdge){
+			if(/*game.mainball.ballRegion == "right"*/game.mainball.collidedwithrightEdge ){//&& game.mainball.collidedwithrightEdge){
 				game.mainball.speedY += 8;
 
 				manipulated++;
@@ -114,12 +118,9 @@ function manipulateGameBall(){
 		case 'right': 	
 			//console.log('paddle is at the right');
 			//console.log('Gameball region is at ' +game.mainball.ballRegion);
-			if(game.mainball.ballRegion == "left" && game.mainball.collidedwithleftEdge){
-
+			if(/*game.mainball.ballRegion == "left"*/game.mainball.collidedwithleftEdge ){//&& game.mainball.collidedwithleftEdge){
 				game.mainball.speedY += 8;
-
 				manipulated++;
-
 				document.getElementById("executed-status-text").innerHTML = manipulated;
 				document.getElementById("executed-status-box").style.background = 'green';
 
@@ -327,7 +328,7 @@ function Game() {
 	// Start the animation loop
 	this.start = function() {
 
-		// draw everything first round
+		//draw everything first round
 		//game.background.draw();
 		game.paddle.draw();
 		game.shooter.draw();
@@ -374,8 +375,6 @@ function animate() {
 	gameTimer();
 	
 }
-
-
 
 /**	
  * requestAnim shim layer by Paul Irish

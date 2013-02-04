@@ -306,10 +306,12 @@ function Mainball() {
 	    // X Collision with the wall
 	    if (this.x <= this.leftEdge) {  
 	    	this.collidedwithleftEdge = true;
+	    	this.collidedwithrightEdge = false;
 	    	this.speedX = this.speed;
 	    }     
 	    else if (this.x >= this.rightEdge - this.width) {
 	      	this.collidedwithrightEdge = true;
+	      	this.collidedwithleftEdge = false;
 	      	this.speedX = -this.speed;
 	    	
 	    }

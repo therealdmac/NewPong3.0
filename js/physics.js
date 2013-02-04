@@ -6,23 +6,22 @@
  */
 
 //Global for now
-var ballOneXCoordinate,
-	ballOneYCoordinate,
-	massOfBallOne,
-	xVelocityOfBallOne,
-	yVelocityOfBallOne,
-	xVelocityOfBallTwo,
-	yVelocityOfBallTwo,
-	vectorOfBallOne,
-	vectorOfBallOne,
-	computedTrajectoryOfBallOne;
+	this.ballOneXCoordinate;
+	this.ballOneYCoordinate;
+	this.massOfBallOne;
+	this.xVelocityOfBallOne;
+	this.yVelocityOfBallOne;
+	this.xVelocityOfBallTwo;
+	this.yVelocityOfBallTwo;
+	this.vectorOfBallOne;
+	this.vectorOfBallOne;
+	this.computedTrajectoryOfBallOne;
 	
-var ballTwoXCoordinate,
-	ballTwoYCoordinate,
-	massOfBallTwo,
-	//velocityOfBallTwo,
-	vectorOfBallTwo,
-	computedTrajectoryofBallTwo;
+	this.ballTwoXCoordinate;
+	this.ballTwoYCoordinate;
+	this.massOfBallTwo;
+	this.vectorOfBallTwo;
+	this.computedTrajectoryofBallTwo;
 
 var newXVelocityOfBallOne, 
 	newYVelocityOfBallOne, 
@@ -136,21 +135,32 @@ function physicsEngine(objectOne, objectTwo){
 	 * we need to check if the one of the object references is a shooter object
 	 * and then call the appropriate functions
 	 */
-	 if(typeof(objectOne) === Shooter){
+	 /*if(typeof(objectOne) === Shooter){
 
 	 }else if(typeof(objectTwo) === Shooter){
 
-	 }else{
+	 }else{*/
 	 	//The 2 references belong to normal ball objects
 		setObjectOneParameters(objectOne);
 		setObjectTwoParameters(objectTwo);
 		resolveBallCollisons();
+
+		/*var x = 1;
+		var y = null; // To keep under proper scope
+
+		setTimeout(function() {
+		    x = x * 3 + 2;
+		    y = x / 2;
+		}, 2000);*/
+
 		//Find final velocity vectors
 		objectOne.speedX = normalXVectorVelocityOfBallOne + tangentXVectorVelocityOfBallOne;
 		objectOne.speedY = normalYVectorVelocityOfBallOne + tangentYVectorVelocityOfBallOne;
 		objectTwo.speedX = normalXVectorVelocityOfBallTwo + tangentXVectorVelocityOfBallTwo;
 		objectTwo.speedY = normalYVectorVelocityOfBallTwo + tangentXVectorVelocityOfBallTwo;
-	}
+
+
+	//}
 
 }
 function resolveBallCollisionWithShooter(){
