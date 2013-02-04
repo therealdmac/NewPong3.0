@@ -47,9 +47,6 @@ function debugTool() {
 }
 
 	function showDebug() {
-
-		console.log(game.mainball.getName());
-
 		document.getElementById("debug").style.display = 'block';
 		document.getElementById("debug-status").innerHTML = 'ON';
 		debugFlag = 1;

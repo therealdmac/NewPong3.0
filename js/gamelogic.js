@@ -248,11 +248,12 @@ function collisionDetection(obj1, obj2) {
   // Check how much it overlaps
   if ( distance < combinedRadius) {
 
+
     // clear it
-    obj2.clip();
+    obj1.clip();
 
     var overlapDistance = combinedRadius - distance + 2; //+2 is a buffer
-    var radian = Math.acos( (distanceX/distance)*Math.PI/180 );
+    var radian = Math.acos( (distanceX/(distance+1))*Math.PI/180 );
 
     var moveX = overlapDistance*Math.cos(radian);
     var moveY = overlapDistance*Math.sin(radian);
@@ -266,8 +267,8 @@ function collisionDetection(obj1, obj2) {
     console.log('Total distance is ' +distance);
     console.log('Overlap Distance is ' +overlapDistance);
     
-    obj2.x = obj2.x - moveX;
-    obj2.y = obj2.y - moveY;
+    obj1.x = obj1.x - moveX;
+    obj1.y = obj1.y - moveY;
 
     obj2.draw();
   }
