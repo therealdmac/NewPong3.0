@@ -259,7 +259,14 @@ function Mainball() {
 		this.collidedwithleftEdge = false;
 		this.collidedwithrightEdge = false;
 		
-		this.context.clearRect(this.x+1, this.y, this.width, this.height);
+		this.context.save();
+		this.context.beginPath();
+		this.context.arc(this.x+this.width/2,this.y+this.height/2,this.height/2, 0, 2*Math.PI,true);
+		this.context.fill();
+		this.context.closePath();		
+		this.context.clip();
+		this.context.clearRect(this.x, this.y, this.width, this.height);
+		this.context.restore();
 
 	    this.x += this.speedX;
 	    this.y += this.speedY;
@@ -310,7 +317,14 @@ function Enemyball() {
 	//Move the main ball
 	this.draw = function() {
 		
-		this.context.clearRect(this.x-1, this.y, this.width+1, this.height);
+		this.context.save();
+		this.context.beginPath();
+		this.context.arc(this.x+this.width/2,this.y+this.height/2,this.height/2, 0, 2*Math.PI,true);
+		this.context.fill();
+		this.context.closePath();		
+		this.context.clip();
+		this.context.clearRect(this.x, this.y, this.width, this.height);
+		this.context.restore();
 
 	    this.x += this.speedX;
 	    this.y += this.speedY;
