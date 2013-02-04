@@ -200,8 +200,8 @@ function Shooter() {
 
 		if (enemyballPoolonScreen < this.enemyballPool) {
 
-			var thisEnemy = game.pool.CreateObj(1);
-			thisEnemy.init(enemyStartX, enemyStartY, imageRepository.enemyball.width, imageRepository.enemyball.height);
+			this.createdEnemyBall = game.pool.CreateObj(1);
+			this.createdEnemyBall.init(enemyStartX, enemyStartY, imageRepository.enemyball.width, imageRepository.enemyball.height);
 
 			enemyballPoolonScreen++;
 
@@ -218,8 +218,8 @@ function Shooter() {
 
 		if (enemyballPoolonScreen < this.enemyballPool) {
 
-			var thisEnemy = game.pool.CreateObj(2);
-			thisEnemy.init(enemyStartX, enemyStartY, imageRepository.enemyballBig.width, imageRepository.enemyballBig.height);
+			this.createdEnemyBall = game.pool.CreateObj(2);
+			this.createdEnemyBall.init(enemyStartX, enemyStartY, imageRepository.enemyballBig.width, imageRepository.enemyballBig.height);
 
 			enemyballPoolonScreen++;
 
@@ -248,6 +248,8 @@ function Ball() {
 	this.speedX = this.speed;
 	this.speedY = this.speed;
 
+	this.typeofball = null;
+
 }
 Ball.prototype = new Drawable();
 
@@ -274,6 +276,7 @@ function Mainball() {
     this.bottomEdge = this.canvasHeight;
 
     this.mass = 5;
+    this.typeofball = 'mainball';
 
     /******************** added by beeb **************/
     this.ballRegion = null;
@@ -328,6 +331,10 @@ function Mainball() {
 	    }
 
 		this.context.drawImage(imageRepository.mainball, this.x, this.y);
+		/*
+		this.context.fillStyle="#FF0000";
+		this.context.fillRect(this.x+this.width/2,this.y+this.height/2,2,2);
+		*/
 
 		//console.log('collide with right: ' +this.collidedwithrightEdge);
 		//console.log('collide with left: ' +this.collidedwithleftEdge);
@@ -346,6 +353,7 @@ function Enemyball() {
     this.bottomEdge = this.canvasHeight;
 
     this.mass = 3;
+    this.typeofball = 'enemyball';
 
 	//Move the main ball
 	this.draw = function() {
@@ -358,6 +366,8 @@ function Enemyball() {
 		this.context.clip();
 		this.context.clearRect(this.x, this.y, this.width, this.height);
 		this.context.restore();
+
+		
 
 	    this.x += this.speedX;
 	    this.y += this.speedY;
@@ -388,6 +398,10 @@ function Enemyball() {
 
 		this.context.drawImage(imageRepository.enemyball, this.x, this.y);
 
+/*
+		this.context.fillStyle="#FF0000";
+		this.context.fillRect(this.x+this.width/2,this.y+this.height/2,2,2); */
+
 
 	};
 
@@ -402,6 +416,7 @@ function EnemyballBig() {
     this.bottomEdge = this.canvasHeight;
 
     this.mass = 10;
+    this.typeofball = 'big enemyball';
 
 	//Move the main ball
 	this.draw = function() {

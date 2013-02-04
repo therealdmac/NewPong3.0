@@ -130,6 +130,8 @@ function setObjectTwoParameters(thisObject){
 //This is the function that will be called by the program, the rest of them are private functions
 function physicsEngine(objectOne, objectTwo){
 
+	//console.log('physics engine called');
+
 	/* To implement the interaction with the shooter object, 
 	 * we need to check if the one of the object references is a shooter object
 	 * and then call the appropriate functions

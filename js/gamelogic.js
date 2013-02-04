@@ -232,27 +232,64 @@ function collisionDetection(obj1, obj2) {
 	var x2 = obj2.x;
 	var y2 = obj2.y;
 
-	// Distance between 2 balls
-	var distance1X = (x2 - x1)*(x2 - x1);
-	var distance1Y = (y2 - y1)*(y2 - y1);
-	var distance1 = Math.sqrt(( distance1X + distance1Y ));
+  var combinedRadius = obj1.width/2 + obj2.width/2;
 
-//  if (obj1 || obj2 === )
+	// Distance between 2 balls
+	var distanceX = (x2 - x1)*(x2 - x1);
+	var distanceY = (y2 - y1)*(y2 - y1);
+	var distance = Math.sqrt(( distanceX + distanceY ));
+
+  // Check how much it overlaps
+  if ( distance < combinedRadius) {
+
+    // clear it
+    obj2.context.clearRect(obj2.x, obj2.y, obj2.width, obj2.height);
+
+    var overlapDistance = combinedRadius - distance;
+    var radian = Math.acos( (distanceX/distance)*Math.PI/180 );
+    //console.log('*****************');  
+    //console.log('Radian is ' +radian);  
+    //console.log('distanceX/distance is ' +distanceX/distance);  
+    var moveX = overlapDistance*Math.cos(radian);
+    var moveY = overlapDistance*Math.sin(radian);
+
+    /*
+    console.log('Object 1 is ' +obj1.typeofball);
+    console.log('Object 2 is ' +obj2.typeofball);
+    console.log('Total distance is ' +distance);
+    console.log('Overlap Distance is ' +overlapDistance);  
+    console.log('MoveX is ' +moveX); 
+    console.log('MoveY is ' +moveY); 
+    */
+    if(y2 > y1) {
+      moveY = -moveY;
+    }
+
+    //console.log('obj2 x is ' +obj2.x);
+    //console.log('obj2 y is ' +obj2.y);
+
+    obj2.x = obj2.x - moveX;
+    obj2.y = obj2.y - moveY;
+
+    //console.log('new obj2 x is ' +obj2.x);
+    //console.log('new obj2 y is ' +obj2.y);
+
+    /*
+    obj2.context.fillStyle="#FFFF00";
+    obj2.context.fillRect(obj2.x+obj2.width/2,obj2.y+obj2.height/2,2,2); */
+
+    obj2.draw();
+
+    
+  }
+
+  
   //  console.log
 
-	if( ( distance1 ) < 50) {
+	if( overlapDistance) {
+    //alert('colided');
 		physicsEngine(obj1, obj2);
 	}
 	
 	return false;
 }
-
-
-// enemyBall Shooter
-function shooterTimer() {
-
-}
-
-
-
-

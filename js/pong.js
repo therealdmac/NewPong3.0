@@ -343,6 +343,9 @@ function Game() {
 		// start the animation loop
 		animate();
 
+		
+		
+
 
 	};
 
