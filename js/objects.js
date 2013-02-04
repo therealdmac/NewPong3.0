@@ -406,7 +406,7 @@ function EnemyballBig() {
     this.topEdge = 0;
     this.bottomEdge = this.canvasHeight;
 
-    this.mass = 3;
+    this.mass = 5;
     this.typeofball = 'big enemyball';
 
 
