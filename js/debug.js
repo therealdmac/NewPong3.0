@@ -63,6 +63,11 @@ function shootBall() {
 	game.shooter.shoot();
 }
 
+function shootBigBall() {
+	console.log('here');
+	game.shooter.shootBig();
+}
+
 function startTimer() {
 	time1++;
 	//console.log('getMilliseconds returns ' +d.getMilliseconds());

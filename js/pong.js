@@ -186,10 +186,11 @@ var imageRepository = new function() {
 	this.paddle = new Image();
 	this.mainball = new Image();
 	this.enemyball = new Image();
+	this.enemyballBig = new Image();
 	this.shooter = new Image();
 
 	// Ensure all images have loaded before starting the game
-	var numImages = 5;
+	var numImages = 6;
 	var numLoaded = 0;
 
 	function imageLoaded() {
@@ -210,6 +211,9 @@ var imageRepository = new function() {
 	this.enemyball.onload = function() {
 		imageLoaded();
 	}
+	this.enemyballBig.onload = function() {
+		imageLoaded();
+	}
 	this.shooter.onload = function() {
 		imageLoaded();
 	}
@@ -219,6 +223,7 @@ var imageRepository = new function() {
 	this.paddle.src = "imgs/paddle.png";
 	this.mainball.src = "imgs/main_ball.png";
 	this.enemyball.src = "imgs/enemy_ball.png";
+	this.enemyballBig.src = "imgs/enemy_ball_big.png";
 	this.shooter.src = "imgs/shooter.png";
 }
 
@@ -273,6 +278,7 @@ function Game() {
 			// Initialize the objects
 			this.mainball = this.pool.CreateObj(0);
 			this.enemyball = this.pool.CreateObj(1);
+			this.enemyballBig = this.pool.CreateObj(2);
 			this.shooter = new Shooter();
 			this.paddle = new Paddle();
 			
@@ -334,8 +340,7 @@ function Game() {
 		// start the animation loop
 		animate();
 
-		// start game Timer
-		gameTimer();
+
 	};
 
 }
@@ -359,6 +364,7 @@ function animate() {
 	game.shooter.draw();
 	game.pool.animate();
 
+	// Start counting game timer
 	gameTimer();
 	
 }

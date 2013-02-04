@@ -61,7 +61,13 @@ function debugTool() {
 	}
 
 function shootBall() {
+	console.log('here 1');
 	game.shooter.shoot();
+}
+
+function shootBigBall() {
+	console.log('here');
+	game.shooter.shootBig();
 }
 
 function startTimer() {

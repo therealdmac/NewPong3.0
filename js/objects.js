@@ -95,6 +95,9 @@ function Drawable() {
 		case 1:
 			return new Enemyball();
 			break;
+		case 2:
+			return new EnemyballBig();
+			break;
 		case 0:
 			return new Mainball();
 			break;
@@ -209,6 +212,24 @@ function Shooter() {
 
 	}
 
+	this.shootBig = function() {
+
+		var enemyStartX = game.shooter.x,
+			enemyStartY = game.shooter.y;
+
+
+		if (enemyballPoolonScreen < this.enemyballPool) {
+
+			var thisEnemy = game.pool.CreateObj(2);
+			thisEnemy.init(enemyStartX, enemyStartY, imageRepository.enemyballBig.width, imageRepository.enemyballBig.height);
+
+			enemyballPoolonScreen++;
+
+		}
+		console.log('no. of enemyball on screen = ' +enemyballPoolonScreen);
+
+	}
+
 }
 Shooter.prototype = new Rectangle();
 
@@ -222,7 +243,6 @@ Shooter.prototype = new Rectangle();
  	this.centerX = 0;
  	this.centerY = 0;
  	this.direction = 0;
- 	this.mass = 10;
 
  	this.speed = 2;
     this.speedX = this.speed;
@@ -243,6 +263,8 @@ function Mainball() {
     this.rightEdge = this.canvasWidth;
     this.topEdge = 0;
     this.bottomEdge = this.canvasHeight;
+
+    this.mass = 5;
 
     /******************** added by beeb **************/
     this.ballRegion = null;
@@ -314,6 +336,8 @@ function Enemyball() {
     this.topEdge = 0;
     this.bottomEdge = this.canvasHeight;
 
+    this.mass = 3
+
 	//Move the main ball
 	this.draw = function() {
 		
@@ -358,3 +382,58 @@ function Enemyball() {
 
 }
 Enemyball.prototype = new Ball();
+
+function EnemyballBig() {
+
+    this.leftEdge = 0;
+    this.rightEdge = this.canvasWidth;
+    this.topEdge = 0;
+    this.bottomEdge = this.canvasHeight;
+
+    this.mass = 10;
+
+	//Move the main ball
+	this.draw = function() {
+		
+		this.context.save();
+		this.context.beginPath();
+		this.context.arc(this.x+this.width/2,this.y+this.height/2,this.height/2, 0, 2*Math.PI,true);
+		this.context.fill();
+		this.context.closePath();		
+		this.context.clip();
+		this.context.clearRect(this.x, this.y, this.width, this.height);
+		this.context.restore();
+
+	    this.x += this.speedX;
+	    this.y += this.speedY;
+
+	    
+	    // X Collision
+	    if (this.x <= this.leftEdge) {       
+	    	this.speedX = this.speed;     
+	    }     
+	    else if (this.x >= this.rightEdge - this.width) {
+	      this.speedX = -this.speed;
+	    }
+
+
+	    // Y Collision
+	    if (this.y >= this.bottomEdge - this.height - 16) {
+
+	    	// if hits paddle
+	    	if (this.x + 25 > game.paddle.x && this.x < game.paddle.x + 64)
+	    		this.speedY = -this.speed; // reverse speed
+	    	else
+	    		restartGame();
+	    } else if (this.y <= this.topEdge) { // if hit the top
+	    	this.speedY = this.speed;
+	    }
+
+		this.context.drawImage(imageRepository.enemyballBig, this.x, this.y);
+
+
+	};
+
+
+}
+EnemyballBig.prototype = new Ball();
