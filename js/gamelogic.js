@@ -243,10 +243,11 @@ function collisionDetection(obj1, obj2) {
 
   /*
   Sticky ball solution:
-  Check how much each ball overlaps, and then push it back by that amount of pixel. This code will choose a ball to push back instead of pushing both
+  Check how much each ball overlaps, and then push it back by that amount of pixel. 
+  This code will choose a ball to push back instead of pushing both
   */
   // Check how much it overlaps
-  if ( distance < combinedRadius) {
+  if ( distance < combinedRadius){
 
 
     // clear it
