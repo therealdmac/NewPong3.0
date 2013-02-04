@@ -33,8 +33,8 @@ function debugTool() {
 
 
 	// mainBall location
-	document.getElementById("mbX").innerHTML=(game.mainball.x).toFixed(1); 
-	document.getElementById("mbY").innerHTML=(game.mainball.y).toFixed(1); 
+	//document.getElementById("mbX").innerHTML=(game.mainball.x).toFixed(1); 
+	//document.getElementById("mbY").innerHTML=(game.mainball.y).toFixed(1); 
 	document.getElementById("mbSx").innerHTML=(game.mainball.speedX).toFixed(1);
 	document.getElementById("mbSy").innerHTML=(game.mainball.speedY).toFixed(1); 
 

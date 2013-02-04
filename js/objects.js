@@ -76,8 +76,7 @@ function Drawable() {
 	}
 	this.animate = function(i){
 		for(var i=0; i<this.allObj.length; i++){
-			this.allObj[i].move();
-			this.draw();
+			//this.allObj[i].move();
 			//debugContext.clearRect(this.allObj[i].x-15, this.allObj[i].y-30, 50 ,50 );
 			if(debugFlag){
 				debugContext.font="20px Arial";
@@ -85,6 +84,7 @@ function Drawable() {
 				debugContext.fillText(this.num[i],this.allObj[i].x,this.allObj[i].y);
 			}
 		}
+		this.draw();
 	}
  }
 
@@ -171,7 +171,7 @@ function Shooter() {
 
 	this.enemyballPool = 10;
 
-	this.speed = -0.2;
+	this.speed = 2;
 
 	this.draw = function() {
 
@@ -244,7 +244,7 @@ function Ball() {
  	this.centerY = 0;
  	this.direction = 0;
 
-	this.speed = 1.5;
+	this.speed = 2;
 	this.speedX = this.speed;
 	this.speedY = this.speed;
 
@@ -389,11 +389,11 @@ function Enemyball() {
 	    	if (this.x + 25 > game.paddle.x && this.x < game.paddle.x + 64)
 	    		this.speedY = -this.speed; // reverse speed
 	    	else if (this.y > this.bottomEdge) {
-	    		// this.speedY = -this.speed;
+	    		this.speedY = -this.speed;
 	    		// temporary hold
 	    		// restartGame();
 	    		//this.context.clearRect(this.x, this.y, this.width, this.height);
-	    		game.pool.DeleteObj(1);
+	    		//game.pool.DeleteObj(1);
 	    	}
 	    		
 
@@ -440,6 +440,27 @@ function EnemyballBig() {
 	    this.y += this.speedY;
 	    
 	    this.boundaryXCollision();
+
+	    // Y Collision
+	    if (this.y >= this.bottomEdge - this.height - 16) {
+
+	    	// if hits paddle
+	    	if (this.x + 25 > game.paddle.x && this.x < game.paddle.x + 64)
+	    		this.speedY = -this.speed; // reverse speed
+	    	else if (this.y > this.bottomEdge) {
+	    		this.speedY = -this.speed;
+	    		// temporary hold
+	    		// restartGame();
+	    		//this.context.clearRect(this.x, this.y, this.width, this.height);
+	    		//game.pool.DeleteObj(1);
+	    	}
+	    		
+
+
+	    } else if (this.y <= this.topEdge) { // if hit the top
+	    	this.speedY = this.speed;
+	    	//this.friction();  
+	    }
 
 		this.context.drawImage(imageRepository.enemyballBig, this.x, this.y);
 	};

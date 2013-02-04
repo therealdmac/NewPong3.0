@@ -248,6 +248,7 @@ function animate() {
 	game.paddle.move();
 	game.paddle.draw();
 	game.shooter.draw();
+
 	game.pool.animate();
 
 	// Start counting game timer
