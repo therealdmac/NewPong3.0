@@ -265,13 +265,14 @@ function Mainball() {
 	    this.y += this.speedY;
 	    
 	    // X Collision with the wall
-	    if (this.x <= this.leftEdge) {       
-	    	this.speedX = this.speed;
+	    if (this.x <= this.leftEdge) {  
 	    	this.collidedwithleftEdge = true;
+	    	this.speedX = this.speed;
 	    }     
 	    else if (this.x >= this.rightEdge - this.width) {
+	      	this.collidedwithrightEdge = true;
 	      	this.speedX = -this.speed;
-	    	this.collidedwithrightEdge = true;
+	    	
 	    }
 
 	    // Y Collision
@@ -290,8 +291,8 @@ function Mainball() {
 
 		this.context.drawImage(imageRepository.mainball, this.x, this.y);
 
-		console.log('collide with right: ' +this.collidedwithrightEdge);
-		console.log('collide with left: ' +this.collidedwithleftEdge);
+		//console.log('collide with right: ' +this.collidedwithrightEdge);
+		//console.log('collide with left: ' +this.collidedwithleftEdge);
 	};
 	
 

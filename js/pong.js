@@ -9,88 +9,10 @@ var time2 = 0;
 var gameTime = 0;
 
 // Keep track of enemy ball
-
 var enemyballPoolonScreen = 0;
 
-// ***************************************** 
-// calculate frames per second
-// http://stackoverflow.com/questions/5078913/html5-canvas-performance-calculating-loops-frames-per-second
-// *****************************************
-var fps = 0, now, lastUpdate = (new Date)*1 - 1;
-
-// The higher this value, the less the FPS will be affected by quick changes
-// Setting this to 1 will show you the FPS of the last sampled frame only
-var fpsFilter = 50;
-
-function checkFPS(){
-
-  var thisFrameFPS = 1000 / ((now=new Date) - lastUpdate);
-  fps += (thisFrameFPS - fps) / fpsFilter;
-  lastUpdate = now;
-
-  setTimeout( checkFPS, 1 );
-}
-
-var fpsOut = document.getElementById('fps');
-setInterval(function(){
-  fpsOut.innerHTML = fps.toFixed(1) + "fps";
-}, 1000);
-
-
-// ************************************ 
-// debug Tool
-// ************************************ 
-// debug flag
-var debugFlag = 0;
-
-function debugTool() {
-
-
-	// mainBall location
-	document.getElementById("mbX").innerHTML=(game.mainball.x).toFixed(1); 
-	document.getElementById("mbY").innerHTML=(game.mainball.y).toFixed(1); 
-	document.getElementById("mbSx").innerHTML=(game.mainball.speedX).toFixed(1);
-	document.getElementById("mbSy").innerHTML=(game.mainball.speedY).toFixed(1); 
-
-
-	// shooter debug
-	document.getElementById("shooter-Sx").innerHTML=(game.shooter.speed).toFixed(1);
-
-	// How fast to update debugTool
-	setTimeout( debugTool, 100);
-}
-
-	function showDebug() {
-
-		document.getElementById("debug").style.display = 'block';
-		document.getElementById("debug-status").innerHTML = 'ON';
-		debugFlag = 1;
-	}
-
-	function hideDebug() {
-		document.getElementById("debug").style.display = 'none';
-		document.getElementById("debug-status").innerHTML = 'OFF';
-		debugFlag = 0;
-	}
-
-function shootBall() {
-	game.shooter.shoot();
-}
-
-function startTimer() {
-	time1++;
-	//console.log('getMilliseconds returns ' +d.getMilliseconds());
-	document.getElementById("result").innerHTML=time1; 
-	setTimeout("startTimer()", 1);
-	  
-}
-
-function startTimer2() {
-	time2++;
-	setTimeout("startTimer2()", 1000);
-	document.getElementById("result2").innerHTML=time2;   
-}
-
+// Keep track of manipulation times
+var manipulated = 0;
 
 function init() {
 	if(game.init()) {
@@ -147,11 +69,16 @@ function setGameBallRegion(){
 	//Get the region the game ball is in
 	if(game.mainball.x < (game.mainball.canvasWidth/2)){
 		game.mainball.ballRegion = "left";
+
 	}else{
 		game.mainball.ballRegion  = "right";
 	}
 }
 function isTimeForManipulation(){
+
+	document.getElementById("executed-status-box").style.background = 'red';
+
+
 	//Set the gameBallParameters parameters
 	setGameBallYDirection();
 	setGameBallXDirection();
@@ -161,25 +88,43 @@ function isTimeForManipulation(){
 	if(game.mainball.ballMovingDown)	
 		manipulateGameBall();
 }
+
 function manipulateGameBall(){
+
+	
+
 	switch (game.paddle.paddleRegion){
 		case 'left': 	
-			console.log('paddle is at the right');	
+	
 			if(game.mainball.ballRegion == "right" && game.mainball.collidedwithrightEdge){
 				game.mainball.speedY += 8;
-				console.log('manipulated! at left');
+
+				manipulated++;
+
+				document.getElementById("executed-status-text").innerHTML = manipulated;
+				document.getElementById("executed-status-box").style.background = 'green';
+
+				
+				//console.log('manipulated! at left');
 			}
 			break;
 
 		case 'right': 	
-			console.log('paddle is at the left');
+			//console.log('paddle is at the right');
+			//console.log('Gameball region is at ' +game.mainball.ballRegion);
 			if(game.mainball.ballRegion == "left" && game.mainball.collidedwithleftEdge){
 				game.mainball.speedY += 8;
-				console.log('manipulated! at right');
+
+				manipulated++;
+
+				document.getElementById("executed-status-text").innerHTML = manipulated;
+				document.getElementById("executed-status-box").style.background = 'green';
+
 			}
 			break;
 
-		default:  	break;
+		default:  	
+			break;
 	}//switch case statement
 }
 function gameTimer(){
@@ -189,14 +134,17 @@ function gameTimer(){
 	//If the time elapsed is more than 10 seconds, it is time for manipulation
 	//if(gameTimeElapsed > 10)	
 	//	isTimeForManipulation();
-	if (gameTime > 3) {
+	//console.log('gameTimer ' +gameTime);
+	if (gameTime > 300) {
+		document.getElementById("mani-status-text").innerHTML = 'ON';
+		document.getElementById("mani-status-box").style.background = 'green';
 		isTimeForManipulation();
 	}
 	gameTime++;
 
-	setTimeout("gameTimer()", 1000);
+	// setTimeout("gameTimer()", 1000);
 
-	console.log('game time is ' +gameTime);
+	//console.log('game time is ' +gameTime);
 }
 function startWorker() {
 	console.log('entered startworkers');
@@ -410,6 +358,8 @@ function animate() {
 	game.paddle.draw();
 	game.shooter.draw();
 	game.pool.animate();
+
+	gameTimer();
 	
 }
 

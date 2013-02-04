@@ -40,15 +40,18 @@ canvas {
 		margin-right: 20px;
 		border: 1px solid black;
 		padding: 20px;
+		width: 130px;
+	}
+
+	.status-box {
+		width: 15px;
+		height: 15px;
+		background-color: red;
+		float: left;
+		margin-right: 10px;
 	}
 
 	#timer-debug {
-		display: block;
+		display: none;
 	}
 
-	#wall-alarm {
-		width: 20px;
-		height: 20px;
-		background-color: red;
-		float: left;
-	}
