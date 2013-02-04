@@ -40,51 +40,42 @@
 		<button onclick='destroyBigBall()'>Destroy</button>
 	</article>
 
-<section id="debug">
+	<section id="debug">
+		<article id='timer-debug'>
+			
+			<p>Main Timer: <output id="result"></output></p>
+			<button onclick="startTimer()">Start Timer</button>
 
-	
-	<article id='timer-debug'>
-		
-		<p>Main Timer: <output id="result"></output></p>
-		<button onclick="startTimer()">Start Timer</button>
+			<p>Parallel Timer: <output id="result2"></output></p>
+			<button onclick="startTimer2()">Start Normal Timer</button> 
 
-		<p>Parallel Timer: <output id="result2"></output></p>
-		<button onclick="startTimer2()">Start Normal Timer</button> 
+			<p>Web Worker Timer: <output id="result3"></output></p>
+			<button onclick="startWorker()">Start WebWorker Timer</button>
 
-		<p>Web Worker Timer: <output id="result3"></output></p>
-		<button onclick="startWorker()">Start WebWorker Timer</button>
+		</article>
 
-	</article>
+		<article id='mainball-debug'>
+			<h3>MainBall</h3>
+			<p>x coordinate: <output id="mbX">0</output></p>
+			<p>y coordinate: <output id="mbY">0</output></p>
+			<p>speedX: <output id="mbSx">0</output></p>
+			<p>speedY: <output id="mbSy">0</output></p>
+		</article>
 
-	<article id='mainball-debug'>
-		<h3>MainBall</h3>
+		<article id='shooter-debug'>
+			<h3>Shooter</h3>
+			<p>speed: <output id="shooter-Sx">0</output></p>
+		</article>
 
-		<p>x coordinate: <output id="mbX">0</output></p>
-		<p>y coordinate: <output id="mbY">0</output></p>
-		<p>speedX: <output id="mbSx">0</output></p>
-		<p>speedY: <output id="mbSy">0</output></p>
-		<div id="wall-alarm" class='status-box'></div><p>Wall Collision</p>
+		<article id='manipulation-debug'>
+			<h3>Manipulation</h3>
+			<div id='mani-status-box' class='status-box'></div><p>Status: <output id="mani-status-text">OFF</output></p>
+			<div id='executed-status-box' class='status-box'></div><p>Executed: <output id="executed-status-text">0</output></p>
+		</article>
 
-	</article>
+	</section>
 
-	<article id='shooter-debug'>
-		<h3>Shooter</h3>
-
-		<p>speed: <output id="shooter-Sx">0</output></p>
-
-	</article>
-
-	<article id='manipulation-debug'>
-		<h3>Manipulation</h3>
-
-		<div id='mani-status-box' class='status-box'></div><p>Status: <output id="mani-status-text">OFF</output></p>
-		<div id='executed-status-box' class='status-box'></div><p>Executed: <output id="executed-status-text">0</output></p>
-
-	</article>
-
-</section>
-
-	<script src="js/objects.js" type="text/javascript"></script>
+		<script src="js/objects.js" type="text/javascript"></script>
 		<script src="js/math.js" type="text/javascript"></script>
 		
 		<script src="js/physics.js" type="text/javascript"></script>

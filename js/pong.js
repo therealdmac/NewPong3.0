@@ -22,134 +22,11 @@ function init() {
 } 
 
 function restartGame() {
-	//if (game.mainball.y > game.mainball.bottomEdge)
-
-	//	document.location.reload();
+	if (game.mainball.y > game.mainball.bottomEdge)
+		document.location.reload();
 }
 
-/*************** added by beeb ********************/
-var ballMovingDown = false;
-var ballMovingRight = false;
-var paddleIsInTheRightRegionOfCanvas = false;
-var paddleIsInTheLeftRegionOfCanvas = false;
-var paddleRegion;//can use game.paddle.x
-var currentTime;
-var gameTimeElapsed;
-var isTimeForManipulation;
 
-function setGameBallYDirection(){
-	//If the ball is moving down, it is deemed to have positive direction
-	if(game.mainball.speedY > 0){
-		game.mainball.ballMovingDown  = true;
-	}else{
-		game.mainball.ballMovingDown = false;
-	}
-	//console.log('is ball in y direction:' + game.mainball.ballMovingDown);
-}
-function setGameBallXDirection(){
-	//If the ball is moving to the right, it is deemed to have positive direction
-	if(game.mainball.speedX > 0){
-		game.mainball.ballMovingRight = true;
-	}else{
-		game.mainball.ballMovingRight = false;
-	}
-	//console.log('is ball moving right:' + game.mainball.ballMovingRight);
-}
-function setPaddleCurrentRegion(){
-	//console.log('The current paddle location is: ' + game.paddle.x);
-	if(game.paddle.x > (game.paddle.canvasWidth / 2)){
-		game.paddle.paddleIsInTheRightRegionOfCanvas = true;
-		game.paddle.paddleIsInTheLeftRegionOfCanvas = false;
-		game.paddle.paddleRegion = "right";
-	}else if((game.paddle.x + game.paddle.width ) < (game.paddle.canvasWidth / 2)){
-		game.paddle.paddleIsInTheLeftRegionOfCanvas = true;
-		game.paddle.paddleIsInTheRightRegionOfCanvas = false;
-		game.paddle.paddleRegion = "left";
-	}
-	//console.log('paddle is in:' + game.paddle.paddleRegion + ' region');
-}
-function setGameBallRegion(){
-	//Get the region the game ball is in
-	if(game.mainball.x < (game.mainball.canvasWidth/2)){
-		game.mainball.ballRegion = "left";
-
-	}else{
-		game.mainball.ballRegion  = "right";
-	}
-	//console.log('ball is in :' + game.mainball.ballMovingDown + ' region');
-}
-function isTimeForManipulation(){
-
-	document.getElementById("executed-status-box").style.background = 'red';
-
-	//Set the gameBallParameters parameters
-	setGameBallYDirection();
-	setGameBallXDirection();
-	setGameBallRegion();
-	setPaddleCurrentRegion();
-	//Determine if the gameball has collided with the edges and also is moving down
-	if(//game.mainball.ballMovingDown && 
-	   (game.mainball.collidedwithrightEdge || game.mainball.collidedwithleftEdge) &&
-	   game.mainball.ballMovingDown){	
-	  	console.log('gonna manipulate!');
-		manipulateGameBall();
-	}
-}
-
-function manipulateGameBall(){
-
-	switch (game.paddle.paddleRegion){
-		case 'left': 	
-	
-			if(/*game.mainball.ballRegion == "right"*/game.mainball.collidedwithrightEdge ){//&& game.mainball.collidedwithrightEdge){
-				game.mainball.speedY += 8;
-
-				manipulated++;
-
-				document.getElementById("executed-status-text").innerHTML = manipulated;
-				document.getElementById("executed-status-box").style.background = 'green';
-
-				
-				//console.log('manipulated! at left');
-
-			}
-			break;
-
-		case 'right': 	
-			//console.log('paddle is at the right');
-			//console.log('Gameball region is at ' +game.mainball.ballRegion);
-			if(/*game.mainball.ballRegion == "left"*/game.mainball.collidedwithleftEdge ){//&& game.mainball.collidedwithleftEdge){
-				game.mainball.speedY += 8;
-				manipulated++;
-				document.getElementById("executed-status-text").innerHTML = manipulated;
-				document.getElementById("executed-status-box").style.background = 'green';
-
-			}
-			break;
-
-		default:  	
-			break;
-	}//switch case statement
-}
-function gameTimer(){
-	//currentTime = ;
-
-	//gameTimeElapsed = gameTime - currentTime;
-	//If the time elapsed is more than 10 seconds, it is time for manipulation
-	//if(gameTimeElapsed > 10)	
-	//	isTimeForManipulation();
-	//console.log('gameTimer ' +gameTime);
-	if (gameTime > 300) {
-		document.getElementById("mani-status-text").innerHTML = 'ON';
-		document.getElementById("mani-status-box").style.background = 'green';
-		isTimeForManipulation();
-	}
-	gameTime++;
-
-	// setTimeout("gameTimer()", 1000);
-
-
-}
 function startWorker() {
 	console.log('entered startworkers');
 
@@ -327,6 +204,8 @@ function Game() {
 
 	// Start the animation loop
 	this.start = function() {
+
+		//alert('Start Game?');
 
 		//draw everything first round
 		//game.background.draw();

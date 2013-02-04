@@ -60,7 +60,6 @@ function debugTool() {
 
 function shootBall() {
 	game.shooter.shoot();
-	console.log('Enemyball width is ' +game.enemyball.width);
 }
 
 function destroyBall() {
@@ -69,7 +68,6 @@ function destroyBall() {
 
 function shootBigBall() {
 	game.shooter.shootBig();
-	console.log('Big Enemyball width is ' +game.shooter.createdEnemyBall.width);
 }
 
 function destroyBigBall() {

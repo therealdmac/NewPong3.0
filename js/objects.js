@@ -244,12 +244,13 @@ function Ball() {
  	this.centerY = 0;
  	this.direction = 0;
 
-	this.speed = 2;
+	this.speed = 1.5;
 	this.speedX = this.speed;
 	this.speedY = this.speed;
 
 	this.typeofball = null;
 
+	// clip the ball into a perfect circle shape
 	this.clip = function() {
     	this.context.save();
 		this.context.beginPath();
@@ -259,6 +260,35 @@ function Ball() {
 		this.context.clip();
 		this.context.clearRect(this.x, this.y, this.width, this.height);
 		this.context.restore();
+    }
+
+    this.boundaryXCollision = function() {
+
+    	// X Collision
+	    if (this.x <= this.leftEdge) {       
+	    	this.speedX = this.speed;	    
+	    	//this.friction();   
+	    }     
+	    else if (this.x >= this.rightEdge - this.width) {
+	      this.speedX = -this.speed;  
+	      //this.friction();   
+	    }
+
+	    
+    }
+
+    this.friction = function() {
+
+    	//this.speedX -= 0.2;
+    	//this.speedY -= 0.2;
+
+    	if(this.speedX > 2) {
+    		this.speedX -= 0.2;
+    	}
+    	
+    	if(this.speedY > 2) {
+    		this.speedY -= 0.2;
+    	} 
     }
 
 }
@@ -274,7 +304,6 @@ function Mainball() {
 
 	this.collisionCounter = 0;
  	
-
     this.leftEdge = 0;
     this.rightEdge = this.canvasWidth;
     this.topEdge = 0;
@@ -282,12 +311,10 @@ function Mainball() {
 
     this.mass = 5;
     this.typeofball = 'mainball';
-
-    /******************** added by beeb **************/
+    
     this.ballRegion = null;
     this.ballMovingDown = false;
     this.ballMovingRight = false;
-	/******************** added by beeb **************/
 
 	this.collidedwithleftEdge = null;
 	this.collidedwithrightEdge = null;
@@ -303,18 +330,7 @@ function Mainball() {
 	    this.x += this.speedX;
 	    this.y += this.speedY;
 	    
-	    // X Collision with the wall
-	    if (this.x <= this.leftEdge) {  
-	    	this.collidedwithleftEdge = true;
-	    	this.collidedwithrightEdge = false;
-	    	this.speedX = this.speed;
-	    }     
-	    else if (this.x >= this.rightEdge - this.width) {
-	      	this.collidedwithrightEdge = true;
-	      	this.collidedwithleftEdge = false;
-	      	this.speedX = -this.speed;
-	    	
-	    }
+	    this.boundaryXCollision();
 
 	    // Y Collision
 	    if (this.y >= this.bottomEdge - this.height - 16) {
@@ -322,12 +338,13 @@ function Mainball() {
 	    	// if hits paddle
 	    	if (this.x + 25 > game.paddle.x && this.x < game.paddle.x + 64)
 	    		this.speedY = -this.speed; // reverse speed
-	    	else
-	    		this.speedY = -this.speed;
+	    	else 
+	    		 this.speedY = -this.speed;
 	    		// temporary hold
 	    		//restartGame();
 	    } else if (this.y <= this.topEdge) { // if hit the top
 	    	this.speedY = this.speed;
+	    	//this.friction();  
 	    }
 
 		this.context.drawImage(imageRepository.mainball, this.x, this.y);
@@ -363,15 +380,7 @@ function Enemyball() {
 	    this.x += this.speedX;
 	    this.y += this.speedY;
 
-	    
-	    // X Collision
-	    if (this.x <= this.leftEdge) {       
-	    	this.speedX = this.speed;     
-	    }     
-	    else if (this.x >= this.rightEdge - this.width) {
-	      this.speedX = -this.speed;
-	    }
-
+	    this.boundaryXCollision();
 
 	    // Y Collision
 	    if (this.y >= this.bottomEdge - this.height - 16) {
@@ -379,20 +388,31 @@ function Enemyball() {
 	    	// if hits paddle
 	    	if (this.x + 25 > game.paddle.x && this.x < game.paddle.x + 64)
 	    		this.speedY = -this.speed; // reverse speed
-	    	else
-	    		this.speedY = -this.speed;
+	    	else if (this.y > this.bottomEdge) {
+	    		// this.speedY = -this.speed;
 	    		// temporary hold
-	    		//restartGame();
+	    		// restartGame();
+	    		//this.context.clearRect(this.x, this.y, this.width, this.height);
+	    		game.pool.DeleteObj(1);
+	    	}
+	    		
+
+
 	    } else if (this.y <= this.topEdge) { // if hit the top
 	    	this.speedY = this.speed;
+	    	//this.friction();  
 	    }
+	    
+	    //this.friction();
 
 		this.context.drawImage(imageRepository.enemyball, this.x, this.y);
+
+		
+
 
 /*
 		this.context.fillStyle="#FF0000";
 		this.context.fillRect(this.x+this.width/2,this.y+this.height/2,2,2); */
-
 
 	};
 
@@ -419,27 +439,7 @@ function EnemyballBig() {
 	    this.x += this.speedX;
 	    this.y += this.speedY;
 	    
-	    // X Collision
-	    if (this.x <= this.leftEdge) {       
-	    	this.speedX = this.speed;     
-	    }     
-	    else if (this.x >= this.rightEdge - this.width) {
-	      this.speedX = -this.speed;
-	    }
-
-	    // Y Collision
-	    if (this.y >= this.bottomEdge - this.height - 16) {
-
-	    	// if hits paddle
-	    	if (this.x + 25 > game.paddle.x && this.x < game.paddle.x + 64)
-	    		this.speedY = -this.speed; // reverse speed
-	    	else
-	    		this.speedY = -this.speed;
-	    		// temporary hold
-	    		//restartGame();
-	    } else if (this.y <= this.topEdge) { // if hit the top
-	    	this.speedY = this.speed;
-	    }
+	    this.boundaryXCollision();
 
 		this.context.drawImage(imageRepository.enemyballBig, this.x, this.y);
 	};
