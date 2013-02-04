@@ -263,11 +263,13 @@ function collisionDetection(obj1, obj2) {
       moveY = -moveY;
     }
 
+/*
     console.log('Object 1 is ' +obj1.typeofball);
     console.log('Object 2 is ' +obj2.typeofball);
     console.log('Total distance is ' +distance);
     console.log('Overlap Distance is ' +overlapDistance);
     
+    */
     obj2.x = obj2.x - moveX;
     obj2.y = obj2.y - moveY;
 
