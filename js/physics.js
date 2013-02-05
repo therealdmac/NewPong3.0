@@ -58,17 +58,10 @@ var normalXVectorVelocityOfBallTwo,
 
 function resolveBallCollisons(){
 
-		
-	
 	//Find unit normal and unit tangent vectors
 	normalXVector = ballTwoXCoordinate - ballOneXCoordinate;
 	normalYVector = ballTwoYCoordinate - ballOneYCoordinate;
-
-
 	unitNormalXVector = normalXVector / Math.sqrt(normalXVector * normalXVector + normalYVector * normalYVector);
-
-
-
 	unitNormalYVector = normalYVector / Math.sqrt(normalXVector * normalXVector + normalYVector * normalYVector);
 	unitTangentXVector = -unitNormalYVector;
 	unitTangentYVector = unitNormalXVector;
@@ -81,16 +74,12 @@ function resolveBallCollisons(){
 		//scalar tangent velocity of ballOne
 	normalScalarVelocityOfBallTwo = unitNormalXVector * xVelocityOfBallTwo + unitNormalYVector * yVelocityOfBallTwo;
 
-
-
 		//scalar normal velocity of ballTwo
 	tangentScalarVelocityOfBallTwo = unitTangentXVector * xVelocityOfBallTwo + unitTangentYVector * yVelocityOfBallTwo;	//scalar tangent velocity of ballTwo
 	
 	//Find new normal velocities
 	newNormalScalarVelocityOfBallOne = (normalScalarVelocityOfBallOne * (massOfBallOne - massOfBallTwo) + 2 * massOfBallTwo * normalScalarVelocityOfBallTwo) / 
 									   (massOfBallOne + massOfBallTwo);
-
-	
 									   
 	newNormalScalarVelocityOfBallTwo = (normalScalarVelocityOfBallTwo * (massOfBallTwo - massOfBallOne) + 2 * massOfBallOne * normalScalarVelocityOfBallOne) / 
 									   (massOfBallOne + massOfBallTwo);

@@ -53,8 +53,6 @@ function stopWorker() {
   w.terminate();
 }
 
-
-
 /**
  * Define an object to hold all our images for the game so images
  * are only ever created once. This type of object is known as a 
@@ -228,9 +226,6 @@ function Game() {
 
 		// setInterval(animate(), 30);
 		// setInterval(animate2(), 30);
-
-		
-
 
 	};
 
