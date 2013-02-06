@@ -208,7 +208,7 @@ function Game() {
 	this.start = function() {
 
 		//alert('Start Game?');
-		physicsEngine();
+		// physicsEngine();
 	
 
 		//draw everything first round
@@ -227,13 +227,11 @@ function Game() {
 		// start the animation loop
 		renderThread();
 
-		collisionThread();
+		// collisionThread();
 
 		physicsThread();
 
 		cycleCheck();
-
-
 
 		// setInterval(animate(), 30);
 		// setInterval(animate2(), 30);
@@ -288,12 +286,11 @@ function renderThread() {
 
 	// Start counting game timer
 	gameTimer();
-
 	renderingTimeFunc(); // plus count
 
 	// console.log('rendering count is ' +renderingTime);
 
-	setTimeout("renderThread()", 20); //1000 / X = Yfps
+	setTimeout("renderThread()", 10); //1000 / X = Yfps
 	
 }
 
@@ -310,7 +307,9 @@ function collisionThread() {
 function physicsThread() {
 
 	physicsTimeFunc();
-	setTimeout("physicsThread()", 20);
+	game.colHandler.subDivide(game.pool.allObj);
+	physicsEngine();
+	setTimeout("physicsThread()", 50);
 
 }
 
