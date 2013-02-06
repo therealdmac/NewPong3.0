@@ -8,6 +8,10 @@ var time1 = 0;
 var time2 = 0;
 var gameTime = 0;
 
+ /********** added by beeb **********/
+ var start;
+ var end;
+
 // Keep track of enemy ball
 var enemyballPoolonScreen = 0;
 
@@ -224,8 +228,12 @@ function Game() {
 
 		animate2();
 
+		animate3();
+
 		// setInterval(animate(), 30);
 		// setInterval(animate2(), 30);
+
+		
 
 	};
 
@@ -238,7 +246,30 @@ function Game() {
  * function must be a gobal function and cannot be within an
  * object.
  */
+var renderingFaster = 0;
+
+var renderingTime = 0;
+
+function renderingTimeFunc() {
+	renderingTime++;
+	// console.log('renderingTimeFunc is running');
+	// setTimeout("renderingTimeFunc", 1);
+}
+
+var physicsTime = 0;
+
+function physicsTimeFunc() {
+	physicsTime++;
+	// console.log('physicsTime is running');
+	// setTimeout("physicsTimeFunc", 1);
+}
+
+
+
+ /********** added by beeb **********/
 function animate() {
+
+
 	//requestAnimFrame( animate );
 
 	//console.log('animated1 is called');
@@ -255,9 +286,30 @@ function animate() {
 
 	// Start counting game timer
 	gameTimer();
-	 //setInterval(animate(), 30);
 
-	setTimeout("animate()", 10);
+	// console.log('frames per second is ' +fps);
+
+	renderingTimeFunc(); // plus count
+	// console.log('rendering count is ' +renderingTime);
+
+	// start = dateObj.getMilliseconds();
+	// console.log('end timing is ' +dateObj.getMilliseconds());
+	// console.log('start timing is ' +d.getMilliseconds());
+
+	console.log('rendering count is ' +renderingTime);
+
+	setTimeout("animate()", 20); //1000 / X = Yfps
+
+	// end  = dateObj.getMilliseconds();
+	// time = end - start;
+	
+	/*
+	for(var i=0; i < 1000000000; i++) {
+		var k = k*198;
+	} */
+
+	// console.log('end timing is ' +d.getMilliseconds());
+	// console.log('time taken for animate: ' + time);
 	
 }
 
@@ -273,13 +325,41 @@ function animate2() {
 	// 
 	game.colHandler.subDivide(game.pool.allObj);
 
-	setTimeout("animate2()", 10);
+	// console.log('frames per second is ' +fps);
+
+	physicsTimeFunc(); // plus count
+	// console.log('physics time count is ' +physicsTime);
+
+	// start = dateObj.getMilliseconds();
+
+	console.log('physics time count is ' +physicsTime);
+	setTimeout("animate2()", 20);
+	// end  = dateObj.getMilliseconds();
+	// time = end - start;
+	// console.log('time taken for animate2: ' + time);
 
 	//delay();
 
-	
+}
+
+function physicsThread() {
+
+	physicsTimeFunc();
+	setTimeout("animate2()", 20);
+
+}
+
+function animate3() {
+
+	if (renderingTime > physicsTime) {
+		renderingFaster++;
+		alert('rendering is faster than physics count: ' +renderingFaster++);
+		renderingTime = 0;
+		physicsTime = 0;
+	}
 
 
+	setTimeout("animate3()", 10);
 }
 
 /**	

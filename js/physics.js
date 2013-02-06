@@ -148,6 +148,10 @@ function physicsEngine(objectOne, objectTwo){
 		objectTwo.speedX = normalXVectorVelocityOfBallTwo + tangentXVectorVelocityOfBallTwo;
 		objectTwo.speedY = normalYVectorVelocityOfBallTwo + tangentXVectorVelocityOfBallTwo;
 
+		// delay
+		for(var i=0; i < 100000000; i++) {
+			var k = k*198;
+		}
 
 	//}
 
