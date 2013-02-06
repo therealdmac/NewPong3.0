@@ -206,6 +206,7 @@ function Game() {
 	this.start = function() {
 
 		//alert('Start Game?');
+	
 
 		//draw everything first round
 		//game.background.draw();
@@ -223,7 +224,11 @@ function Game() {
 		// start the animation loop
 		animate();
 
-		
+		animate2();
+
+		// setInterval(animate(), 30);
+		// setInterval(animate2(), 30);
+
 		
 
 
@@ -239,21 +244,47 @@ function Game() {
  * object.
  */
 function animate() {
-	requestAnimFrame( animate );
+	//requestAnimFrame( animate );
+
+	//console.log('animated1 is called');
 	
 	// Rendering
 	debugContext.clearRect(0,0,debugCanvas.width, debugCanvas.height);
 	//var colHandler = new CollisionHandler();
-	game.colHandler.subDivide(game.pool.allObj);
+
+	// Rendering
 	game.paddle.move();
 	game.paddle.draw();
 	game.shooter.draw();
-
 	game.pool.animate();
 
 	// Start counting game timer
 	gameTimer();
+	 //setInterval(animate(), 30);
+
+	setTimeout("animate()", 10);
 	
+}
+
+function delay() {
+	setTimeout(delay(), 1);
+}
+
+function animate2() {
+	//requestAnimFrame( animate );
+	//console.log('animate2 called');
+
+	// Collision Handler (Game Logic)
+	// 
+	game.colHandler.subDivide(game.pool.allObj);
+
+	setTimeout("animate2()", 10);
+
+	//delay();
+
+	
+
+
 }
 
 /**	

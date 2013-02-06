@@ -29,6 +29,8 @@ function Drawable() {
 	};
 }
 
+/*
+
 // Rectangle class
  function Rectangle() {
 
@@ -38,17 +40,21 @@ function Drawable() {
  //paddle and wall will inherit from rectangle
  }
  Rectangle.prototype = new Drawable();
- 
+
+*/
 
  /**
  * Wall class
  */
  
+ /*
  function Wall() {
 	
  }
  Wall.prototype = new Drawable();
- /**
+*/
+
+  /**
  * Object Pool class
  */
 
@@ -164,7 +170,7 @@ function Paddle() {
 		}
 	};
 }
-Paddle.prototype = new Rectangle();
+Paddle.prototype = new Drawable();
 
 
 function Shooter() {
@@ -229,9 +235,7 @@ function Shooter() {
 	}
 
 }
-Shooter.prototype = new Rectangle();
-
-
+Shooter.prototype = new Drawable();
 
 /**
  * Ball class
@@ -244,7 +248,7 @@ function Ball() {
  	this.centerY = 0;
  	this.direction = 0;
 
-	this.speed = 2;
+	this.speed = 5;
 	this.speedX = this.speed;
 	this.speedY = this.speed;
 
@@ -273,23 +277,36 @@ function Ball() {
 	      this.speedX = -this.speed;  
 	      //this.friction();   
 	    }
-
-	    
     }
 
-    this.friction = function() {
+    this.boundaryYCollision = function() {
 
-    	//this.speedX -= 0.2;
-    	//this.speedY -= 0.2;
 
-    	if(this.speedX > 2) {
-    		this.speedX -= 0.2;
-    	}
-    	
-    	if(this.speedY > 2) {
-    		this.speedY -= 0.2;
+    	//this.gravity(); 
+    	// Y Collision
+	    if (this.y >= this.bottomEdge - this.height - 16) {
+
+	    	// if hits paddle
+	    	if (this.x + 25 > game.paddle.x && this.x < game.paddle.x + 64)
+	    		this.speedY = -this.speed; // reverse speed
+	    	else 
+	    		 this.speedY = -this.speed;
+	    		// temporary hold
+	    		//restartGame();
+	    } else if (this.y <= this.topEdge) { // if hit the top
+	    	this.speedY = this.speed;
+	    	
+	    }
+    }
+
+
+    this.gravity = function() {
+    	if(this.speedY < 1 ) {
+    		this.speedY += 1.1;
     	} 
+    	//this.speedY += 0.5;
     }
+    
 
 }
 Ball.prototype = new Drawable();
@@ -331,21 +348,11 @@ function Mainball() {
 	    this.y += this.speedY;
 	    
 	    this.boundaryXCollision();
+	    this.boundaryYCollision();
 
-	    // Y Collision
-	    if (this.y >= this.bottomEdge - this.height - 16) {
+	    //this.gravity();
 
-	    	// if hits paddle
-	    	if (this.x + 25 > game.paddle.x && this.x < game.paddle.x + 64)
-	    		this.speedY = -this.speed; // reverse speed
-	    	else 
-	    		 this.speedY = -this.speed;
-	    		// temporary hold
-	    		//restartGame();
-	    } else if (this.y <= this.topEdge) { // if hit the top
-	    	this.speedY = this.speed;
-	    	//this.friction();  
-	    }
+	    
 
 		this.context.drawImage(imageRepository.mainball, this.x, this.y);
 		/*
@@ -370,6 +377,7 @@ function Enemyball() {
     this.bottomEdge = this.canvasHeight;
 
     this.mass = 3;
+    this.speedX = Math.random();
     this.typeofball = 'enemyball';
 
 	//Move the main ball
@@ -381,34 +389,11 @@ function Enemyball() {
 	    this.y += this.speedY;
 
 	    this.boundaryXCollision();
+	    this.boundaryYCollision();
 
-	    // Y Collision
-	    if (this.y >= this.bottomEdge - this.height - 16) {
-
-	    	// if hits paddle
-	    	if (this.x + 25 > game.paddle.x && this.x < game.paddle.x + 64)
-	    		this.speedY = -this.speed; // reverse speed
-	    	else if (this.y > this.bottomEdge) {
-	    		this.speedY = -this.speed;
-	    		// temporary hold
-	    		// restartGame();
-	    		//this.context.clearRect(this.x, this.y, this.width, this.height);
-	    		//game.pool.DeleteObj(1);
-	    	}
-	    		
-
-
-	    } else if (this.y <= this.topEdge) { // if hit the top
-	    	this.speedY = this.speed;
-	    	//this.friction();  
-	    }
-	    
 	    //this.friction();
 
 		this.context.drawImage(imageRepository.enemyball, this.x, this.y);
-
-		
-
 
 /*
 		this.context.fillStyle="#FF0000";
@@ -427,6 +412,7 @@ function EnemyballBig() {
     this.bottomEdge = this.canvasHeight;
 
     this.mass = 5;
+    this.speedX = Math.random();
     this.typeofball = 'big enemyball';
 
 
@@ -440,27 +426,7 @@ function EnemyballBig() {
 	    this.y += this.speedY;
 	    
 	    this.boundaryXCollision();
-
-	    // Y Collision
-	    if (this.y >= this.bottomEdge - this.height - 16) {
-
-	    	// if hits paddle
-	    	if (this.x + 25 > game.paddle.x && this.x < game.paddle.x + 64)
-	    		this.speedY = -this.speed; // reverse speed
-	    	else if (this.y > this.bottomEdge) {
-	    		this.speedY = -this.speed;
-	    		// temporary hold
-	    		// restartGame();
-	    		//this.context.clearRect(this.x, this.y, this.width, this.height);
-	    		//game.pool.DeleteObj(1);
-	    	}
-	    		
-
-
-	    } else if (this.y <= this.topEdge) { // if hit the top
-	    	this.speedY = this.speed;
-	    	//this.friction();  
-	    }
+	    this.boundaryYCollision();
 
 		this.context.drawImage(imageRepository.enemyballBig, this.x, this.y);
 	};
