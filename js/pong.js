@@ -290,7 +290,7 @@ function renderThread() {
 
 	// console.log('rendering count is ' +renderingTime);
 
-	setTimeout("renderThread()", 10); //1000 / X = Yfps
+	setTimeout("renderThread()", 20); //1000 / X = Yfps
 	
 }
 

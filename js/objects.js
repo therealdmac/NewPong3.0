@@ -270,11 +270,15 @@ function Ball() {
 
     	// X Collision
 	    if (this.x <= this.leftEdge) {       
-	    	this.speedX = this.speed;	    
+	    	this.speedX = this.speed;
+	    	this.collidedwithleftEdge = true;
+	    	this.collidedwithrightEdge = false;
 	    	//this.friction();   
 	    }     
 	    else if (this.x >= this.rightEdge - this.width) {
-	      this.speedX = -this.speed;  
+	      	this.speedX = -this.speed;  
+	      	this.collidedwithleftEdge = false;
+	    	this.collidedwithrightEdge = true;
 	      //this.friction();   
 	    }
     }
