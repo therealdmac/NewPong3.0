@@ -225,11 +225,13 @@ function Game() {
 		debugTool();
 
 		// start the animation loop
-		animate();
+		renderThread();
 
-		animate2();
+		collisionThread();
 
-		animate3();
+		physicsThread();
+
+		cycleCheck();
 
 
 
@@ -270,12 +272,9 @@ function physicsTimeFunc() {
 
 
  /********** added by beeb **********/
-function animate() {
-
-
+function renderThread() {
+	
 	//requestAnimFrame( animate );
-
-	//console.log('animated1 is called');
 	
 	// Rendering
 	debugContext.clearRect(0,0,debugCanvas.width, debugCanvas.height);
@@ -290,69 +289,32 @@ function animate() {
 	// Start counting game timer
 	gameTimer();
 
-	// console.log('frames per second is ' +fps);
-
 	renderingTimeFunc(); // plus count
-	// console.log('rendering count is ' +renderingTime);
-
-	// start = dateObj.getMilliseconds();
-	// console.log('end timing is ' +dateObj.getMilliseconds());
-	// console.log('start timing is ' +d.getMilliseconds());
 
 	// console.log('rendering count is ' +renderingTime);
 
-	setTimeout("animate()", 20); //1000 / X = Yfps
-
-	// end  = dateObj.getMilliseconds();
-	// time = end - start;
-	
-	/*
-	for(var i=0; i < 1000000000; i++) {
-		var k = k*198;
-	} */
-
-	// console.log('end timing is ' +d.getMilliseconds());
-	// console.log('time taken for animate: ' + time);
+	setTimeout("renderThread()", 20); //1000 / X = Yfps
 	
 }
 
-function delay() {
-	setTimeout(delay(), 1);
-}
-
-function animate2() {
-	//requestAnimFrame( animate );
-	//console.log('animate2 called');
+function collisionThread() {
 
 	// Collision Handler (Game Logic)
-	// 
 	game.colHandler.subDivide(game.pool.allObj);
 
-	// console.log('frames per second is ' +fps);
-
-	physicsTimeFunc(); // plus count
 	// console.log('physics time count is ' +physicsTime);
 
-	// start = dateObj.getMilliseconds();
-
-	// console.log('physics time count is ' +physicsTime);
-	setTimeout("animate2()", 20);
-	// end  = dateObj.getMilliseconds();
-	// time = end - start;
-	// console.log('time taken for animate2: ' + time);
-
-	//delay();
-
+	setTimeout("collisionThread()", 20);
 }
 
 function physicsThread() {
 
 	physicsTimeFunc();
-	setTimeout("animate2()", 20);
+	setTimeout("physicsThread()", 20);
 
 }
 
-function animate3() {
+function cycleCheck() {
 
 	if (renderingTime > physicsTime) {
 		renderingFaster++;
@@ -361,8 +323,7 @@ function animate3() {
 		physicsTime = 0;
 	}
 
-
-	setTimeout("animate3()", 10);
+	setTimeout("cycleCheck()", 10);
 }
 
 /**	
