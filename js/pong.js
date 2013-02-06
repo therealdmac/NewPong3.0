@@ -208,6 +208,7 @@ function Game() {
 	this.start = function() {
 
 		//alert('Start Game?');
+		physicsEngine();
 	
 
 		//draw everything first round
@@ -229,6 +230,8 @@ function Game() {
 		animate2();
 
 		animate3();
+
+
 
 		// setInterval(animate(), 30);
 		// setInterval(animate2(), 30);
@@ -296,7 +299,7 @@ function animate() {
 	// console.log('end timing is ' +dateObj.getMilliseconds());
 	// console.log('start timing is ' +d.getMilliseconds());
 
-	console.log('rendering count is ' +renderingTime);
+	// console.log('rendering count is ' +renderingTime);
 
 	setTimeout("animate()", 20); //1000 / X = Yfps
 
@@ -332,7 +335,7 @@ function animate2() {
 
 	// start = dateObj.getMilliseconds();
 
-	console.log('physics time count is ' +physicsTime);
+	// console.log('physics time count is ' +physicsTime);
 	setTimeout("animate2()", 20);
 	// end  = dateObj.getMilliseconds();
 	// time = end - start;

@@ -124,11 +124,14 @@ function physicsEngine(objectOne, objectTwo){
 	 * we need to check if the one of the object references is a shooter object
 	 * and then call the appropriate functions
 	 */
-	 /*if(typeof(objectOne) === Shooter){
-
+	 if(typeof(objectOne) === Shooter){
+	 	console.log('this object -> ' + objectOne + ' is a shooter object');
 	 }else if(typeof(objectTwo) === Shooter){
-
-	 }else{*/
+	 	console.log('this object -> ' + objectTwo + ' is a shooter object');
+	 }else if(typeof(objectOne) === "undefined" ||
+	 		  typeof(objectTwo) === "undefined" ){
+	 	console.log('object is undefined');
+	 }else{
 	 	//The 2 references belong to normal ball objects
 		setObjectOneParameters(objectOne);
 		setObjectTwoParameters(objectTwo);
@@ -149,10 +152,11 @@ function physicsEngine(objectOne, objectTwo){
 		objectTwo.speedY = normalYVectorVelocityOfBallTwo + tangentXVectorVelocityOfBallTwo;
 
 		// delay
+		/*
 		for(var i=0; i < 100000000; i++) {
 			var k = k*198;
-		}
-
+		}*/
+	}
 	//}
 
 }
