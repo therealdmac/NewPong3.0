@@ -169,10 +169,11 @@ function Paddle() {
 
 	this.move = function() {	
 
-
+	//added by beeb 
+	this.paddleTiltedDegree = 0;
 		// Determine if the action is move action
 		if (KEY_STATUS.left || KEY_STATUS.right) {
-			// The ship moved, so erase it's current image so it can be redrawn in it's new location
+			// The paddle moved, so erase it's current image so it can be redrawn in it's new location
 			this.context.clearRect(this.x, this.y, this.width, this.height);
 
 			// detect keypress
@@ -185,15 +186,47 @@ function Paddle() {
 				this.x += this.speed;
 				if (this.x >= this.canvasWidth - this.width)
 					this.x = this.canvasWidth - this.width;
-			} 
-
+			/********* added by beeb ***********/
+			}else if(KEY_STATUS.up){
+				if(paddleTiltedDegree != 45){
+					paddleTiltedDegree += 15;
+					tiltPaddle("up");
+				}
+			}else if(KEY_STATUS.down){
+				if(paddleTiltedDegree != 0){
+					paddleTiltedDegree -= 15;
+					this.paddle.y
+					tiltPaddle("down");
+				}
+			}
+			/********* added by beeb ***********/
 			// Finish by redrawing the paddle
 			this.draw();
 		}
 	};
 }
 Paddle.prototype = new Drawable();
+/********** added by beeb *************/
+Paddle.prototype.tiltPaddle = function(keyCode){
+	if(keyCode == "up"){
+		rotatePaddle();
+		console.log.('tilitng the padsle + this.x');
+	}else if(keyCode == "down"){
+		rotatePaddle();
+	}
+}
+function sin(x) {
+    return Math.sin(x / 180 * Math.PI);
+}
 
+function cos(x) {
+    return Math.cos(x / 180 * Math.PI);
+}
+function rotatePaddle(){
+	this.x += (cos (15) * this.x) + (sin (15) * this.y);
+	this.y += (sin (15) * this.x) + (cos (15) * this.y);
+}
+/********** added by beeb *************/
 
 function Shooter() {
 
@@ -217,8 +250,6 @@ function Shooter() {
 
 		this.context.drawImage(this.image, this.x, this.y);
 	};
-
-
 
 	this.shoot = function() {
 
