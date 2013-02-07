@@ -230,7 +230,7 @@ function rotatePaddle(){
 
 function Shooter() {
 
-	this.enemyballPool = 10;
+	this.enemyballPool = 30;
 
 	this.speed = 2;
 
@@ -329,7 +329,7 @@ function Ball() {
  	//this.direction = 0;
 
  	this.index = -1;
-	this.speed = 5;
+	this.speed = 2;
 	this.speedX = this.speed;
 	this.speedY = this.speed;
 
@@ -513,10 +513,10 @@ function Enemyball() {
 	    	if (this.x + 25 > game.paddle.x && this.x < game.paddle.x + 64)
 	    		this.speedY = -this.speed; // reverse speed
 	    	else {
-	    		// this.speedY = -this.speed;
+	    		 this.speedY = -this.speed;
 	    		// alert('object is about to be deleted');
 	    		//destroyBall();
-	    		game.pool.DeleteObj(this);
+	    		// game.pool.DeleteObj(this);
 	    		// alert('delete object done');
 	    	}
 	    		 

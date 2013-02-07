@@ -30,8 +30,8 @@ function correction(obj1,obj2) {
 
 	      var radian = Math.acos( (distanceX/(distance+1))*Math.PI/180 );
 
-	      var moveX = overlapDistance*Math.cos(radian)+10;
-	      var moveY = overlapDistance*Math.sin(radian)+10;
+	      var moveX = overlapDistance*Math.cos(radian)+5;
+	      var moveY = overlapDistance*Math.sin(radian)+5;
 
 	      if(y2 < y1) {
 	        moveY = -moveY;
@@ -40,11 +40,29 @@ function correction(obj1,obj2) {
 	    //  console.log('moveX is ' +moveX);
 	    //  console.log('moveY is ' +moveY);
 
-	      obj2.x = obj2.x - (moveX);
-	      obj2.y = obj2.y + (moveY);
+
+	    obj2.x = obj2.x - moveX;
+	    obj2.y = obj2.y + moveY;
+
+/*
+	    for(var i=0; i >= moveX; i = i+0.01) {
+	    	obj2.x = obj2.x - (i);
+	    }
+
+	    if(moveY < 0) { // move up
+			for(var i=0; i <= moveY; i = i-0.01) {
+		    	obj2.y = obj2.y + (i);
+		    }
+	    } else { // move down
+	    	for(var i=0; i >= moveY; i = i+0.01) {
+		    	obj2.y = obj2.y + (i);
+		    }
+	    } */
+	    
+	      
 
 	      obj2.draw(); 
-	      console.log('correction activated');
+	      // console.log('correction activated');
 	}
 
 }

@@ -34,7 +34,7 @@ function restartGame() {
 		document.location.reload();
 }
 
-
+/*
 function startWorker() {
 	console.log('entered startworkers');
 
@@ -60,7 +60,7 @@ function startWorker() {
 function stopWorker() { 
   w.terminate();
 }
-
+*/
 /**
  * Define an object to hold all our images for the game so images
  * are only ever created once. This type of object is known as a 
@@ -197,9 +197,6 @@ function Game() {
 			/************** added by beeb ******************/
 			
 			this.background = new Background();
-			
-			
-			
 			this.colHandler = new CollisionHandler();	
 
 			
@@ -265,20 +262,13 @@ function Game() {
 		// start the animation loop
 		renderThread();
 
-		// collisionThread();
+		correctionThread();
 
 		physicsThread();
 
 		cycleCheck();
 
-		correctionThread();
 
-		// setInterval(animate(), 30);
-		// setInterval(animate2(), 30);
-
-		// console.log('in pong, x is ' +game.blinkingBall.x);
-
-		
 
 	};
 
@@ -314,7 +304,7 @@ function physicsTimeFunc() {
  /********** added by beeb **********/
 function renderThread() {
 	
-	//requestAnimFrame( animate );
+	requestAnimFrame( renderThread );
 	
 	// Rendering
 	debugContext.clearRect(0,0,debugCanvas.width, debugCanvas.height);
@@ -332,43 +322,37 @@ function renderThread() {
 
 	// console.log('rendering count is ' +renderingTime);
 
-	setTimeout("renderThread()", 30); //1000 / X = Yfps
+	//correction();
+
+	//setTimeout("renderThread()", 2); //1000 / X = Yfps
 	
 }
 
 function correctionThread() {
+	requestAnimFrame( correctionThread );
 	correction();
-	setTimeout("correctionThread()", 20);
+	//setTimeout('correctionThread()', 1)
 }
 
-function collisionThread() {
-
-	// Collision Handler (Game Logic)
-	game.colHandler.subDivide(game.pool.allObj);
-
-	// console.log('physics time count is ' +physicsTime);
-
-	setTimeout("collisionThread()", 20);
-}
 
 function physicsThread() {
-
+	requestAnimFrame( physicsThread );
 	physicsTimeFunc();
 	game.colHandler.subDivide(game.pool.allObj);
 	physicsEngine();
-	setTimeout("physicsThread()", 30);
+	//setTimeout("physicsThread()", 2);
 
 }
 
 function cycleCheck() {
-
+	requestAnimFrame( cycleCheck );
 	if (renderingTime > physicsTime) {
 		renderingFaster++;
 		renderingTime = 0;
 		physicsTime = 0;
 	}
 
-	setTimeout("cycleCheck()", 10);
+	//setTimeout("cycleCheck()", 10);
 }
 
 /**	

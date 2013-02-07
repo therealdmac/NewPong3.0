@@ -255,14 +255,12 @@ function collisionDetection(obj1, obj2) {
 	var distanceY = (y2 - y1)*(y2 - y1);
 	var distance = Math.sqrt(( distanceX + distanceY ));
 
-
-
   /*
   Sticky ball solution:
   Check how much each ball overlaps, and then push it back by that amount of pixel. 
   This code will choose a ball to push back instead of pushing both
   */
-  // Check how much it overlaps
+
 
 
   // if there is a collision 
@@ -271,78 +269,28 @@ function collisionDetection(obj1, obj2) {
 
  //console.log('overlapdisnace is ' +overlapDistance)
 
-  // 50 - 100 = -50
+  // Object2 must be on the left side of Object1
   var object1, object2;
 
   if(overlapDistance > 0) {
 
-    //console.log('overlapped!')
-    //alert('overlapped');
-
+    // object 2 at left of object 1
     if(obj2.x < obj1.x) {
       object2 = obj2;
       object1 = obj1;
-    } else {
+    } else { // object 2 is at the right, swap it
       object2 = obj1;
       object1 = obj2;
     }
 
     correction(object1, object2);
 
-/*
-    console.log('old ObjectOne Speed X is ' +obj1.speedX);
-    console.log('old ObjectOne Speed Y is ' +obj1.speedY);
-    console.log('old ObjectTwo Speed X is ' +obj2.speedX);
-    console.log('old ObjectTwo Speed Y is ' +obj2.speedY); */
-
-      physicsEngine(object1, object2);
-
-      /*
-
-    console.log('new ObjectOne Speed X is ' +obj1.speedX);
-    console.log('new ObjectOne Speed Y is ' +obj1.speedY);
-    console.log('new ObjectTwo Speed X is ' +obj2.speedX);
-    console.log('new ObjectTwo Speed Y is ' +obj2.speedY); */
-
-      //console.log('passed physics engine code');
-
-      //goodToGo = 1;// can call physics engine
+    physicsEngine(object1, object2);
 
 
-      // if the ball is separated by more than 5 pixels
-      // and it's not TOO separated (e.g. -100: where the balls are far apart)
-  } else if(0) {
-    
-    console.log('physics activated!');
-
-    //alert('colided');
-
-   // alert('physics engine activated');
-
-		physicsEngine(obj1, obj2);
-
-    goodToGo = 0;
-
-    var nextXball1 = obj1.x+obj1.speedX;
-    var nextYball1 = obj1.y+obj1.speedY;    
-    var nextXball2 = obj2.x+obj2.speedX;
-    var nextYball2 = obj2.y+obj2.speedY;
-
-    var newdistanceX = (nextXball2 - nextXball1)*(nextXball2 - nextXball1);
-    var newdistanceY = (nextYball2 - nextYball1)*(nextYball2 - nextYball1);
-    var newdistance = Math.sqrt(( newdistanceX + newdistanceY ));
-
-/*
-    if(newdistance < distance) {
-
-      physicsEngine(obj1, obj2);
-
-    } */
+  } 
 
 
-   // console.log('object1 x is ' +obj1.x);
-   //  console.log('object2 x is ' +obj2.x);
-	}
 	
 	return false;
 }
