@@ -65,6 +65,7 @@ function stopWorker() {
 var imageRepository = new function() {
 
 	// Define images
+	this.errorimg = new Image();
 	this.background = new Image();
 	this.paddle = new Image();
 	this.mainball = new Image();
@@ -74,7 +75,7 @@ var imageRepository = new function() {
 	this.arrow = new Image();
 
 	// Ensure all images have loaded before starting the game
-	var numImages = 7;
+	var numImages = 8;
 	var numLoaded = 0;
 
 	function imageLoaded() {
@@ -82,6 +83,9 @@ var imageRepository = new function() {
 		if (numLoaded === numImages) {
 			window.init();
 		}
+	}
+	this.errorimg.onload = function() {
+		imageLoaded();
 	}
 	this.background.onload = function() {
 		imageLoaded();
@@ -106,6 +110,7 @@ var imageRepository = new function() {
 	}
 
 	// Set images src
+	this.errorimg.src = "imgs/error.png";
 	this.background.src = "imgs/bg.png";
 	this.paddle.src = "imgs/paddle.png";
 	this.mainball.src = "imgs/main_ball.png";
@@ -129,6 +134,8 @@ function Game() {
 	 * running on browsers that do not support the canvas.
 	 */
 	this.init = function() {
+	
+	
 
 		// Get the canvas elements
 		this.bgCanvas = document.getElementById('background');
@@ -166,42 +173,44 @@ function Game() {
 			// Initialize the objects
 			this.mainball = this.pool.CreateObj(0);
 			this.enemyball = this.pool.CreateObj(1);
-			this.enemyballBig = this.pool.CreateObj(2);
 			this.shooter = new Shooter();
 			this.paddle = new Paddle();
 			
 			this.background = new Background();
 			
-			this.colHandler = new CollisionHandler();			
+			
+			
+			this.colHandler = new CollisionHandler();	
+
+			
 
 			// *************************
 			// Initialize the objects' starting location
 			// *************************
 
 			// Background Draw
-			this.background.init(0,0); 
-
+			this.background.init(0,0, imageRepository.background); 
+			
 			// Initialize the Shooter
 			var shooterStartX = this.paddleCanvas.width/2 - imageRepository.shooter.width;
 			var shooterStartY = 0;
-			this.shooter.init(shooterStartX, shooterStartY, imageRepository.shooter.width,
-			               imageRepository.shooter.height);
+			this.shooter.init(shooterStartX, shooterStartY, imageRepository.shooter);
 
 			// Set the paddle to start near the bottom middle of the canvas
 			var paddleStartX = this.paddleCanvas.width/2 - imageRepository.paddle.width;
 			var paddleStartY = this.paddleCanvas.height - imageRepository.paddle.height;
-			this.paddle.init(paddleStartX, paddleStartY, imageRepository.paddle.width,
-			               imageRepository.paddle.height);
+			this.paddle.init(paddleStartX, paddleStartY, imageRepository.paddle);
 
 			// Mainball starting location
 			var mainballStartX = this.mainCanvas.width/2 - imageRepository.mainball.width;
 			var mainballStartY = this.mainCanvas.height/10;
 
-			this.mainball.init(mainballStartX, mainballStartY, imageRepository.mainball.width, imageRepository.mainball.height);
+			this.mainball.init(mainballStartX, mainballStartY, imageRepository.mainball);
+			
+			
 
 			// EnemyBall starting location
-			this.enemyball.init(100, 10, imageRepository.enemyball.width, imageRepository.enemyball.height);
-			
+			this.enemyball.init(100, 10, imageRepository.enemyball);
 
 			return true;
 		} else {
@@ -295,7 +304,7 @@ function renderThread() {
 
 	// console.log('rendering count is ' +renderingTime);
 
-	setTimeout("renderThread()", 20); //1000 / X = Yfps
+	setTimeout("renderThread()", 100); //1000 / X = Yfps
 	
 }
 
@@ -314,7 +323,7 @@ function physicsThread() {
 	physicsTimeFunc();
 	game.colHandler.subDivide(game.pool.allObj);
 	physicsEngine();
-	setTimeout("physicsThread()", 50);
+	setTimeout("physicsThread()", 100);
 
 }
 

@@ -10,12 +10,21 @@ var counter = 0;
 
 function Drawable() {
 
-	this.init = function(x, y, width, height) {
+	this.x = 0;
+	this.y = 0;
+	this.width = 0;
+	this.height = 0;
+		
+	this.init = function(x, y, image) {
 		// Defualt variables
 		this.x = x;
 		this.y = y;
-		this.width = width;
-		this.height = height;
+		if(image)
+			this.image = image;
+		else
+			this.image = imageRepository.errorimg; //default image
+		this.width = this.image.width;
+		this.height = this.image.height;
 	}
 
 	this.speed = 0;
@@ -77,17 +86,20 @@ function Drawable() {
 		this.num.splice(i,1);
 	}
 	this.draw = function(i){
-		for(var i=0; i<this.allObj.length; i++)
+		for(var i=0; i<this.allObj.length; i++){
+			//alert(""+this.allObj[i].x + " " + this.allObj[i].y);
 			this.allObj[i].draw();
+		}
 	}
 	this.animate = function(i){
 		for(var i=0; i<this.allObj.length; i++){
 			//this.allObj[i].move();
 			//debugContext.clearRect(this.allObj[i].x-15, this.allObj[i].y-30, 50 ,50 );
 			if(debugFlag){
+				//alert(""+this.allObj[i].x + " " + this.allObj[i].y);
 				debugContext.font="20px Arial";
 				debugContext.fillStyle = 'yellow';
-				debugContext.fillText(this.num[i],this.allObj[i].x,this.allObj[i].y);
+				debugContext.fillText(this.num[i], this.allObj[i].x, this.allObj[i].y);
 				this.allObj[i].drawArrow();
 			}
 		}
@@ -99,9 +111,6 @@ function Drawable() {
 		switch(i){
 		case 1:
 			return new Enemyball();
-			break;
-		case 2:
-			return new EnemyballBig();
 			break;
 		case 0:
 			return new Mainball();
@@ -119,7 +128,7 @@ function Background() {
 	this.draw = function() {
 		// Pan background
 		//this.y += this.speed;
-		this.context.drawImage(imageRepository.background, this.x, this.y);
+		this.context.drawImage(this.image, this.x, this.y);
 	};
 }
 // Set Background to inherit properties from Drawable
@@ -143,7 +152,7 @@ function Paddle() {
 	/******************** added by beeb **************/
 
 	this.draw = function() {
-		this.context.drawImage(imageRepository.paddle, this.x, this.y);
+		this.context.drawImage(this.image, this.x, this.y);
 	};
 
 	this.move = function() {	
@@ -194,7 +203,7 @@ function Shooter() {
 			this.speed = -this.speed;
 		}
 
-		this.context.drawImage(imageRepository.shooter, this.x, this.y);
+		this.context.drawImage(this.image, this.x, this.y);
 	};
 
 
@@ -208,8 +217,8 @@ function Shooter() {
 		if (enemyballPoolonScreen < this.enemyballPool) {
 
 			this.createdEnemyBall = game.pool.CreateObj(1);
-			this.createdEnemyBall.init(enemyStartX, enemyStartY, imageRepository.enemyball.width, imageRepository.enemyball.height);
-
+			this.createdEnemyBall.init(enemyStartX, enemyStartY, imageRepository.enemyball);
+			
 			enemyballPoolonScreen++;
 
 		}
@@ -225,8 +234,9 @@ function Shooter() {
 
 		if (enemyballPoolonScreen < this.enemyballPool) {
 
-			this.createdEnemyBall = game.pool.CreateObj(2);
-			this.createdEnemyBall.init(enemyStartX, enemyStartY, imageRepository.enemyballBig.width, imageRepository.enemyballBig.height);
+			this.createdEnemyBall = game.pool.CreateObj(1);
+			this.createdEnemyBall.mass = 5;
+			this.createdEnemyBall.init(enemyStartX, enemyStartY, imageRepository.enemyballBig);
 
 			enemyballPoolonScreen++;
 
@@ -244,10 +254,10 @@ Shooter.prototype = new Drawable();
  
 function Ball() {
 
- 	this.radius = 0;
- 	this.centerX = 0;
- 	this.centerY = 0;
- 	this.direction = 0;
+ 	//this.radius = 0;
+ 	//this.centerX = 0;
+ 	//this.centerY = 0;
+ 	//this.direction = 0;
 
 	this.speed = 5;
 	this.speedX = this.speed;
@@ -338,6 +348,7 @@ function Mainball() {
     this.rightEdge = this.canvasWidth;
     this.topEdge = 0;
     this.bottomEdge = this.canvasHeight;
+	this.image = imageRepository.mainball;
 
     this.mass = 5;
     this.typeofball = 'mainball';
@@ -367,7 +378,7 @@ function Mainball() {
 
 	    
 
-		this.context.drawImage(imageRepository.mainball, this.x, this.y);
+		this.context.drawImage(this.image, this.x, this.y);
 		/*
 		this.context.fillStyle="#FF0000";
 		this.context.fillRect(this.x+this.width/2,this.y+this.height/2,2,2);
@@ -388,6 +399,7 @@ function Enemyball() {
     this.rightEdge = this.canvasWidth;
     this.topEdge = 0;
     this.bottomEdge = this.canvasHeight;
+	this.image = imageRepository.enemyball;
 
     this.mass = 3;
     this.speedX = Math.random();
@@ -406,7 +418,7 @@ function Enemyball() {
 
 	    //this.friction();
 
-		this.context.drawImage(imageRepository.enemyball, this.x, this.y);
+		this.context.drawImage(this.image, this.x, this.y);
 
 /*
 		this.context.fillStyle="#FF0000";
@@ -416,34 +428,3 @@ function Enemyball() {
 
 }
 Enemyball.prototype = new Ball();
-
-function EnemyballBig() {
-
-    this.leftEdge = 0;
-    this.rightEdge = this.canvasWidth;
-    this.topEdge = 0;
-    this.bottomEdge = this.canvasHeight;
-
-    this.mass = 5;
-    this.speedX = Math.random();
-    this.typeofball = 'big enemyball';
-
-
-
-	//Move the main ball
-	this.draw = function() {
-		
-		this.clip();
-
-	    this.x += this.speedX;
-	    this.y += this.speedY;
-	    
-	    this.boundaryXCollision();
-	    this.boundaryYCollision();
-
-		this.context.drawImage(imageRepository.enemyballBig, this.x, this.y);
-	};
-
-
-}
-EnemyballBig.prototype = new Ball();
