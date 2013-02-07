@@ -193,7 +193,7 @@ function Game() {
 			this.shooter = new Shooter();
 			this.paddle = new Paddle();
 			/************** added by beeb ******************/
-			this.blinkingBall = this.pool.CreateObj(3);
+			// this.blinkingBall = this.pool.CreateObj(3);
 			/************** added by beeb ******************/
 			
 			this.background = new Background();
@@ -231,9 +231,9 @@ function Game() {
 
 			// EnemyBall starting location
 
-			this.enemyball.init(100, 10, imageRepository.enemyball.width, imageRepository.enemyball.height);
+			this.enemyball.init(100, 100, imageRepository.enemyball);
 
-			this.blinkingBall.init(60, 20, imageRepository.enemyballBig.width, imageRepository.enemyballBig.height)
+			// this.blinkingBall.init(60, 20, imageRepository.blinkingBall);
 			
 
 			return true;
@@ -330,7 +330,7 @@ function renderThread() {
 
 	// console.log('rendering count is ' +renderingTime);
 
-	setTimeout("renderThread()", 100); //1000 / X = Yfps
+	setTimeout("renderThread()", 50); //1000 / X = Yfps
 	
 }
 
@@ -349,7 +349,7 @@ function physicsThread() {
 	physicsTimeFunc();
 	game.colHandler.subDivide(game.pool.allObj);
 	physicsEngine();
-	setTimeout("physicsThread()", 100);
+	setTimeout("physicsThread()", 50);
 
 }
 

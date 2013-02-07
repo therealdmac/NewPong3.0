@@ -224,6 +224,17 @@ function QuadTree(boundBox, lvl) {
   };
 }
 
+function distanceMachine(x1, y1, x2, y2) {
+
+  // Distance between 2 balls
+  var distanceX = (x2 - x1)*(x2 - x1);
+  var distanceY = (y2 - y1)*(y2 - y1);
+  var distance = Math.sqrt(( distanceX + distanceY ));
+
+  return distance;
+
+}
+
 function collisionDetection(obj1, obj2) {
 
 	var x1 = obj1.x;
@@ -232,9 +243,14 @@ function collisionDetection(obj1, obj2) {
 	var x2 = obj2.x;
 	var y2 = obj2.y;
 
+  var goodToGo = 0;
+
   var combinedRadius = obj1.width/2 + obj2.width/2;
 
 	// Distance between 2 balls
+  //var distance = distanceMachine(obj1.x, obj1.y, obj2.x, obj2.y);
+
+  
 	var distanceX = (x2 - x1)*(x2 - x1);
 	var distanceY = (y2 - y1)*(y2 - y1);
 	var distance = Math.sqrt(( distanceX + distanceY ));
@@ -247,41 +263,72 @@ function collisionDetection(obj1, obj2) {
   This code will choose a ball to push back instead of pushing both
   */
   // Check how much it overlaps
-  if ( distance < combinedRadius){
 
-
-    // clear it
-    obj2.clip();
-
-    var overlapDistance = combinedRadius - distance + 2; //+2 is a buffer
-    var radian = Math.acos( (distanceX/(distance+1))*Math.PI/180 );
-
-    var moveX = overlapDistance*Math.cos(radian);
-    var moveY = overlapDistance*Math.sin(radian);
-
-    if(y2 > y1) {
-      moveY = -moveY;
-    }
-
-/*
-    console.log('Object 1 is ' +obj1.typeofball);
-    console.log('Object 2 is ' +obj2.typeofball);
-    console.log('Total distance is ' +distance);
-    console.log('Overlap Distance is ' +overlapDistance);
-    
-    */
-    obj2.x = obj2.x - moveX;
-    obj2.y = obj2.y - moveY;
-
-    obj2.draw();
-  }
-
-  //  console.log
 
   // if there is a collision 
-	if(distance <= combinedRadius) {
+
+  var overlapDistance = combinedRadius - distance; //+2 is a buffer
+
+ //console.log('overlapdisnace is ' +overlapDistance)
+
+  // 50 - 100 = -50
+
+  if(overlapDistance > 0) {
+
+    //console.log('overlapped!')
+    alert('overlapped');
+
+      //console.log('overlapped');
+      obj2.clip();
+
+      var radian = Math.acos( (distanceX/(distance+1))*Math.PI/180 );
+
+      var moveX = overlapDistance*Math.cos(radian);
+      var moveY = overlapDistance*Math.sin(radian);
+
+      if(y2 > y1) {
+        moveY = -moveY;
+      }
+
+      obj2.x = obj2.x - moveX+10;
+      obj2.y = obj2.y - moveY+10;
+
+      obj2.draw(); 
+
+      goodToGo = 1;
+
+
+  } else if(overlapDistance > -5 && overlapDistance < 0 && goodToGo) {
+    
+    console.log('physics activated!');
+
     //alert('colided');
+
+   // alert('physics engine activated');
+
 		physicsEngine(obj1, obj2);
+
+    goodToGo = 0;
+
+    var nextXball1 = obj1.x+obj1.speedX;
+    var nextYball1 = obj1.y+obj1.speedY;    
+    var nextXball2 = obj2.x+obj2.speedX;
+    var nextYball2 = obj2.y+obj2.speedY;
+
+    var newdistanceX = (nextXball2 - nextXball1)*(nextXball2 - nextXball1);
+    var newdistanceY = (nextYball2 - nextYball1)*(nextYball2 - nextYball1);
+    var newdistance = Math.sqrt(( newdistanceX + newdistanceY ));
+
+/*
+    if(newdistance < distance) {
+
+      physicsEngine(obj1, obj2);
+
+    } */
+
+
+   // console.log('object1 x is ' +obj1.x);
+   //  console.log('object2 x is ' +obj2.x);
 	}
 	
 	return false;

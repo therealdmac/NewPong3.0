@@ -130,7 +130,7 @@ function gameTimer(){
 		// console.log('is blinking ball valid? ' +game.blinkingBall.x);
 
 		// alert('freeze');
-		isTimeForManipulation();
+		//isTimeForManipulation();
 	}
 	gameTime++;
 
