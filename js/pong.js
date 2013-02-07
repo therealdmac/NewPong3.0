@@ -268,6 +268,9 @@ function Game() {
 
 		cycleCheck();
 
+		//clipImgOne();
+		//clipImgTwo();
+
 
 
 	};
@@ -314,7 +317,9 @@ function renderThread() {
 	game.paddle.move();
 	game.paddle.draw();
 	game.shooter.draw();
+	
 	game.pool.animate();
+
 
 	// Start counting game timer
 	gameTimer();
@@ -355,6 +360,22 @@ function cycleCheck() {
 	//setTimeout("cycleCheck()", 10);
 }
 
+/*
+function clipImgOne(obj1, moveX, moveY) {
+	requestAnimFrame( clipImgOne );
+	obj1.clipImg();
+	obj1.x = obj1.x + moveX/2;
+	obj1.y = obj1.y - moveY/2;
+}
+
+function clipImgTwo(obj2, moveX, moveY) {
+	requestAnimFrame( clipImgTwo );
+	obj2.clipImg();
+	obj2.x = obj2.x - moveX/2;
+	obj2.y = obj2.y + moveY/2;
+
+}
+*/
 /**	
  * requestAnim shim layer by Paul Irish
  * Finds the first API that works to optimize the animation loop, 

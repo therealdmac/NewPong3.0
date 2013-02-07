@@ -38,31 +38,6 @@ function Drawable() {
 	};
 }
 
-/*
-
-// Rectangle class
- function Rectangle() {
-
- 	this.width = 0;
- 	this.height = 0;
- // information: width, height
- //paddle and wall will inherit from rectangle
- }
- Rectangle.prototype = new Drawable();
-
-*/
-
- /**
- * Wall class
- */
- 
- /*
- function Wall() {
-	
- }
- Wall.prototype = new Drawable();
-*/
-
   /**
  * Object Pool class
  */
@@ -210,7 +185,6 @@ Paddle.prototype = new Drawable();
 Paddle.prototype.tiltPaddle = function(keyCode){
 	if(keyCode == "up"){
 		rotatePaddle();
-		console.log.('tilitng the padsle + this.x');
 	}else if(keyCode == "down"){
 		rotatePaddle();
 	}
@@ -336,7 +310,7 @@ function Ball() {
 	this.typeofball = null;
 
 	// clip the ball into a perfect circle shape
-	this.clip = function() {
+	this.clipImg = function() {
     	this.context.save();
 		this.context.beginPath();
 		this.context.arc(this.x+this.width/2,this.y+this.height/2,this.height/2, 0, 2*Math.PI,true);
@@ -420,7 +394,7 @@ function Mainball() {
 		this.collidedwithleftEdge = false;
 		this.collidedwithrightEdge = false;
 		
-		this.clip();
+		this.clipImg();
 
 	    this.x += this.speedX;
 	    this.y += this.speedY;
@@ -484,7 +458,7 @@ function Enemyball() {
 	//Move the main ball
 	this.draw = function() {
 		
-		this.clip();
+		this.clipImg();
 
 	    this.x += this.speedX;
 	    this.y += this.speedY;
@@ -545,7 +519,7 @@ function BlinkingBall(){
 
 	this.draw = function(){
 		
-		this.clip();
+		this.clipImg();
 
 		this.x += this.speedX;
 		this.y += this.speedY;
