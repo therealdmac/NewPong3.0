@@ -130,7 +130,7 @@ function physicsEngine(objectOne, objectTwo){
 	 	console.log('this object -> ' + objectTwo + ' is a shooter object');
 	 }else if(typeof(objectOne) === "undefined" ||
 	 		  typeof(objectTwo) === "undefined" ){
-	 	console.log('object is undefined');
+	 	//console.log('object is undefined');
 	 }else{
 	 	//The 2 references belong to normal ball objects
 		setObjectOneParameters(objectOne);

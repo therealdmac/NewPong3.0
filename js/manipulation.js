@@ -8,6 +8,7 @@ var currentTime;
 var gameTimeElapsed;
 var isTimeForManipulation;
 
+var blinkingEffect = 0;;
 function setGameBallYDirection(){
 	//If the ball is moving down, it is deemed to have positive direction
 	if(game.mainball.speedY > 0){
@@ -49,10 +50,22 @@ function setGameBallRegion(){
 	}
 	//console.log('ball is in :' + game.mainball.ballMovingDown + ' region');
 }
+
 function isTimeForManipulation(){
 
-	document.getElementById("executed-status-box").style.background = 'red';
+	// console.log('is blinking ball valid? ' +game.blinkingBall.x);
 
+	document.getElementById("executed-status-box").style.background = 'red';
+	if((blinkingEffect % 10 )== 0){
+		blinkingBallAttraction(game.mainball.x,
+							   game.mainball.y,
+							   game.blinkingBall.x,
+							   game.blinkingBall.y,
+							   game.mainball.speedX,
+							   game.mainball.speedY);
+	}
+	blinkingEffect++;
+	console.log('blinking effect: ' + blinkingEffect);
 	//Set the gameBallParameters parameters
 	setGameBallYDirection();
 	setGameBallXDirection();
@@ -110,9 +123,13 @@ function gameTimer(){
 	//if(gameTimeElapsed > 10)	
 	//	isTimeForManipulation();
 	//console.log('gameTimer ' +gameTime);
-	if (gameTime > 300) {
+	if (gameTime > 1000) {
 		document.getElementById("mani-status-text").innerHTML = 'ON';
 		document.getElementById("mani-status-box").style.background = 'green';
+
+		// console.log('is blinking ball valid? ' +game.blinkingBall.x);
+
+		// alert('freeze');
 		isTimeForManipulation();
 	}
 	gameTime++;
@@ -122,7 +139,7 @@ function gameTimer(){
 
 }
 
-function hitTheWall(xVelocityOfBall, yVelocityOfBall, gameTime, xCoordinateOfPaddle, xCoordinateOfBall) {
+/*function hitTheWall(xVelocityOfBall, yVelocityOfBall, gameTime, xCoordinateOfPaddle, xCoordinateOfBall) {
 	//Required input: x and y velocity of ball, how long the game has lasted, paddle x coordinate, ball x coordinate
 	
 	//Assume both walls moving downwards at same rate
@@ -142,4 +159,35 @@ function hitTheWall(xVelocityOfBall, yVelocityOfBall, gameTime, xCoordinateOfPad
 	else {
 		yVelocityOfBall += 5;	//can change this value to fit our canvas size and general speed
 	}
+}*/
+function blinkingBallAttraction(mainBallXCoordinate, 
+								mainBallYCoordinate, 
+								blinkingBallXCoordinate, 
+								blinkingBallYCoordinate, 
+								xVelocityOfMainBall, 
+								yVelocityOfMainBall){
+	console.log('pulling the mainBall...');
+	//mainBall will experience a vector of magnitude 4 pointing towards center of blinkingBall
+	//Called every frame
+	//Required input: x and y coordinates of center of mainBall and blinkingBall, x and y velocity of mainBall
+	
+	var joiningXVector, joiningYVector, unitJoiningXVector, unitJoiningYVector;
+	var attractionXVector, attractionYVector;
+	var newXVelocityOfMainBall, newYVelocityOfMainBall;
+	
+	//Find unit vector that joins center of mainBall to center of blinkingBall
+	joiningXVector = blinkingBallXCoordinate - mainBallXCoordinate;
+	joiningYVector = blinkingBallYCoordinate - mainBallYCoordinate;
+	unitJoiningXVector = joiningXVector / Math.sqrt(joiningXVector * joiningXVector + joiningYVector * joiningYVector);
+	unitJoiningYVector = joiningYVector / Math.sqrt(joiningXVector * joiningXVector + joiningYVector * joiningYVector);
+	
+	//Multiply unit joining vector by magnitude of 4 (number can be changed)
+	attractionXVector = unitJoiningXVector * 4;
+	attractionYVector = unitJoiningYVector * 4;
+	
+	//Find mainBall's new velocity vectors
+	game.mainball.speedX = xVelocityOfMainBall + attractionXVector;
+	console.log('mainball new x speed after pulled: ' + game.mainball.speedX);
+	game.mainball.speedY = yVelocityOfMainBall + attractionYVector;
+	console.log('mainball new y speed after pulled: ' + game.mainball.speedY);
 }

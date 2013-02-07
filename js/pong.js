@@ -15,6 +15,10 @@ var gameTime = 0;
 // Keep track of enemy ball
 var enemyballPoolonScreen = 0;
 
+
+//************ added by beeb ****************
+var blinkingBall = 0;
+//************ added by beeb ****************
 // Keep track of manipulation times
 var manipulated = 0;
 
@@ -74,6 +78,10 @@ var imageRepository = new function() {
 	this.shooter = new Image();
 	this.arrow = new Image();
 
+	/******* added by beeb *********/
+	this.blinkingBall = new Image();
+	/******* added by beeb *********/
+
 	// Ensure all images have loaded before starting the game
 	var numImages = 8;
 	var numLoaded = 0;
@@ -108,6 +116,11 @@ var imageRepository = new function() {
 	this.arrow.onload = function() {
 		imageLoaded();
 	}
+	/******** added by beeb **************/
+	this.blinkingBall.onload = function(){
+		imageLoaded();
+	}
+	/******** added by beeb **************/
 
 	// Set images src
 	this.errorimg.src = "imgs/error.png";
@@ -118,6 +131,10 @@ var imageRepository = new function() {
 	this.enemyballBig.src = "imgs/enemy_ball_big.png";
 	this.shooter.src = "imgs/shooter.png";
 	this.arrow.src = "imgs/arrow.png";
+	/************* added by beeb *************************/
+	//for now use the  big ball as blinking ball..
+	this.blinkingBall.src = "imgs/enemy_ball_big.png";
+	/************* added by beeb *************************/
 }
 
 
@@ -175,6 +192,9 @@ function Game() {
 			this.enemyball = this.pool.CreateObj(1);
 			this.shooter = new Shooter();
 			this.paddle = new Paddle();
+			/************** added by beeb ******************/
+			this.blinkingBall = this.pool.CreateObj(3);
+			/************** added by beeb ******************/
 			
 			this.background = new Background();
 			
@@ -210,7 +230,11 @@ function Game() {
 			
 
 			// EnemyBall starting location
-			this.enemyball.init(100, 10, imageRepository.enemyball);
+
+			this.enemyball.init(100, 10, imageRepository.enemyball.width, imageRepository.enemyball.height);
+
+			this.blinkingBall.init(60, 20, imageRepository.enemyballBig.width, imageRepository.enemyballBig.height)
+			
 
 			return true;
 		} else {
@@ -249,6 +273,8 @@ function Game() {
 
 		// setInterval(animate(), 30);
 		// setInterval(animate2(), 30);
+
+		// console.log('in pong, x is ' +game.blinkingBall.x);
 
 		
 
@@ -331,7 +357,6 @@ function cycleCheck() {
 
 	if (renderingTime > physicsTime) {
 		renderingFaster++;
-		//alert('rendering is faster than physics count: ' +renderingFaster++);
 		renderingTime = 0;
 		physicsTime = 0;
 	}

@@ -115,6 +115,11 @@ function Drawable() {
 		case 0:
 			return new Mainball();
 			break;
+		/******* added by beeb **************/
+		case 3:
+			return new BlinkingBall();
+			break;
+		/******** added by beeb *************/
 		}		
 	}
 
@@ -143,7 +148,7 @@ Background.prototype = new Drawable();
  */
 function Paddle() {
 
-	this.speed = 4;
+	this.speed = 10;
 
 	/******************** added by beeb **************/
 	this.paddleIsInTheRightRegionOfCanvas = false;
@@ -240,11 +245,37 @@ function Shooter() {
 
 			enemyballPoolonScreen++;
 
-		}
-		console.log('no. of enemyball on screen = ' +enemyballPoolonScreen);
+			console.log('x coordinate of enemyBigBall is ' +this.createdEnemyBall.x)
 
+		}
+		// console.log('no. of enemyball on screen = ' +enemyballPoolonScreen);
 	}
 
+	//************ added by beeb ****************
+	/*
+	 * Objective of doing this: create the blinking ball,
+	 * assign a speed to it, should be created only once now,
+	 * call the manipulator to "attract" the mainball to this blinking ball 
+	 * and increase the mainballs mass
+	 */
+
+	this.shootBlinkingBall = function() {
+		var blinkingBallStartX = game.shooter.x,
+			blinkingBallStartY = game.shooter.y;
+		//Should only create one blinking ball for now..
+		if(blinkingBall < 2){
+			//blinlking ball is '3'rd in terms of creating the ball.
+			this.createdBlinkingBall = game.pool.CreateObj(3);
+			this.createdBlinkingBall.init(blinkingBallStartX, 
+										  blinkingBallStartY, 
+										  imageRepository.enemyballBig.width, 
+										  imageRepository.enemyballBig.height);
+
+			//console.log('inside shooter function x is ' +this.createdBlinkingBall.x);
+		}
+		console.log('no of blinking ball on screen: ' + blinkingBall);
+	}
+	//************ added by beeb ****************
 }
 Shooter.prototype = new Drawable();
 
@@ -428,3 +459,33 @@ function Enemyball() {
 
 }
 Enemyball.prototype = new Ball();
+
+/********** added by beeb *****************/
+function BlinkingBall(){
+	this.leftEdge = 0;
+	this.rightEdge = this.canvasWidth;
+	this.topEdge = 0;
+	this.bottomEdge = this.canvasHeight;
+
+	this.mass = 5;
+	this.speedX = Math.random();
+	this.typeofball = 'blinkingball';
+
+	this.draw = function(){
+		
+		this.clip();
+
+		this.x += this.speedX;
+		this.y += this.speedY;
+
+		this.boundaryXCollision();
+		this.boundaryYCollision();
+
+		//this linr below has been commented out because,
+		// there is no image of the blinking ball available
+		//so for now use the blinking ball thingy
+		this.context.drawImage(imageRepository.enemyballBig, this.x, this.y);
+	}
+}
+BlinkingBall.prototype = new Ball(); //inherit ball properties
+ /********** added by beeb *****************/

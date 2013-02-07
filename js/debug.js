@@ -75,6 +75,14 @@ function destroyBigBall() {
 	game.pool.DeleteObj(2);
 }
 
+/******** added by beeb ******************/
+function shootBlinkingBall(){
+	game.shooter.shootBlinkingBall();
+	console.log('blinkingBall function called!');
+}
+/******** added by beeb ******************/
+
+
 function startTimer() {
 	time1++;
 	//console.log('getMilliseconds returns ' +d.getMilliseconds());
