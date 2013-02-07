@@ -248,7 +248,7 @@ function collisionDetection(obj1, obj2) {
   var combinedRadius = obj1.width/2 + obj2.width/2;
 
 	// Distance between 2 balls
-  //var distance = distanceMachine(obj1.x, obj1.y, obj2.x, obj2.y);
+  var distance = distanceMachine(obj1.x, obj1.y, obj2.x, obj2.y);
 
   
 	var distanceX = (x2 - x1)*(x2 - x1);
@@ -267,18 +267,27 @@ function collisionDetection(obj1, obj2) {
 
   // if there is a collision 
 
-  var overlapDistance = combinedRadius - distance; //+2 is a buffer
+ var overlapDistance = combinedRadius - distance; //+2 is a buffer
 
  //console.log('overlapdisnace is ' +overlapDistance)
 
   // 50 - 100 = -50
+  var object1, object2;
 
   if(overlapDistance > 0) {
 
     //console.log('overlapped!')
-    alert('overlapped');
+    //alert('overlapped');
 
-      correction(obj1, obj2);
+    if(obj2.x < obj1.x) {
+      object2 = obj2;
+      object1 = obj1;
+    } else {
+      object2 = obj1;
+      object1 = obj2;
+    }
+
+    correction(object1, object2);
 
 /*
     console.log('old ObjectOne Speed X is ' +obj1.speedX);
@@ -286,7 +295,7 @@ function collisionDetection(obj1, obj2) {
     console.log('old ObjectTwo Speed X is ' +obj2.speedX);
     console.log('old ObjectTwo Speed Y is ' +obj2.speedY); */
 
-      physicsEngine(obj1, obj2);
+      physicsEngine(object1, object2);
 
       /*
 
@@ -295,7 +304,7 @@ function collisionDetection(obj1, obj2) {
     console.log('new ObjectTwo Speed X is ' +obj2.speedX);
     console.log('new ObjectTwo Speed Y is ' +obj2.speedY); */
 
-      console.log('passed physics engine code');
+      //console.log('passed physics engine code');
 
       //goodToGo = 1;// can call physics engine
 

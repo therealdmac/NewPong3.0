@@ -332,7 +332,7 @@ function renderThread() {
 
 	// console.log('rendering count is ' +renderingTime);
 
-	setTimeout("renderThread()", 50); //1000 / X = Yfps
+	setTimeout("renderThread()", 10); //1000 / X = Yfps
 	
 }
 
@@ -356,7 +356,7 @@ function physicsThread() {
 	physicsTimeFunc();
 	game.colHandler.subDivide(game.pool.allObj);
 	physicsEngine();
-	setTimeout("physicsThread()", 50);
+	setTimeout("physicsThread()", 10);
 
 }
 

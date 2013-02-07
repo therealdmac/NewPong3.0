@@ -145,32 +145,11 @@ function physicsEngine(objectOne, objectTwo){
 		    y = x / 2;
 		}, 2000);*/
 
-/*
-		console.log('old ObjectOne Speed X is ' +objectOne.speedX);
-		console.log('old ObjectOne Speed Y is ' +objectOne.speedY);
-		console.log('old ObjectTwo Speed X is ' +objectOne.speedX);
-		console.log('old ObjectTwo Speed Y is ' +objectOne.speedY); */
-
-		var oneSpeedX = normalXVectorVelocityOfBallOne + tangentXVectorVelocityOfBallOne;
-		var oneSpeedY = normalYVectorVelocityOfBallOne + tangentYVectorVelocityOfBallOne;
-		var twoSpeedX = normalXVectorVelocityOfBallTwo + tangentXVectorVelocityOfBallTwo;
-		var twoSpeedY = normalYVectorVelocityOfBallTwo + tangentXVectorVelocityOfBallTwo;
-
-/*
-		var absV = Math.abs(oneSpeedX) + Math.abs(twoSpeedX),
-			overlap = () */
-
 		//Find final velocity vectors
-		objectOne.speedX = oneSpeedX;
-		objectOne.speedY = oneSpeedY;
-		objectTwo.speedX = twoSpeedX;
-		objectTwo.speedY = twoSpeedY;
-
-/*
-		console.log('new ObjectOne Speed X is ' +objectOne.speedX);
-		console.log('new ObjectOne Speed Y is ' +objectOne.speedY);
-		console.log('new ObjectTwo Speed X is ' +objectOne.speedX);
-		console.log('new ObjectTwo Speed Y is ' +objectOne.speedY); */
+		objectOne.speedX = normalXVectorVelocityOfBallOne + tangentXVectorVelocityOfBallOne;
+		objectOne.speedY = normalYVectorVelocityOfBallOne + tangentYVectorVelocityOfBallOne;
+		objectTwo.speedX = normalXVectorVelocityOfBallTwo + tangentXVectorVelocityOfBallTwo;
+		objectTwo.speedY = normalYVectorVelocityOfBallTwo + tangentXVectorVelocityOfBallTwo;
 
 		// delay
 		/*
