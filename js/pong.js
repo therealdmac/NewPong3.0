@@ -245,7 +245,7 @@ function Game() {
 	// Start the animation loop
 	this.start = function() {
 
-		//alert('Start Game?');
+		alert('Start Game?');
 		// physicsEngine();
 	
 
@@ -332,7 +332,7 @@ function renderThread() {
 
 	// console.log('rendering count is ' +renderingTime);
 
-	setTimeout("renderThread()", 10); //1000 / X = Yfps
+	setTimeout("renderThread()", 30); //1000 / X = Yfps
 	
 }
 
@@ -356,7 +356,7 @@ function physicsThread() {
 	physicsTimeFunc();
 	game.colHandler.subDivide(game.pool.allObj);
 	physicsEngine();
-	setTimeout("physicsThread()", 10);
+	setTimeout("physicsThread()", 30);
 
 }
 

@@ -72,18 +72,25 @@ function Drawable() {
 	this.maxSize = m;
 	this.allObj = [];
 	this.num = [];
+	var objCount = 0;
 	
 	this.CreateObj = function(i){
 		
 		var newObj = CreateObjects(i);
 		this.allObj.push(newObj);
 		counter++;
+		newObj.index = objCount;
+		objCount++;
 		this.num.push(counter);
 		return newObj;
 	}
-	this.DeleteObj = function(i){
+	this.DeleteObjByIndex = function(i){
 		this.allObj.splice(i,1);
 		this.num.splice(i,1);
+		//objCount--;
+	}
+	this.DeleteObj = function(obj){
+		this.DeleteObjByIndex(obj.index);
 	}
 	this.draw = function(i){
 		for(var i=0; i<this.allObj.length; i++){
@@ -290,6 +297,7 @@ function Ball() {
  	//this.centerY = 0;
  	//this.direction = 0;
 
+ 	this.index = -1;
 	this.speed = 5;
 	this.speedX = this.speed;
 	this.speedY = this.speed;
@@ -335,22 +343,6 @@ function Ball() {
 
     this.boundaryYCollision = function() {
 
-
-    	//this.gravity(); 
-    	// Y Collision
-	    if (this.y >= this.bottomEdge - this.height - 16) {
-
-	    	// if hits paddle
-	    	if (this.x + 25 > game.paddle.x && this.x < game.paddle.x + 64)
-	    		this.speedY = -this.speed; // reverse speed
-	    	else 
-	    		 this.speedY = -this.speed;
-	    		// temporary hold
-	    		//restartGame();
-	    } else if (this.y <= this.topEdge) { // if hit the top
-	    	this.speedY = this.speed;
-	    	
-	    }
     }
 
 
@@ -418,6 +410,28 @@ function Mainball() {
 		//console.log('collide with right: ' +this.collidedwithrightEdge);
 		//console.log('collide with left: ' +this.collidedwithleftEdge);
 	};
+
+	this.boundaryYCollision = function() {
+
+
+    	//this.gravity(); 
+    	// Y Collision
+	    if (this.y >= this.bottomEdge - this.height - 16) {
+
+	    	// if hits paddle
+	    	if (this.x + 25 > game.paddle.x && this.x < game.paddle.x + 64)
+	    		this.speedY = -this.speed; // reverse speed
+	    	else {
+	    		this.speedY = -this.speed;
+	    	}
+	    		 
+	    		// temporary hold
+	    		//restartGame();
+	    } else if (this.y <= this.topEdge) { // if hit the top
+	    	this.speedY = this.speed;
+	    	
+	    }
+    }
 	
 
 }
@@ -456,6 +470,33 @@ function Enemyball() {
 		this.context.fillRect(this.x+this.width/2,this.y+this.height/2,2,2); */
 
 	};
+
+	this.boundaryYCollision = function() {
+
+
+    	//this.gravity(); 
+    	// Y Collision
+	    if (this.y >= this.bottomEdge - this.height - 16) {
+
+	    	// if hits paddle
+	    	if (this.x + 25 > game.paddle.x && this.x < game.paddle.x + 64)
+	    		this.speedY = -this.speed; // reverse speed
+	    	else {
+	    		// this.speedY = -this.speed;
+	    		// alert('object is about to be deleted');
+	    		//destroyBall();
+	    		game.pool.DeleteObj(this);
+	    		// alert('delete object done');
+	    	}
+	    		 
+	    		// temporary hold
+	    		//restartGame();
+	    } else if (this.y <= this.topEdge) { // if hit the top
+	    	this.speedY = this.speed;
+	    	
+	    }
+    }
+
 
 }
 Enemyball.prototype = new Ball();
