@@ -145,10 +145,11 @@ function physicsEngine(objectOne, objectTwo){
 		    y = x / 2;
 		}, 2000);*/
 
-		//console.log('old ObjectOne Speed X is ' +objectOne.speedX);
-		//console.log('old ObjectOne Speed Y is ' +objectOne.speedY);
-		//console.log('old ObjectTwo Speed X is ' +objectOne.speedX);
-		//console.log('old ObjectTwo Speed Y is ' +objectOne.speedY);
+/*
+		console.log('old ObjectOne Speed X is ' +objectOne.speedX);
+		console.log('old ObjectOne Speed Y is ' +objectOne.speedY);
+		console.log('old ObjectTwo Speed X is ' +objectOne.speedX);
+		console.log('old ObjectTwo Speed Y is ' +objectOne.speedY); */
 
 		var oneSpeedX = normalXVectorVelocityOfBallOne + tangentXVectorVelocityOfBallOne;
 		var oneSpeedY = normalYVectorVelocityOfBallOne + tangentYVectorVelocityOfBallOne;
@@ -165,10 +166,11 @@ function physicsEngine(objectOne, objectTwo){
 		objectTwo.speedX = twoSpeedX;
 		objectTwo.speedY = twoSpeedY;
 
-		//console.log('new ObjectOne Speed X is ' +objectOne.speedX);
-		//console.log('new ObjectOne Speed Y is ' +objectOne.speedY);
-		//console.log('new ObjectTwo Speed X is ' +objectOne.speedX);
-		//console.log('new ObjectTwo Speed Y is ' +objectOne.speedY);
+/*
+		console.log('new ObjectOne Speed X is ' +objectOne.speedX);
+		console.log('new ObjectOne Speed Y is ' +objectOne.speedY);
+		console.log('new ObjectTwo Speed X is ' +objectOne.speedX);
+		console.log('new ObjectTwo Speed Y is ' +objectOne.speedY); */
 
 		// delay
 		/*

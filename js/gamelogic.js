@@ -278,27 +278,31 @@ function collisionDetection(obj1, obj2) {
     //console.log('overlapped!')
     alert('overlapped');
 
-      //console.log('overlapped');
-      obj2.clip();
+      correction(obj1, obj2);
 
-      var radian = Math.acos( (distanceX/(distance+1))*Math.PI/180 );
+/*
+    console.log('old ObjectOne Speed X is ' +obj1.speedX);
+    console.log('old ObjectOne Speed Y is ' +obj1.speedY);
+    console.log('old ObjectTwo Speed X is ' +obj2.speedX);
+    console.log('old ObjectTwo Speed Y is ' +obj2.speedY); */
 
-      var moveX = overlapDistance*Math.cos(radian);
-      var moveY = overlapDistance*Math.sin(radian);
+      physicsEngine(obj1, obj2);
 
-      if(y2 > y1) {
-        moveY = -moveY;
-      }
+      /*
 
-      obj2.x = obj2.x - moveX+10;
-      obj2.y = obj2.y - moveY+10;
+    console.log('new ObjectOne Speed X is ' +obj1.speedX);
+    console.log('new ObjectOne Speed Y is ' +obj1.speedY);
+    console.log('new ObjectTwo Speed X is ' +obj2.speedX);
+    console.log('new ObjectTwo Speed Y is ' +obj2.speedY); */
 
-      obj2.draw(); 
+      console.log('passed physics engine code');
 
-      goodToGo = 1;
+      //goodToGo = 1;// can call physics engine
 
 
-  } else if(overlapDistance > -5 && overlapDistance < 0 && goodToGo) {
+      // if the ball is separated by more than 5 pixels
+      // and it's not TOO separated (e.g. -100: where the balls are far apart)
+  } else if(0) {
     
     console.log('physics activated!');
 

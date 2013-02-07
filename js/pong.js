@@ -271,6 +271,8 @@ function Game() {
 
 		cycleCheck();
 
+		correctionThread();
+
 		// setInterval(animate(), 30);
 		// setInterval(animate2(), 30);
 
@@ -332,6 +334,11 @@ function renderThread() {
 
 	setTimeout("renderThread()", 50); //1000 / X = Yfps
 	
+}
+
+function correctionThread() {
+	correction();
+	setTimeout("correctionThread()", 20);
 }
 
 function collisionThread() {
