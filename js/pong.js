@@ -71,9 +71,10 @@ var imageRepository = new function() {
 	this.enemyball = new Image();
 	this.enemyballBig = new Image();
 	this.shooter = new Image();
+	this.arrow = new Image();
 
 	// Ensure all images have loaded before starting the game
-	var numImages = 6;
+	var numImages = 7;
 	var numLoaded = 0;
 
 	function imageLoaded() {
@@ -100,6 +101,9 @@ var imageRepository = new function() {
 	this.shooter.onload = function() {
 		imageLoaded();
 	}
+	this.arrow.onload = function() {
+		imageLoaded();
+	}
 
 	// Set images src
 	this.background.src = "imgs/bg.png";
@@ -108,6 +112,7 @@ var imageRepository = new function() {
 	this.enemyball.src = "imgs/enemy_ball.png";
 	this.enemyballBig.src = "imgs/enemy_ball_big.png";
 	this.shooter.src = "imgs/shooter.png";
+	this.arrow.src = "imgs/arrow.png";
 }
 
 
@@ -317,7 +322,7 @@ function cycleCheck() {
 
 	if (renderingTime > physicsTime) {
 		renderingFaster++;
-		alert('rendering is faster than physics count: ' +renderingFaster++);
+		//alert('rendering is faster than physics count: ' +renderingFaster++);
 		renderingTime = 0;
 		physicsTime = 0;
 	}

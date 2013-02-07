@@ -88,6 +88,7 @@ function Drawable() {
 				debugContext.font="20px Arial";
 				debugContext.fillStyle = 'yellow';
 				debugContext.fillText(this.num[i],this.allObj[i].x,this.allObj[i].y);
+				this.allObj[i].drawArrow();
 			}
 		}
 		this.draw();
@@ -265,6 +266,14 @@ function Ball() {
 		this.context.clearRect(this.x, this.y, this.width, this.height);
 		this.context.restore();
     }
+	
+	this.drawArrow = function(){
+		debugContext.save();
+		debugContext.translate(this.x+this.width/2, this.y+this.height/2+imageRepository.arrow.height/2);
+		debugContext.rotate(Math.atan2(this.speedY, this.speedX));
+		debugContext.drawImage(imageRepository.arrow,0,0);
+		debugContext.restore();
+	}
 
     this.boundaryXCollision = function() {
 
