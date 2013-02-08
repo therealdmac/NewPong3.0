@@ -168,6 +168,31 @@ function gameTimer(){
 		yVelocityOfBall += 5;	//can change this value to fit our canvas size and general speed
 	}
 }*/
+/******* added by beeb *****/
+var regionMainBallIsIn;
+/******* added by beeb *****/
+function manipulateEnemyBalls(){
+	//Concept: Get the enemy balls on the other region with respect to the main ball
+	//and make them move towards the mainball slowly but at an increasing rate
+
+	regionMainBallIsIn = game.mainball.ballRegion;
+	switch(regionMainBallIsIn){
+		case 'left'	
+			//getEnemyBallsInRightRegion();//returns an array containing the ball id
+			//manipulateThisEnemyBalls(thisArray);
+			break;
+
+		case 'right'
+			//getEnemyBallsInLeftRegion();
+			//manipulateThisEnemyBalls(thisArray);
+			break;
+	}//switch case
+}
+/*
+function manipulateThisEnemyBalls(){
+	
+}
+*/
 function blinkingBallAttraction(mainBallXCoordinate, 
 								mainBallYCoordinate, 
 								blinkingBallXCoordinate, 

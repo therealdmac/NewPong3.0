@@ -196,6 +196,10 @@ Paddle.prototype = new Drawable();
 Paddle.prototype.tiltPaddle = function(keyCode){
 	if(keyCode == "up"){
 		rotatePaddle();
+<<<<<<< HEAD
+=======
+		//console.log.('tilitng the padsle + this.x');
+>>>>>>> trying the pulling enemy thingy...
 	}else if(keyCode == "down"){
 		rotatePaddle();
 	}
@@ -487,12 +491,12 @@ function Enemyball() {
 	    	// if hits paddle
 	    	if (this.x + 25 > game.paddle.x && this.x < game.paddle.x + 64)
 	    		this.speedY = -this.speed; // reverse speed
+
 	    	else if (this.y > this.bottomEdge) {
 	    		// temporary - make it bounce for easier debug
 	    		 this.speedY = -this.speed;
 	    		// actual CODE to delete object
 	    		// game.pool.DeleteObj(this);
-	    		
 	    	}
 	    		 
 	    		// temporary hold
