@@ -435,7 +435,7 @@ function Mainball() {
 	    	if (this.x + 25 > game.paddle.x && this.x < game.paddle.x + 64)
 	    		this.speedY = -this.speed; // reverse speed
 	    	else {
-	    		this.speedY = -this.speed;
+	    		restartGame();
 	    	}
 	    		 
 	    		// temporary hold
@@ -523,35 +523,3 @@ function Enemyball() {
 
 }
 Enemyball.prototype = new Ball();
-
-/********** added by beeb *****************/
-/*
-function BlinkingBall(){
-	this.leftEdge = 0;
-	this.rightEdge = this.canvasWidth;
-	this.topEdge = 0;
-	this.bottomEdge = this.canvasHeight;
-	this.image = imageRepository.blinkingBall;
-
-	this.mass = 5;
-	this.speedX = Math.random();
-	this.typeofball = 'blinkingball';
-
-	this.draw = function(){
-		
-		this.clipImg();
-
-		this.x += this.speedX;
-		this.y += this.speedY;
-
-		this.boundaryXCollision();
-		this.boundaryYCollision();
-
-		//this linr below has been commented out because,
-		// there is no image of the blinking ball available
-		//so for now use the blinking ball thingy
-		this.context.drawImage(this.image, this.x, this.y);
-	}
-}
-BlinkingBall.prototype = new Enemyball(); //inherit ball properties
- /********** added by beeb *****************/

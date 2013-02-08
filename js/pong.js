@@ -281,7 +281,7 @@ function Game() {
 // Global Variables to Check if Rendering > Physics vice versa
 // *******************************************
 function shooterTimer() {
-
+	
 	
 	// every 2 seconds
 	if (gameTime%200 == 0) {

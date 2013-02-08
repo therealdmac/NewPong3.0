@@ -2,6 +2,8 @@
 // calculate frames per second
 // http://stackoverflow.com/questions/5078913/html5-canvas-performance-calculating-loops-frames-per-second
 // *****************************************
+
+
 var fps = 0, now, lastUpdate = (new Date)*1 - 1;
 
 // The higher this value, the less the FPS will be affected by quick changes

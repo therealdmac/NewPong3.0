@@ -1,6 +1,7 @@
 var debugCanvas = document.getElementById('debugcanvas');
 var debugContext = debugCanvas.getContext('2d');
 
+
 function CollisionHandler(){
 	this.quadTree = new QuadTree({x:0,y:0,width:debugCanvas.width, height:debugCanvas.height});
 	this.subDivide = function(objArr){

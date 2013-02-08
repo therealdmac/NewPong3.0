@@ -10,6 +10,8 @@ var isTimeForManipulation;
 
 var blinkingEffect = 0;;
 
+
+
 function setGameBallYDirection(){
 	//If the ball is moving down, it is deemed to have positive direction
 	if(game.mainball.speedY > 0){
@@ -17,6 +19,8 @@ function setGameBallYDirection(){
 	}else{
 		game.mainball.ballMovingDown = false;
 	}
+
+
 	//console.log('is ball in y direction:' + game.mainball.ballMovingDown);
 }
 function setGameBallXDirection(){
@@ -59,6 +63,9 @@ function setEnemyBallRegion(thisObj){
 	}
 }
 function isTimeForManipulation(){
+
+
+
 
 	// console.log('is blinking ball valid? ' +game.blinkingBall.x);
 
@@ -133,10 +140,11 @@ function gameTimer(){
 		document.getElementById("mani-status-text").innerHTML = 'ON';
 		document.getElementById("mani-status-box").style.background = 'green';
 
+
 		// console.log('is blinking ball valid? ' +game.blinkingBall.x);
 
 		// alert('freeze');
-		//isTimeForManipulation();
+		isTimeForManipulation();
 	}
 	gameTime++;
 
