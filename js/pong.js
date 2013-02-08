@@ -1,6 +1,7 @@
  /**
  * Initialize the Game and start it
  */
+
 var game = new Game();
 
 var d = new Date();
@@ -14,7 +15,7 @@ var gameTime = 0;
 
 // Keep track of enemy ball
 var enemyballPoolonScreen = 0;
-var blinkingballPool = 1;
+var blinkingballPool = 0;
 
 
 //************ added by beeb ****************
@@ -29,6 +30,7 @@ function init() {
 	}
 		
 } 
+
 
 function restartGame() {
 	if (game.mainball.y > game.mainball.bottomEdge)
@@ -135,6 +137,8 @@ var imageRepository = new function() {
 }
 
 
+
+
  /**
  * Creates the Game object which will hold all objects and data for
  * the game.
@@ -220,14 +224,12 @@ function Game() {
 			var mainballStartY = this.mainCanvas.height/10;
 
 			this.mainball.init(mainballStartX, mainballStartY, imageRepository.mainball);
-			
-			
 
 			// EnemyBall starting location
-
 			// this.enemyball.init(100, 100, imageRepository.enemyball);
 
 			// this.blinkingBall.init(60, 20, imageRepository.blinkingBall);
+			
 			
 
 			return true;
@@ -248,7 +250,7 @@ function Game() {
 		game.paddle.draw();
 		game.shooter.draw();
 		game.pool.animate();
-		this.pool.draw();
+		game.pool.draw();
 
 		checkFPS();
 
@@ -262,9 +264,16 @@ function Game() {
 
 		cycleCheck();
 
-		shooterTimer();
+		
+
+
+	
 
 	};
+
+
+
+	//console.log('blinkingBall X is ' +this.mainball.x);
 
 }
 
@@ -273,38 +282,38 @@ function Game() {
 // *******************************************
 function shooterTimer() {
 
-	var justshotBlinkingBall = 0;
-	var justshotBigBall = 0;
-
 	
+	// every 2 seconds
+	if (gameTime%200 == 0) {
 
-	if (gameTime%300 == 0) {
+		// if more than two balls on screen
+		// and there is more than 1 ball
+		// and no blinking balls (this is to avoid having two blinking balls at the same time)
+		if (enemyballPoolonScreen >= 5 && 
+			blinkingballPool == 0) {
 
-		if (enemyballPoolonScreen == 2 && enemyballPoolonScreen != 0 && blinkingballPool == 1) {
-
-			alert('shoot a blinking ball!');
 			game.shooter.shootBlinkingBall();
-			justshotBlinkingBall = 1;
 
-			blinkingBallAttraction(game.mainball.x,
-							   game.mainball.y,
-							   game.shooter.createdBlinkingBall.x,
-							   game.shooter.createdBlinkingBall.y,
-							   game.mainball.speedX,
-							   game.mainball.speedY);
 
 		}  else {
-			alert('shoot a normal ball!');
 			game.shooter.shoot();
 		}
 
-
-		
-
+//game.shooter.createdBlinkingBall.x
 	}
 
-	
-	
+}
+
+function activateBlinkingBall() {
+
+	if(blinkingballPool == 1) {
+		blinkingBallAttraction(game.mainball.x,
+		   game.mainball.y,
+		   game.shooter.createdBlinkingBall.x,
+		   game.shooter.createdBlinkingBall.y,
+		   game.mainball.speedX,
+		   game.mainball.speedY);
+	}
 
 }
 
@@ -348,6 +357,9 @@ function renderThread() {
 	game.shooter.draw();
 
 	game.pool.animate();
+
+	// activate blinking ball
+	activateBlinkingBall()
 
 	
 /*	console.log("--------------Ball Indexes-------------------------");

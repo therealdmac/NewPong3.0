@@ -197,6 +197,7 @@ function blinkingBallAttraction(mainBallXCoordinate,
 	//mainBall will experience a vector of magnitude 4 pointing towards center of blinkingBall
 	//Called every frame
 	//Required input: x and y coordinates of center of mainBall and blinkingBall, x and y velocity of mainBall
+	// console.log('blinkingball attraction being called');
 	
 	var joiningXVector, joiningYVector, unitJoiningXVector, unitJoiningYVector;
 	var attractionXVector, attractionYVector;
@@ -209,8 +210,8 @@ function blinkingBallAttraction(mainBallXCoordinate,
 	unitJoiningYVector = joiningYVector / Math.sqrt(joiningXVector * joiningXVector + joiningYVector * joiningYVector);
 	
 	//Multiply unit joining vector by magnitude of 4 (number can be changed)
-	attractionXVector = unitJoiningXVector * 0.5;
-	attractionYVector = unitJoiningYVector * 0.5;
+	attractionXVector = unitJoiningXVector * 0.1;
+	attractionYVector = unitJoiningYVector * 0.1;
 	
 	//Find mainBall's new velocity vectors
 	game.mainball.speedX = xVelocityOfMainBall + attractionXVector;

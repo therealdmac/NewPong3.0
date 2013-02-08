@@ -109,7 +109,7 @@ function Drawable() {
 			return new Mainball();
 			break;
 		/******* added by beeb **************/
-		/*
+		
 		case 3:
 			return new BlinkingBall();
 			break;
@@ -247,6 +247,7 @@ function Shooter() {
 		if (enemyballPoolonScreen < this.enemyballPool) {
 
 			this.createdEnemyBall = game.pool.CreateObj(1);
+			this.createdEnemyBall.typeofball = 'enemyball';
 			this.createdEnemyBall.init(enemyStartX, enemyStartY, imageRepository.enemyball);
 			
 			enemyballPoolonScreen++;
@@ -266,7 +267,7 @@ function Shooter() {
 
 			this.createdEnemyBall = game.pool.CreateObj(1);
 			this.createdEnemyBall.mass = 5;
-			this.createdEnemyBall.type = 'enemyballBig';
+			this.createdEnemyBall.typeofball = 'enemyballBig';
 			this.createdEnemyBall.init(enemyStartX, enemyStartY, imageRepository.enemyballBig);
 
 			enemyballPoolonScreen++;
@@ -291,11 +292,14 @@ function Shooter() {
 		this.createdBlinkingBall = game.pool.CreateObj(1);
 
 		this.createdBlinkingBall.mass = 10;
-		this.createdEnemyBall.type = 'blinkingBall';
+		this.createdBlinkingBall.typeofball = 'blinkingBall';
 		this.createdBlinkingBall.init(enemyStartX, enemyStartY, imageRepository.blinkingBall);
 
-			enemyballPoolonScreen++;
-			blinkingballPool++;
+		enemyballPoolonScreen++;
+		blinkingballPool++;
+
+
+
 	}
 	
 }
@@ -449,11 +453,11 @@ function Enemyball() {
     this.rightEdge = this.canvasWidth;
     this.topEdge = 0;
     this.bottomEdge = this.canvasHeight;
-	this.image = imageRepository.enemyball;
+	//this.image = imageRepository.enemyball;
 
     this.mass = 3;
     this.speedX = Math.random();
-    this.typeofball = 'enemyball';
+    this.typeofball = null;
 
 	//Move the main ball
 	this.draw = function() {
@@ -489,15 +493,16 @@ function Enemyball() {
 	    		// temporary - make it bounce for easier debug
 	    		// this.speedY = -this.speed;
 	    		// actual CODE to delete object
-	    		 game.pool.DeleteObj(this);
-	    		// update enemyball 
 	    		enemyballPoolonScreen--;
-	    		console.log('enemyball on screen is ' +enemyballPoolonScreen);
-	    		if(this.type == 'blinkingBall') {
+
+	    		if(this.typeofball == 'blinkingBall') {
 	    			blinkingballPool--;
 	    		}
+	    		 game.pool.DeleteObj(this);
+	    		// update enemyball 
 	    		
-
+	    		//console.log('enemyball on screen is ' +enemyballPoolonScreen);
+	    		
 	    	}
 	    		 
 	    		// temporary hold
@@ -519,6 +524,7 @@ function BlinkingBall(){
 	this.rightEdge = this.canvasWidth;
 	this.topEdge = 0;
 	this.bottomEdge = this.canvasHeight;
+	this.image = imageRepository.blinkingBall;
 
 	this.mass = 5;
 	this.speedX = Math.random();

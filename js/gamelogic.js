@@ -292,7 +292,7 @@ function collisionDetection(obj1, obj2) {
   //console.log('obj2 is: ' + obj2.typeof);
   if(overlapDistance > 0) {
     blinkingFlag = determineBlinkingBall(obj1, obj2);
-    console.log('blinkingFlag is: ' + blinkingFlag);
+   // console.log('blinkingFlag is: ' + blinkingFlag);
     switch(blinkingFlag){
       case 1:
         game.pool.destroyObj(obj1);
