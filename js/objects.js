@@ -72,15 +72,18 @@ function Drawable() {
 			this.allObj[j].index = j;
 		objCount--;
 	}
+
 	this.DeleteObj = function(obj){
 		this.DeleteObjByIndex(obj.index);
 	}
+
 	this.draw = function(i){
 		for(var i=0; i<this.allObj.length; i++){
 			//alert(""+this.allObj[i].x + " " + this.allObj[i].y);
 			this.allObj[i].draw();
 		}
 	}
+
 	this.animate = function(i){
 		for(var i=0; i<this.allObj.length; i++){
 			//this.allObj[i].move();
@@ -311,7 +314,7 @@ function Ball() {
  	//this.direction = 0;
 
  	this.index = -1;
-	this.speed = 4;
+	this.speed = 2;
 	this.speedX = this.speed;
 	this.speedY = this.speed;
 
@@ -410,18 +413,8 @@ function Mainball() {
 	    this.boundaryXCollision();
 	    this.boundaryYCollision();
 
-	    //this.gravity();
-
-	    
-
 		this.context.drawImage(this.image, this.x, this.y);
-		/*
-		this.context.fillStyle="#FF0000";
-		this.context.fillRect(this.x+this.width/2,this.y+this.height/2,2,2);
-		*/
 
-		//console.log('collide with right: ' +this.collidedwithrightEdge);
-		//console.log('collide with left: ' +this.collidedwithleftEdge);
 	};
 
 	this.boundaryYCollision = function() {
@@ -457,7 +450,7 @@ function Enemyball() {
     this.rightEdge = this.canvasWidth;
     this.topEdge = 0;
     this.bottomEdge = this.canvasHeight;
-	this.image = imageRepository.enemyball;
+	//this.image = imageRepository.enemyball;
 
     this.mass = 3;
     this.speedX = Math.random();
@@ -494,12 +487,12 @@ function Enemyball() {
 	    	// if hits paddle
 	    	if (this.x + 25 > game.paddle.x && this.x < game.paddle.x + 64)
 	    		this.speedY = -this.speed; // reverse speed
-	    	else {
+	    	else if (this.y > this.bottomEdge) {
+	    		// temporary - make it bounce for easier debug
 	    		 this.speedY = -this.speed;
-	    		// alert('object is about to be deleted');
-	    		//destroyBall();
-	    		 game.pool.DeleteObj(this);
-	    		alert('delete object done');
+	    		// actual CODE to delete object
+	    		// game.pool.DeleteObj(this);
+	    		
 	    	}
 	    		 
 	    		// temporary hold
@@ -538,8 +531,8 @@ function BlinkingBall(){
 		//this linr below has been commented out because,
 		// there is no image of the blinking ball available
 		//so for now use the blinking ball thingy
-		this.context.drawImage(imageRepository.enemyballBig, this.x, this.y);
+		this.context.drawImage(this.image, this.x, this.y);
 	}
 }
-BlinkingBall.prototype = new Ball(); //inherit ball properties
+BlinkingBall.prototype = new Enemyball(); //inherit ball properties
  /********** added by beeb *****************/

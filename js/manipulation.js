@@ -58,7 +58,7 @@ function isTimeForManipulation(){
 	//console.log('entered isTimeForManipulation');
 
 	document.getElementById("executed-status-box").style.background = 'red';
-	/* 
+	
 	if((blinkingEffect % 10 )== 0){
 		blinkingBallAttraction(game.mainball.x,
 							   game.mainball.y,
@@ -68,7 +68,7 @@ function isTimeForManipulation(){
 							   game.mainball.speedY);
 	}
 	blinkingEffect++;
-	console.log('blinking effect: ' + blinkingEffect);*/
+	//console.log('blinking effect: ' + blinkingEffect);
 
 	//Set the gameBallParameters parameters
 	
@@ -174,7 +174,7 @@ function blinkingBallAttraction(mainBallXCoordinate,
 								blinkingBallYCoordinate, 
 								xVelocityOfMainBall, 
 								yVelocityOfMainBall){
-	console.log('pulling the mainBall...');
+	//console.log('pulling the mainBall...');
 	//mainBall will experience a vector of magnitude 4 pointing towards center of blinkingBall
 	//Called every frame
 	//Required input: x and y coordinates of center of mainBall and blinkingBall, x and y velocity of mainBall
@@ -190,12 +190,12 @@ function blinkingBallAttraction(mainBallXCoordinate,
 	unitJoiningYVector = joiningYVector / Math.sqrt(joiningXVector * joiningXVector + joiningYVector * joiningYVector);
 	
 	//Multiply unit joining vector by magnitude of 4 (number can be changed)
-	attractionXVector = unitJoiningXVector * 4;
-	attractionYVector = unitJoiningYVector * 4;
+	attractionXVector = unitJoiningXVector * 0.5;
+	attractionYVector = unitJoiningYVector * 0.5;
 	
 	//Find mainBall's new velocity vectors
 	game.mainball.speedX = xVelocityOfMainBall + attractionXVector;
-	console.log('mainball new x speed after pulled: ' + game.mainball.speedX);
+	//console.log('mainball new x speed after pulled: ' + game.mainball.speedX);
 	game.mainball.speedY = yVelocityOfMainBall + attractionYVector;
-	console.log('mainball new y speed after pulled: ' + game.mainball.speedY);
+	//console.log('mainball new y speed after pulled: ' + game.mainball.speedY);
 }

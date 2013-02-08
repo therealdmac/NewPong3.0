@@ -193,7 +193,7 @@ function Game() {
 			this.shooter = new Shooter();
 			this.paddle = new Paddle();
 			/************** added by beeb ******************/
-			// this.blinkingBall = this.pool.CreateObj(3);
+			this.blinkingBall = this.pool.CreateObj(3);
 			/************** added by beeb ******************/
 			
 			this.background = new Background();
@@ -230,7 +230,7 @@ function Game() {
 
 			this.enemyball.init(100, 100, imageRepository.enemyball);
 
-			// this.blinkingBall.init(60, 20, imageRepository.blinkingBall);
+			this.blinkingBall.init(60, 20, imageRepository.blinkingBall);
 			
 
 			return true;
@@ -265,7 +265,7 @@ function Game() {
 
 		cycleCheck();
 
-		shooterTimer();
+		//shooterTimer();
 
 	};
 
