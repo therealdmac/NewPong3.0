@@ -264,7 +264,7 @@ function collisionDetection(obj1, obj2) {
 
 
   // if there is a collision 
-
+ var radian = Math.acos( (distanceX/(distance+1))*Math.PI/180 );
  var overlapDistance = combinedRadius - distance; //+2 is a buffer
 
  //console.log('overlapdisnace is ' +overlapDistance)

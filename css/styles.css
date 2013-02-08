@@ -48,6 +48,10 @@ canvas {
 		width: 130px;
 	}
 
+	#mainball-debug {
+		display: none;
+	}
+
 	.status-box {
 		width: 15px;
 		height: 15px;

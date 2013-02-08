@@ -56,6 +56,7 @@ function isTimeForManipulation(){
 	// console.log('is blinking ball valid? ' +game.blinkingBall.x);
 
 	document.getElementById("executed-status-box").style.background = 'red';
+	/* 
 	if((blinkingEffect % 10 )== 0){
 		blinkingBallAttraction(game.mainball.x,
 							   game.mainball.y,
@@ -71,6 +72,7 @@ function isTimeForManipulation(){
 	setGameBallXDirection();
 	setGameBallRegion();
 	setPaddleCurrentRegion();
+	*/
 	//Determine if the gameball has collided with the edges and also is moving down
 	if(//game.mainball.ballMovingDown && 
 	   (game.mainball.collidedwithrightEdge || game.mainball.collidedwithleftEdge) &&
@@ -81,6 +83,8 @@ function isTimeForManipulation(){
 }
 
 function manipulateGameBall(){
+
+	console.log('inside ManipulateGame');
 
 	switch (game.paddle.paddleRegion){
 		case 'left': 	
@@ -123,14 +127,14 @@ function gameTimer(){
 	//if(gameTimeElapsed > 10)	
 	//	isTimeForManipulation();
 	//console.log('gameTimer ' +gameTime);
-	if (gameTime > 1000) {
+	if (gameTime > 300) {
 		document.getElementById("mani-status-text").innerHTML = 'ON';
 		document.getElementById("mani-status-box").style.background = 'green';
 
 		// console.log('is blinking ball valid? ' +game.blinkingBall.x);
 
 		// alert('freeze');
-		//isTimeForManipulation();
+		isTimeForManipulation();
 	}
 	gameTime++;
 

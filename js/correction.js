@@ -1,4 +1,4 @@
-function correction(obj1,obj2) {
+function correction(obj1,obj2, overlapDistance, radian) {
 
 	// obj2 is the object on the left
 
@@ -9,10 +9,10 @@ function correction(obj1,obj2) {
 	 	//console.log('object is undefined');
 	 }else{
 	 	//obj1.clipImg();
-	    obj2.clipImg();
-
-	    obj1.clipImg();
+	    
 	 	//if obj2 is on the left
+
+	 	
 		var x1 = obj1.x;
 		var y1 = obj1.y;
 
@@ -42,12 +42,18 @@ function correction(obj1,obj2) {
 	    //  console.log('moveY is ' +moveY);
 
 	   // alert('getting ready to be clipped');
+	  // alert('ready to be clipped');
+	   obj2.clipImg();
+
+	    obj1.clipImg();
 
 	    obj2.x = obj2.x - moveX/2;
 	    obj2.y = obj2.y + moveY/2;
+	    
 
 	    obj1.x = obj1.x + moveX/2;
 	    obj1.y = obj1.y - moveY/2;
+	   // alert('object2 clipped');
 	    
 	     
 		

@@ -317,13 +317,15 @@ function renderThread() {
 	game.paddle.move();
 	game.paddle.draw();
 	game.shooter.draw();
-	
+
 	game.pool.animate();
 
 
 	// Start counting game timer
 	gameTimer();
 	renderingTimeFunc(); // plus count
+
+	//correction();
 
 	// console.log('rendering count is ' +renderingTime);
 
@@ -351,6 +353,7 @@ function physicsThread() {
 
 function cycleCheck() {
 	requestAnimFrame( cycleCheck );
+
 	if (renderingTime > physicsTime) {
 		renderingFaster++;
 		renderingTime = 0;
