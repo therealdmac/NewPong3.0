@@ -1,36 +1,30 @@
 <!DOCTYPE html>
 <html>
   <head>
-  	<LINK href="css/styles.css" rel="stylesheet" type="text/css">
+  	<link href="css/styles.css" rel="stylesheet" type="text/css">
+  	<link href='http://fonts.googleapis.com/css?family=Pirata+One' rel='stylesheet' type='text/css'>
     <title>Project 2 Demo</title>
 
     </head>
 
     <body>
+    <header>
 
-    	<!-- The canvas for the background -->
-		<canvas id="background" width="900" height="650">
-			Your browser does not support canvas. Please try again with a different browser.
-		</canvas>
+    	<h1>Advanced Pong</h1>
 
-		<!-- The canvas for all enemy balls -->
-		<canvas id="main" width="900" height="650">
-		</canvas>
+    	<button id="debug-btn" onclick='showDebug()'>
+    		<h2>Debug Mode</h2>
+    	</button>
+    	<button id="debug-btn-off" onclick='hideDebug()'>
+    		<h2>OFF</h2>
+    	</button>
 
-		<!-- The canvas for the paddle (can only move up
-         one forth the screen.) -->
-		<canvas id="paddle" width="900" height="650">	
-		</canvas>
-		
-		<!-- The canvas for objects drawn in debug mode-->
-		<canvas id="debugcanvas" width="900" height="650">	
-		</canvas>
+    </header>
 
-	<article id='debug-console'>
-		<h3>Debug Mode: </h3><output id='debug-status'>OFF</output>
-		<button onclick='showDebug()'>On</button>
-		<button onclick='hideDebug()'>Off</button>
-		<h4>Rending Fps: </h4><output id='fps'>NA</output>
+    <article id='debug-console'>
+		<div>
+			<h4>Rending Fps: </h4><output id='fps'>NA</output>
+		<!--
 		<h4>Small Balls:</h4>
 		<button onclick='shootBall()'>Shoot</button>
 		<button onclick='destroyBall()'>Destroy</button>
@@ -39,52 +33,59 @@
 		<button onclick='shootBigBall()'>Shoot</button>
 		<button onclick='destroyBigBall()'>Destroy</button>
 
-		<!-- ************* added by beeb *************************** -->
 		<h4> Blinking Ball! </h4>
 		<button onclick = 'shootBlinkingBall()'> Blinking Ball </button>
-		<!-- ************* added by beeb *************************** -->
-	</article>
+	-->
+		</div>
 
-	<section id="debug">
-		<article id='timer-debug'>
-			
-			<p>Main Timer: <output id="result"></output></p>
-			<button onclick="startTimer()">Start Timer</button>
-
-			<p>Parallel Timer: <output id="result2"></output></p>
-			<button onclick="startTimer2()">Start Normal Timer</button> 
-
-			<p>Web Worker Timer: <output id="result3"></output></p>
-			<button onclick="startWorker()">Start WebWorker Timer</button>
-
-		</article>
-
-		<article id='mainball-debug'>
+		<div id='mainball-debug'>
 			<h3>MainBall</h3>
 			<!--
 			<p>x coordinate: <output id="mbX">0</output></p>
 			<p>y coordinate: <output id="mbY">0</output></p> -->
 			<p>speedX: <output id="mbSx">0</output></p>
 			<p>speedY: <output id="mbSy">0</output></p>
-		</article>
+		</div>
 
-		<article id='enemyball-debug'>
+		<div id='enemyball-debug'>
 			<h3>EnemyBalls</h3>
 			<!--
 			<p>x coordinate: <output id="mbX">0</output></p>
 			<p>y coordinate: <output id="mbY">0</output></p> -->
-			<p>Now: <output id="enemyballCount">0</output></p>
+			<p>On Screen: <output id="enemyballCount">0</output></p>
 			<p>Max: <output id="mbSy">30</output></p>
-		</article>
+		</div>
 
 
-		<article id='manipulation-debug'>
+		<div id='manipulation-debug'>
 			<h3>Manipulation</h3>
 			<div id='mani-status-box' class='status-box'></div><p>Status: <output id="mani-status-text">OFF</output></p>
 			<div id='executed-status-box' class='status-box'></div><p>Executed: <output id="executed-status-text">0</output></p>
-		</article>
+		</div>
+	</article>
 
-	</section>
+    <div id="game-canvas">
+    	<!-- The canvas for the background -->
+		<canvas id="background" width="700" height="600">
+			Your browser does not support canvas. Please try again with a different browser.
+		</canvas>
+
+		<!-- The canvas for all enemy balls -->
+		<canvas id="main" width="700" height="600">
+		</canvas>
+
+		<!-- The canvas for the paddle (can only move up
+         one forth the screen.) -->
+		<canvas id="paddle" width="700" height="600">	
+		</canvas>
+		
+		<!-- The canvas for objects drawn in debug mode-->
+		<canvas id="debugcanvas" width="700" height="600">	
+		</canvas>
+
+	</div>
+
+	
 
 		<script src="js/objects.js" type="text/javascript"></script>
 		<script src="js/pong.js" type="text/javascript"></script>

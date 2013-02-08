@@ -51,14 +51,40 @@ function debugTool() {
 }
 
 	function showDebug() {
-		document.getElementById("debug").style.display = 'block';
-		document.getElementById("debug-status").innerHTML = 'ON';
+		
 		debugFlag = 1;
+
+		// animate out the debug button
+		document.getElementById("debug-btn").style.right = '-25px';
+		document.getElementById("debug-btn").style.background = 'rgb(8, 92, 8)';
+
+		// animate out the off button
+		document.getElementById("debug-btn-off").style.right = '80px';
+
+		// quadtree canvas
+		document.getElementById("debugcanvas").style.opacity = 1;
+
+		// debug data display
+		document.getElementById("debug-console").style.right = '-20px';
+		document.getElementById("debug-console").style.opacity = 0.6;
+
+
 	}
 
 	function hideDebug() {
-		document.getElementById("debug").style.display = 'none';
-		document.getElementById("debug-status").innerHTML = 'OFF';
+		
+
+		document.getElementById("debug-btn").style.right = '-40px';
+		document.getElementById("debug-btn").style.background = 'black';
+
+		document.getElementById("debug-btn-off").style.right = '-40px';
+
+		document.getElementById("debugcanvas").style.opacity = 0;
+
+		// debug data display
+		document.getElementById("debug-console").style.right = '-500px';
+		document.getElementById("debug-console").style.opacity = 0;
+
 		debugFlag = 0;
 	}
 
