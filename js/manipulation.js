@@ -7,10 +7,12 @@ var paddleRegion;//can use game.paddle.x
 var currentTime;
 var gameTimeElapsed;
 var isTimeForManipulation;
-
-var blinkingEffect = 0;;
-
-
+var blinkingEffect = 0;
+var ballType;
+var thisBallObject;
+var regionMainBallIsIn;
+var arrayToPopulate;
+var arrayToManipulate;
 
 function setGameBallYDirection(){
 	//If the ball is moving down, it is deemed to have positive direction
@@ -19,9 +21,6 @@ function setGameBallYDirection(){
 	}else{
 		game.mainball.ballMovingDown = false;
 	}
-
-
-	//console.log('is ball in y direction:' + game.mainball.ballMovingDown);
 }
 function setGameBallXDirection(){
 	//If the ball is moving to the right, it is deemed to have positive direction
@@ -33,7 +32,6 @@ function setGameBallXDirection(){
 	//console.log('is ball moving right:' + game.mainball.ballMovingRight);
 }
 function setPaddleCurrentRegion(){
-	//console.log('The current paddle location is: ' + game.paddle.x);
 	if(game.paddle.x > (game.paddle.canvasWidth / 2)){
 		game.paddle.paddleIsInTheRightRegionOfCanvas = true;
 		game.paddle.paddleIsInTheLeftRegionOfCanvas = false;
@@ -43,7 +41,6 @@ function setPaddleCurrentRegion(){
 		game.paddle.paddleIsInTheRightRegionOfCanvas = false;
 		game.paddle.paddleRegion = "left";
 	}
-	//console.log('paddle is in:' + game.paddle.paddleRegion + ' region');
 }
 function setGameBallRegion(){
 	//Get the region the game ball is in
@@ -53,7 +50,6 @@ function setGameBallRegion(){
 	}else{
 		game.mainball.ballRegion  = "right";
 	}
-	//console.log('ball is in :' + game.mainball.ballMovingDown + ' region');
 }
 function setEnemyBallRegion(thisObj){
 	if(game.thisObj.x < (game.thisObj.canvasWidth/2)){
@@ -64,35 +60,21 @@ function setEnemyBallRegion(thisObj){
 }
 function isTimeForManipulation(){
 
-
-
-
-	// console.log('is blinking ball valid? ' +game.blinkingBall.x);
-
-	//console.log('entered isTimeForManipulation');
-
 	document.getElementById("executed-status-box").style.background = 'red';
-	
-	
-	
-	
-
 	//Set the gameBallParameters parameters
-	
 	setGameBallYDirection();
-	// setGameBallXDirection();
+	//setGameBallXDirection();
 	setGameBallRegion();
 	setPaddleCurrentRegion();
-	
 	//Determine if the gameball has collided with the edges and also is moving down
-	if(//game.mainball.ballMovingDown && 
-	   (game.mainball.collidedwithrightEdge || game.mainball.collidedwithleftEdge) &&
+	if((game.mainball.collidedwithrightEdge || game.mainball.collidedwithleftEdge) &&
 	   game.mainball.ballMovingDown){	
 		manipulateGameBall();
+		manipulateEnemyBalls();
+
 	}
 }
 function manipulateGameBall(){
-
 
 	switch (game.paddle.paddleRegion){
 		case 'left': 	
@@ -129,53 +111,15 @@ function manipulateGameBall(){
 	manipulateEnemyBalls();
 }
 function gameTimer(){
-	//currentTime = ;
-
-	//gameTimeElapsed = gameTime - currentTime;
-	//If the time elapsed is more than 10 seconds, it is time for manipulation
-	//if(gameTimeElapsed > 10)	
-	//	isTimeForManipulation();
-	//console.log('gameTimer ' +gameTime);
-	if (gameTime > 1000 && enemyballPoolonScreen > 10) {
+	if (gameTime > 1000 && enemyballPoolonScreen > 5) {
 		document.getElementById("mani-status-text").innerHTML = 'ON';
 		document.getElementById("mani-status-box").style.background = 'green';
-
-
-		// console.log('is blinking ball valid? ' +game.blinkingBall.x);
-
-		// alert('freeze');
 		isTimeForManipulation();
 	}
 	gameTime++;
 
 	//setTimeout("gameTimer()", 1000);
 }
-/*function hitTheWall(xVelocityOfBall, yVelocityOfBall, gameTime, xCoordinateOfPaddle, xCoordinateOfBall) {
-	//Required input: x and y velocity of ball, how long the game has lasted, paddle x coordinate, ball x coordinate
-	
-	//Assume both walls moving downwards at same rate
-	//Reverse x velocity direction
-	xVelocityOfBall = -xVelocityOfBall;
-	
-	//Manipulation of y velocity (dont know when you wanna call this)
-	if( gameTime > 200 ) {	//game has lasted long enough for us to add manipulation
-		if( xCoordinateOfBall < 5 || xCoordinateOfPaddle > canvasWidth/2 ) {	//ball hits left wall and paddle is on other half of screen
-			yVelocityOfBall += 8;
-		}
-		else if( xCoordinateOfBall > canvasWidth-5 || xCoordinateOfPaddle < canvasWidth/2 ) {	//ball hits right wall and paddle is on other half of screen
-			yVelocityOfBall += 8;
-		}
-	}
-	//Increase y velocity "normally" if manipulation conditions not met (assuming y = 0 is top of canvas)
-	else {
-		yVelocityOfBall += 5;	//can change this value to fit our canvas size and general speed
-	}
-}*/
-/******* added by beeb *****/
-var regionMainBallIsIn;
-var arrayToPopulate;
-var arrayToManipulate;
-/*
 function manipulateEnemyBalls(){
 	//Concept: Get the enemy balls on the other region with respect to the main ball
 	//and make them move towards the mainball slowly but at an increasing rate
@@ -183,24 +127,27 @@ function manipulateEnemyBalls(){
 	regionMainBallIsIn = game.mainball.ballRegion;
 	console.log('region main ball is in: ' + regionMainBallIsIn);
 	switch(regionMainBallIsIn){
-		case 'left'	
+		case 'left':	
 			populateTheArray();
 			getEnemyBallsInRightRegion();//returns an array containing the ball id
 			manipulateThisEnemyBalls(thisArray);
 			break;
 
-		case 'right'
+		case 'right':
 			populateTheArray();
 			getEnemyBallsInLeftRegion();
 			manipulateThisEnemyBalls(thisArray);
 			break;
 	}//switch case
+	clearManipulationArrays();
 }
-var ballType;
-var thisBallObject;
-var lenghtOfArray = game.pool.allObj.length;
-console.log('lengthOfArray before populating is: ' + lengthOfArray);//for testing
+function clearManipulationArrays(){
+	arrayToPopulate.length = 0;
+	arrayToManipulate.length = 0;
+}
 function populateTheArray(){
+	var lenghtOfArray = game.pool.allObj.length;
+	console.log('lengthOfArray before populating is: ' + lengthOfArray);//for testing
 	for(var iter = 0;
 		iter < lengthOfArray;
 		iter++){
@@ -222,7 +169,7 @@ function getEnemyBallsInRightRegion(){
 }
 function getEnemyBallsInLeftRegion(){
 	var i = 0;
-	for( i in arrayToPopulate){
+	for(i in arrayToPopulate){
 		if(arrayToPopulate[i].ballRegion == "left"){
 			arrayToManipulate.push(arrayToPopulate[i]);
 		}
@@ -234,8 +181,6 @@ function manipulateThisEnemyBalls(){
 		arrayToManipulate[i].speedX += 5;//increase the speed
 	}
 }
-
-
 /******* added by beeb *******/
 function blinkingBallAttraction(mainBallXCoordinate, 
 								mainBallYCoordinate, 

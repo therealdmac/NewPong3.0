@@ -240,9 +240,11 @@ function determineBlinkingBall(obj1, obj2){
   if( ((typeof obj1) === 'blinkingBall') && 
       ((typeof obj2) === 'mainball') ){
     return 1;
+
   }else if(((typeof obj2) === 'blinkingBall') &&
            ((typeof obj1) === 'mainball')){
     return 2;
+  
   }else{
     return 3;
   }
