@@ -244,6 +244,10 @@ function Game() {
 		alert('Start Game?');
 		// physicsEngine();
 	
+		// shoot four balls
+		for(var i=0; i<4; i++) {
+			game.shooter.shoot();
+		}
 
 		//draw everything first round
 		//game.background.draw();
@@ -282,6 +286,7 @@ function Game() {
 // *******************************************
 function shooterTimer() {
 	
+
 	
 	// every 2 seconds
 	if (gameTime%200 == 0) {
@@ -297,7 +302,14 @@ function shooterTimer() {
 
 		}  else {
 			game.shooter.shoot();
+
+			if (enemyballPoolonScreen < 5) {
+				// shoot four balls
+				for(var i=0; i<4; i++) {
+					game.shooter.shoot();
 		}
+			}
+		} 
 
 //game.shooter.createdBlinkingBall.x
 	}

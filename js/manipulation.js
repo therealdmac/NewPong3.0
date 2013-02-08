@@ -136,7 +136,7 @@ function gameTimer(){
 	//if(gameTimeElapsed > 10)	
 	//	isTimeForManipulation();
 	//console.log('gameTimer ' +gameTime);
-	if (gameTime > 300) {
+	if (gameTime > 1000 && enemyballPoolonScreen > 10) {
 		document.getElementById("mani-status-text").innerHTML = 'ON';
 		document.getElementById("mani-status-box").style.background = 'green';
 
@@ -175,7 +175,7 @@ function gameTimer(){
 var regionMainBallIsIn;
 var arrayToPopulate;
 var arrayToManipulate;
-
+/*
 function manipulateEnemyBalls(){
 	//Concept: Get the enemy balls on the other region with respect to the main ball
 	//and make them move towards the mainball slowly but at an increasing rate
@@ -234,6 +234,8 @@ function manipulateThisEnemyBalls(){
 		arrayToManipulate[i].speedX += 5;//increase the speed
 	}
 }
+
+
 /******* added by beeb *******/
 function blinkingBallAttraction(mainBallXCoordinate, 
 								mainBallYCoordinate, 
