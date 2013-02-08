@@ -239,7 +239,7 @@ function Shooter() {
 			enemyballPoolonScreen++;
 
 		}
-		console.log('no. of enemyball on screen = ' +enemyballPoolonScreen);
+		//console.log('no. of enemyball on screen = ' +enemyballPoolonScreen);
 
 	}
 
@@ -257,7 +257,7 @@ function Shooter() {
 
 			enemyballPoolonScreen++;
 
-			console.log('x coordinate of enemyBigBall is ' +this.createdEnemyBall.x)
+			//console.log('x coordinate of enemyBigBall is ' +this.createdEnemyBall.x)
 
 		}
 		// console.log('no. of enemyball on screen = ' +enemyballPoolonScreen);
@@ -303,7 +303,7 @@ function Ball() {
  	//this.direction = 0;
 
  	this.index = -1;
-	this.speed = 2;
+	this.speed = 4;
 	this.speedX = this.speed;
 	this.speedY = this.speed;
 
