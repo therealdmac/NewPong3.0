@@ -180,7 +180,7 @@ function Paddle() {
 					tiltPaddle("up");
 				}
 			}else if(KEY_STATUS.down){
-				if(paddleTiltedDegree != 0){
+				if(paddleTiltedDegree != -45){
 					paddleTiltedDegree -= 15;
 					this.paddle.y
 					tiltPaddle("down");
@@ -489,7 +489,6 @@ function Enemyball() {
 	    		// temporary - make it bounce for easier debug
 	    		// this.speedY = -this.speed;
 	    		// actual CODE to delete object
-
 	    		 game.pool.DeleteObj(this);
 	    		// update enemyball 
 	    		enemyballPoolonScreen--;

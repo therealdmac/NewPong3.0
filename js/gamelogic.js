@@ -234,7 +234,23 @@ function distanceMachine(x1, y1, x2, y2) {
   return distance;
 
 }
-
+/********* added by beeb ***********/
+function determineBlinkingBall(obj1, obj2){
+  if( ((typeof obj1) === 'blinkingBall') && 
+      ((typeof obj2) === 'mainball') ){
+    return 1;
+  }else if(((typeof obj2) === 'blinkingBall') &&
+           ((typeof obj1) === 'mainball')){
+    return 2;
+  }else{
+    return 3;
+  }
+}
+function modifyMainBall(thisObj){
+   game.pool.thisObj.mass = 5;
+   game.thisObj.init(thisObj.x, thisObj.y, imageRepository.enemyballBig);
+}
+/********* added by beeb ***********/
 function collisionDetection(obj1, obj2) {
 
 	var x1 = obj1.x;
@@ -261,8 +277,6 @@ function collisionDetection(obj1, obj2) {
   This code will choose a ball to push back instead of pushing both
   */
 
-
-
   // if there is a collision 
  var radian = Math.acos( (distanceX/(distance+1))*Math.PI/180 );
  var overlapDistance = combinedRadius - distance; //+2 is a buffer
@@ -271,9 +285,41 @@ function collisionDetection(obj1, obj2) {
 
   // Object2 must be on the left side of Object1
   var object1, object2;
-
+  var blinkingFlag;
+  //Case 1 & 2: the mainball is attracted to the blinking ball and
+  //the blinking ball gets destroyed along with the mainball being modified
+  //console.log('obj1 is: ' + obj1.typeof);
+  //console.log('obj2 is: ' + obj2.typeof);
   if(overlapDistance > 0) {
-
+    blinkingFlag = determineBlinkingBall(obj1, obj2);
+    console.log('blinkingFlag is: ' + blinkingFlag);
+    switch(blinkingFlag){
+      case 1:
+        game.pool.destroyObj(obj1);
+        console.log('obj1 is: ' + obj1.typeof + ' and was destroyed');
+        modifyMainBall(obj2);
+        break;
+      case 2:
+        game.pool.destroyObj(obj2);
+        console.log('obj2 is: ' + obj2.typeof + ' and was destroyed');
+        modifyMainBall(obj1);
+        break;
+      case 3:
+        // object 2 at left of object 1
+        if(obj2.x < obj1.x){
+          object2 = obj2;
+          object1 = obj1;
+        }else{ // object 2 is at the right, swap it
+          object2 = obj1;
+          object1 = obj2;
+        }
+        correction(object1, object2);
+        physicsEngine(object1, object2);
+        break;
+    }//switch case
+     
+  }//if statement
+/*
     // object 2 at left of object 1
     if(obj2.x < obj1.x) {
       object2 = obj2;
@@ -287,8 +333,8 @@ function collisionDetection(obj1, obj2) {
 
     physicsEngine(object1, object2);
 
-
-  } 
+*/
+  //} 
 
 
 	

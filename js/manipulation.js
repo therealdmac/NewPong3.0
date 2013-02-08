@@ -169,7 +169,7 @@ function manipulateEnemyBalls(){
 	//Concept: Get the enemy balls on the other region with respect to the main ball
 	//and make them move towards the mainball slowly but at an increasing rate
 
-	regionMainBallIsIn = game.mainball.ballRegion;
+	/*regionMainBallIsIn = game.mainball.ballRegion;
 	switch(regionMainBallIsIn){
 		case 'left'	
 			//getEnemyBallsInRightRegion();//returns an array containing the ball id
@@ -180,7 +180,7 @@ function manipulateEnemyBalls(){
 			//getEnemyBallsInLeftRegion();
 			//manipulateThisEnemyBalls(thisArray);
 			break;
-	}//switch case
+	}//switch case*/
 }
 /*
 function manipulateThisEnemyBalls(){
