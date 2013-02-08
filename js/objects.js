@@ -60,9 +60,17 @@ function Drawable() {
 		return newObj;
 	}
 	this.DeleteObjByIndex = function(i){
+		if(i>=this.allObj.length || i<0){
+			alert("No object found!");
+			return;
+		}
+		this.allObj[i].clipImg();
 		this.allObj.splice(i,1);
 		this.num.splice(i,1);
-		//objCount--;
+		
+		for(var j=i; j<this.allObj.length; j++)
+			this.allObj[j].index = j;
+		objCount--;
 	}
 	this.DeleteObj = function(obj){
 		this.DeleteObjByIndex(obj.index);
@@ -328,7 +336,7 @@ function Ball() {
 		debugContext.drawImage(imageRepository.arrow,0,0);
 		debugContext.restore();
 	}
-
+	
     this.boundaryXCollision = function() {
 
     	// X Collision
@@ -490,8 +498,8 @@ function Enemyball() {
 	    		 this.speedY = -this.speed;
 	    		// alert('object is about to be deleted');
 	    		//destroyBall();
-	    		// game.pool.DeleteObj(this);
-	    		// alert('delete object done');
+	    		 game.pool.DeleteObj(this);
+	    		alert('delete object done');
 	    	}
 	    		 
 	    		// temporary hold

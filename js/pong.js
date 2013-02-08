@@ -319,6 +319,11 @@ function renderThread() {
 	game.shooter.draw();
 
 	game.pool.animate();
+	
+/*	console.log("--------------Ball Indexes-------------------------");
+	for(var i=0; i<game.pool.allObj.length; i++){
+		console.log("Ball "+i+" index:"+game.pool.allObj[i].index);
+	}*/
 
 
 	// Start counting game timer
