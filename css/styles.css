@@ -25,6 +25,8 @@ header {
 	width: 96%;
 	background-image: url('../imgs/header.png');
 	background-color: grey;
+	position: relative;
+	overflow: hidden;
 	padding: 8px 2%;
 	margin-bottom: 30px;
 
