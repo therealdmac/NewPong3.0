@@ -109,6 +109,7 @@ function Drawable() {
 			return new Mainball();
 			break;
 		/******* added by beeb **************/
+		/*
 		case 3:
 			return new BlinkingBall();
 			break;
@@ -196,10 +197,7 @@ Paddle.prototype = new Drawable();
 Paddle.prototype.tiltPaddle = function(keyCode){
 	if(keyCode == "up"){
 		rotatePaddle();
-<<<<<<< HEAD
-=======
-		//console.log.('tilitng the padsle + this.x');
->>>>>>> trying the pulling enemy thingy...
+
 	}else if(keyCode == "down"){
 		rotatePaddle();
 	}
@@ -268,14 +266,13 @@ function Shooter() {
 
 			this.createdEnemyBall = game.pool.CreateObj(1);
 			this.createdEnemyBall.mass = 5;
+			this.createdEnemyBall.type = 'enemyballBig';
 			this.createdEnemyBall.init(enemyStartX, enemyStartY, imageRepository.enemyballBig);
 
 			enemyballPoolonScreen++;
 
-			//console.log('x coordinate of enemyBigBall is ' +this.createdEnemyBall.x)
-
 		}
-		// console.log('no. of enemyball on screen = ' +enemyballPoolonScreen);
+		
 	}
 
 	//************ added by beeb ****************
@@ -287,22 +284,20 @@ function Shooter() {
 	 */
 
 	this.shootBlinkingBall = function() {
-		var blinkingBallStartX = game.shooter.x,
-			blinkingBallStartY = game.shooter.y;
-		//Should only create one blinking ball for now..
-		if(blinkingBall < 2){
-			//blinlking ball is '3'rd in terms of creating the ball.
-			this.createdBlinkingBall = game.pool.CreateObj(3);
-			this.createdBlinkingBall.init(blinkingBallStartX, 
-										  blinkingBallStartY, 
-										  imageRepository.enemyballBig.width, 
-										  imageRepository.enemyballBig.height);
 
-			//console.log('inside shooter function x is ' +this.createdBlinkingBall.x);
-		}
-		console.log('no of blinking ball on screen: ' + blinkingBall);
+		var enemyStartX = game.shooter.x,
+			enemyStartY = game.shooter.y;
+
+		this.createdBlinkingBall = game.pool.CreateObj(1);
+
+		this.createdBlinkingBall.mass = 10;
+		this.createdEnemyBall.type = 'blinkingBall';
+		this.createdBlinkingBall.init(enemyStartX, enemyStartY, imageRepository.blinkingBall);
+
+			enemyballPoolonScreen++;
+			blinkingballPool++;
 	}
-	//************ added by beeb ****************
+	
 }
 Shooter.prototype = new Drawable();
 
@@ -454,7 +449,7 @@ function Enemyball() {
     this.rightEdge = this.canvasWidth;
     this.topEdge = 0;
     this.bottomEdge = this.canvasHeight;
-	//this.image = imageRepository.enemyball;
+	this.image = imageRepository.enemyball;
 
     this.mass = 3;
     this.speedX = Math.random();
@@ -483,8 +478,6 @@ function Enemyball() {
 
 	this.boundaryYCollision = function() {
 
-
-    	//this.gravity(); 
     	// Y Collision
 	    if (this.y >= this.bottomEdge - this.height - 16) {
 
@@ -494,9 +487,18 @@ function Enemyball() {
 
 	    	else if (this.y > this.bottomEdge) {
 	    		// temporary - make it bounce for easier debug
-	    		 this.speedY = -this.speed;
+	    		// this.speedY = -this.speed;
 	    		// actual CODE to delete object
-	    		// game.pool.DeleteObj(this);
+
+	    		 game.pool.DeleteObj(this);
+	    		// update enemyball 
+	    		enemyballPoolonScreen--;
+	    		console.log('enemyball on screen is ' +enemyballPoolonScreen);
+	    		if(this.type == 'blinkingBall') {
+	    			blinkingballPool--;
+	    		}
+	    		
+
 	    	}
 	    		 
 	    		// temporary hold
@@ -512,6 +514,7 @@ function Enemyball() {
 Enemyball.prototype = new Ball();
 
 /********** added by beeb *****************/
+/*
 function BlinkingBall(){
 	this.leftEdge = 0;
 	this.rightEdge = this.canvasWidth;

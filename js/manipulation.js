@@ -9,6 +9,7 @@ var gameTimeElapsed;
 var isTimeForManipulation;
 
 var blinkingEffect = 0;;
+
 function setGameBallYDirection(){
 	//If the ball is moving down, it is deemed to have positive direction
 	if(game.mainball.speedY > 0){
@@ -59,16 +60,9 @@ function isTimeForManipulation(){
 
 	document.getElementById("executed-status-box").style.background = 'red';
 	
-	if((blinkingEffect % 10 )== 0){
-		blinkingBallAttraction(game.mainball.x,
-							   game.mainball.y,
-							   game.blinkingBall.x,
-							   game.blinkingBall.y,
-							   game.mainball.speedX,
-							   game.mainball.speedY);
-	}
-	blinkingEffect++;
-	//console.log('blinking effect: ' + blinkingEffect);
+	
+	
+	
 
 	//Set the gameBallParameters parameters
 	
@@ -140,7 +134,7 @@ function gameTimer(){
 		// console.log('is blinking ball valid? ' +game.blinkingBall.x);
 
 		// alert('freeze');
-		isTimeForManipulation();
+		//isTimeForManipulation();
 	}
 	gameTime++;
 

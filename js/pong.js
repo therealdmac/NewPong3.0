@@ -14,6 +14,7 @@ var gameTime = 0;
 
 // Keep track of enemy ball
 var enemyballPoolonScreen = 0;
+var blinkingballPool = 1;
 
 
 //************ added by beeb ****************
@@ -75,12 +76,11 @@ var imageRepository = new function() {
 	this.mainball = new Image();
 	this.enemyball = new Image();
 	this.enemyballBig = new Image();
+	this.blinkingBall = new Image();
 	this.shooter = new Image();
 	this.arrow = new Image();
 
-	/******* added by beeb *********/
-	this.blinkingBall = new Image();
-	/******* added by beeb *********/
+	
 
 	// Ensure all images have loaded before starting the game
 	var numImages = 8;
@@ -131,10 +131,7 @@ var imageRepository = new function() {
 	this.enemyballBig.src = "imgs/enemy_ball_big.png";
 	this.shooter.src = "imgs/shooter.png";
 	this.arrow.src = "imgs/arrow.png";
-	/************* added by beeb *************************/
-	//for now use the  big ball as blinking ball..
-	this.blinkingBall.src = "imgs/enemy_ball_big.png";
-	/************* added by beeb *************************/
+	this.blinkingBall.src = "imgs/blinking_ball.png";
 }
 
 
@@ -189,11 +186,11 @@ function Game() {
 
 			// Initialize the objects
 			this.mainball = this.pool.CreateObj(0);
-			this.enemyball = this.pool.CreateObj(1);
+			//this.enemyball = this.pool.CreateObj(1);
 			this.shooter = new Shooter();
 			this.paddle = new Paddle();
 			/************** added by beeb ******************/
-			this.blinkingBall = this.pool.CreateObj(3);
+			// this.blinkingBall = this.pool.CreateObj(3);
 			/************** added by beeb ******************/
 			
 			this.background = new Background();
@@ -228,9 +225,9 @@ function Game() {
 
 			// EnemyBall starting location
 
-			this.enemyball.init(100, 100, imageRepository.enemyball);
+			// this.enemyball.init(100, 100, imageRepository.enemyball);
 
-			this.blinkingBall.init(60, 20, imageRepository.blinkingBall);
+			// this.blinkingBall.init(60, 20, imageRepository.blinkingBall);
 			
 
 			return true;
@@ -265,12 +262,51 @@ function Game() {
 
 		cycleCheck();
 
-		//shooterTimer();
+		shooterTimer();
 
 	};
 
 }
 
+// *******************************************
+// Global Variables to Check if Rendering > Physics vice versa
+// *******************************************
+function shooterTimer() {
+
+	var justshotBlinkingBall = 0;
+	var justshotBigBall = 0;
+
+	
+
+	if (gameTime%300 == 0) {
+
+		if (enemyballPoolonScreen == 2 && enemyballPoolonScreen != 0 && blinkingballPool == 1) {
+
+			alert('shoot a blinking ball!');
+			game.shooter.shootBlinkingBall();
+			justshotBlinkingBall = 1;
+
+			blinkingBallAttraction(game.mainball.x,
+							   game.mainball.y,
+							   game.shooter.createdBlinkingBall.x,
+							   game.shooter.createdBlinkingBall.y,
+							   game.mainball.speedX,
+							   game.mainball.speedY);
+
+		}  else {
+			alert('shoot a normal ball!');
+			game.shooter.shoot();
+		}
+
+
+		
+
+	}
+
+	
+	
+
+}
 
 
 // *******************************************
@@ -312,6 +348,7 @@ function renderThread() {
 	game.shooter.draw();
 
 	game.pool.animate();
+
 	
 /*	console.log("--------------Ball Indexes-------------------------");
 	for(var i=0; i<game.pool.allObj.length; i++){
@@ -350,7 +387,8 @@ function cycleCheck() {
 		physicsTime = 0;
 	}
 
-	//setTimeout("cycleCheck()", 10);
+	shooterTimer();
+
 }
 
 /**	

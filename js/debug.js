@@ -42,6 +42,8 @@ function debugTool() {
 	// shooter debug
 	// document.getElementById("shooter-Sx").innerHTML=(game.shooter.speed).toFixed(1);
 
+	document.getElementById("enemyballCount").innerHTML=(enemyballPoolonScreen); 
+
 	// How fast to update debugTool
 	setTimeout( debugTool, 100);
 }
