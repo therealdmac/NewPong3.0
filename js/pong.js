@@ -253,13 +253,10 @@ function Game() {
 		game.pool.animate();
 		this.pool.draw();
 
-		// Test Frame Per Second
 		checkFPS();
 
-		// start the debugging tool
 		debugTool();
 
-		// start the animation loop
 		renderThread();
 
 		correctionThread();
@@ -268,22 +265,17 @@ function Game() {
 
 		cycleCheck();
 
-		//clipImgOne();
-		//clipImgTwo();
-
-
+		shooterTimer();
 
 	};
 
 }
 
 
-/**
- * The animation loop. Calls the requestAnimationFrame shim to
- * optimize the game loop and draws all game objects. This
- * function must be a gobal function and cannot be within an
- * object.
- */
+
+// *******************************************
+// Global Variables to Check if Rendering > Physics vice versa
+// *******************************************
 var renderingFaster = 0;
 
 var renderingTime = 0;
@@ -303,8 +295,9 @@ function physicsTimeFunc() {
 }
 
 
-
- /********** added by beeb **********/
+// *******************************************
+// Threads
+// *******************************************
 function renderThread() {
 	
 	requestAnimFrame( renderThread );
@@ -325,18 +318,10 @@ function renderThread() {
 		console.log("Ball "+i+" index:"+game.pool.allObj[i].index);
 	}*/
 
-
 	// Start counting game timer
 	gameTimer();
+
 	renderingTimeFunc(); // plus count
-
-	//correction();
-
-	// console.log('rendering count is ' +renderingTime);
-
-	//correction();
-
-	//setTimeout("renderThread()", 2); //1000 / X = Yfps
 	
 }
 
@@ -368,22 +353,6 @@ function cycleCheck() {
 	//setTimeout("cycleCheck()", 10);
 }
 
-/*
-function clipImgOne(obj1, moveX, moveY) {
-	requestAnimFrame( clipImgOne );
-	obj1.clipImg();
-	obj1.x = obj1.x + moveX/2;
-	obj1.y = obj1.y - moveY/2;
-}
-
-function clipImgTwo(obj2, moveX, moveY) {
-	requestAnimFrame( clipImgTwo );
-	obj2.clipImg();
-	obj2.x = obj2.x - moveX/2;
-	obj2.y = obj2.y + moveY/2;
-
-}
-*/
 /**	
  * requestAnim shim layer by Paul Irish
  * Finds the first API that works to optimize the animation loop, 
