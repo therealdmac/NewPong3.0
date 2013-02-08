@@ -364,7 +364,11 @@ function Ball() {
 
     }
 
-
+    /******** added by beeb *******/
+    this.ballRegion = function(){
+    	
+    }
+    /******** added by beeb *******/
     this.gravity = function() {
     	if(this.speedY < 1 ) {
     		this.speedY += 1.1;
@@ -459,6 +463,9 @@ function Enemyball() {
     this.speedX = Math.random();
     this.typeofball = null;
 
+    //********** added by beeb ***********
+    this.ballRegion = null;
+    //********** added by beeb ***********
 	//Move the main ball
 	this.draw = function() {
 		

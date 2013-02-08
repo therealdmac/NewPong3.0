@@ -246,6 +246,7 @@ function determineBlinkingBall(obj1, obj2){
     return 3;
   }
 }
+
 function modifyMainBall(thisObj){
    game.pool.thisObj.mass = 5;
    game.thisObj.init(thisObj.x, thisObj.y, imageRepository.enemyballBig);
