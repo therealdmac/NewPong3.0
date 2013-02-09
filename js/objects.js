@@ -108,7 +108,12 @@ function Drawable() {
 		case 0:
 			return new Mainball();
 			break;
+		/******* added by beeb **************/
 		
+		case 3:
+			return new BlinkingBall();
+			break;
+		/******** added by beeb *************/
 		}		
 	}
 
@@ -430,8 +435,8 @@ function Mainball() {
 	    	if (this.x + 25 > game.paddle.x && this.x < game.paddle.x + 64)
 	    		this.speedY = -this.speed; // reverse speed
 	    	else {
-
-	    		restartGame();
+	    		this.speedY = -this.speed;
+	    		//restartGame();
 	    	}
 	    		 
 	    		// temporary hold
