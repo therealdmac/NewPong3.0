@@ -317,7 +317,7 @@ function Ball() {
  	//this.direction = 0;
 
  	this.index = -1;
-	this.speed = 2;
+	this.speed = 5;
 	this.speedX = this.speed;
 	this.speedY = this.speed;
 
@@ -435,8 +435,8 @@ function Mainball() {
 	    	if (this.x + 25 > game.paddle.x && this.x < game.paddle.x + 64)
 	    		this.speedY = -this.speed; // reverse speed
 	    	else {
-	    		this.speedY = -this.speed;
-	    		//restartGame();
+	    		//this.speedY = -this.speed;
+	    		restartGame();
 	    	}
 	    		 
 	    		// temporary hold
@@ -524,3 +524,7 @@ function Enemyball() {
 
 }
 Enemyball.prototype = new Ball();
+
+Array.prototype.clear = function() {
+    this.splice(0, this.length);
+};

@@ -32,9 +32,11 @@ function init() {
 } 
 
 
-function restartGame() {
-	if (game.mainball.y > game.mainball.bottomEdge)
+function restartGame(){
+	if (game.mainball.y > game.mainball.bottomEdge){
+		//alert("Game ended");//for testing
 		document.location.reload();
+	}
 }
 
 /*

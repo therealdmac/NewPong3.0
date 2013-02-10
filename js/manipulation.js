@@ -11,8 +11,10 @@ var blinkingEffect = 0;
 var ballType;
 var thisBallObject;
 var regionMainBallIsIn;
-var arrayToPopulate;
-var arrayToManipulate;
+var arrayToPopulate = new Array();
+var arrayToManipulate = new Array();
+var lengthOfPopulatedArray;
+//var lengthOfManipulatedArray;
 
 function setGameBallYDirection(){
 	//If the ball is moving down, it is deemed to have positive direction
@@ -22,6 +24,7 @@ function setGameBallYDirection(){
 		game.mainball.ballMovingDown = false;
 	}
 }
+
 function setGameBallXDirection(){
 	//If the ball is moving to the right, it is deemed to have positive direction
 	if(game.mainball.speedX > 0){
@@ -31,6 +34,7 @@ function setGameBallXDirection(){
 	}
 	//console.log('is ball moving right:' + game.mainball.ballMovingRight);
 }
+
 function setPaddleCurrentRegion(){
 	if(game.paddle.x > (game.paddle.canvasWidth / 2)){
 		game.paddle.paddleIsInTheRightRegionOfCanvas = true;
@@ -42,6 +46,7 @@ function setPaddleCurrentRegion(){
 		game.paddle.paddleRegion = "left";
 	}
 }
+
 function setGameBallRegion(){
 	//Get the region the game ball is in
 	if(game.mainball.x < (game.mainball.canvasWidth/2)){
@@ -51,15 +56,17 @@ function setGameBallRegion(){
 		game.mainball.ballRegion  = "right";
 	}
 }
+
 function setEnemyBallRegion(thisObj){
-	if(game.thisObj.x < (game.thisObj.canvasWidth/2)){
-		game.thisObj.ballRegion = "left";
+	if(thisObj.x < (thisObj.canvasWidth/2)){
+		thisObj.ballRegion = "left";
 	}else{
-		game.thisObj.ballRegion = "right";
+		thisObj.ballRegion = "right";
 	}
 }
+
 function isTimeForManipulation(){
-	console.log('gonna manipulate');
+	//console.log('gonna manipulate');
 	document.getElementById("executed-status-box").style.background = 'red';
 	//Set the gameBallParameters parameters
 	setGameBallYDirection();
@@ -70,9 +77,11 @@ function isTimeForManipulation(){
 	if((game.mainball.collidedwithrightEdge || game.mainball.collidedwithleftEdge) &&
 	    game.mainball.ballMovingDown){	
 			manipulateGameBall();
-			manipulateEnemyBalls();
+	}else{
+		manipulateEnemyBalls();
 	}
 }
+
 function manipulateGameBall(){
 
 	switch (game.paddle.paddleRegion){
@@ -104,6 +113,7 @@ function manipulateGameBall(){
 	}//switch case statement
 	manipulateEnemyBalls();
 }
+
 function gameTimer(){
 	if (gameTime > 1000 && enemyballPoolonScreen > 5) {
 		document.getElementById("mani-status-text").innerHTML = 'ON';
@@ -114,6 +124,7 @@ function gameTimer(){
 
 	//setTimeout("gameTimer()", 1000);
 }
+
 function manipulateEnemyBalls(){
 	//Concept: Get the enemy balls on the other region with respect to the main ball
 	//and make them move towards the mainball slowly but at an increasing rate
@@ -124,35 +135,39 @@ function manipulateEnemyBalls(){
 		case 'left':	
 			populateTheArray();
 			getEnemyBallsInRightRegion();//returns an array containing the ball id
-			executeManipulationOfEnemyBalls();
+			executeManipulationOfEnemyBalls("right");
 			break;
 
 		case 'right':
 			populateTheArray();
 			getEnemyBallsInLeftRegion();
-			executeManipulationOfEnemyBalls();
+			executeManipulationOfEnemyBalls("left");
 			break;
 	}//switch case
 	clearManipulationArrays();
 }
+
 function clearManipulationArrays(){
-	arrayToPopulate.length = 0;
-	arrayToManipulate.length = 0;
+	arrayToPopulate.splice(0, arrayToPopulate.length);
+	arrayToManipulate.splice(0, arrayToManipulate.length);
 }
+
 function populateTheArray(){
-	var lengthOfArray = game.pool.allObj.length;
-	console.log('lengthOfArray before populating is: ' + lengthOfArray);//for testing
+	lengthOfPopulatedArray = game.pool.allObj.length;
 	for(var iter = 0;
-		iter < lengthOfArray;
+		iter < lengthOfPopulatedArray;
 		iter++){
-		ballType = game.pool.allObj[iter].typeof;
+		ballType = game.pool.allObj[iter].typeofball;
+		console.log('ballType is: ' + ballType);
 		if(ballType === 'enemyball' || ballType === 'enemyballBig'){
 			//thisBallObject = game.pool.allObj[iter];
 			arrayToPopulate.push(game.pool.allObj[iter]);
 			setEnemyBallRegion(game.pool.allObj[iter]);
 		}
 	}//for loop
+	console.log('contentsOfArray after populating is: ' + arrayToPopulate.toString());//for testing
 }
+
 function getEnemyBallsInRightRegion(){
 	var i = 0;
 	for( i in arrayToPopulate){
@@ -161,6 +176,7 @@ function getEnemyBallsInRightRegion(){
 		}
 	}
 }
+
 function getEnemyBallsInLeftRegion(){
 	var i = 0;
 	for(i in arrayToPopulate){
@@ -169,13 +185,23 @@ function getEnemyBallsInLeftRegion(){
 		}
 	}
 }
-function executeManipulationOfEnemyBalls(){
+
+function executeManipulationOfEnemyBalls(thisRegion){
 	var i = 0;
 	for(i in arrayToManipulate){
-		console.log('this enemy ball is manipulated ' + arrayToManipulate[i].);
-		arrayToManipulate[i].speedX += 5;//increase the speed of the enemy balls
-	}
+		console.log('this enemy ball is manipulated ' + arrayToManipulate[i].index);
+		//arrayToManipulate[i].speedX += 100;//increase the speed of the enemy balls
+		switch(thisRegion){
+			case 'right':
+				arrayToManipulate[i].speedX -= 2;
+				break;
+			case 'left':
+				arrayToManipulate[i].speedX += 2;
+				break;
+		}//switch case statement
+	}//for loop
 }
+
 function blinkingBallAttraction(mainBallXCoordinate, 
 								mainBallYCoordinate, 
 								blinkingBallXCoordinate, 
