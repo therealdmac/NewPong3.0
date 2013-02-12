@@ -137,25 +137,12 @@ function physicsEngine(objectOne, objectTwo){
 		setObjectTwoParameters(objectTwo);
 		resolveBallCollisons();
 
-		/*var x = 1;
-		var y = null; // To keep under proper scope
-
-		setTimeout(function() {
-		    x = x * 3 + 2;
-		    y = x / 2;
-		}, 2000);*/
-
 		//Find final velocity vectors
 		objectOne.speedX = normalXVectorVelocityOfBallOne + tangentXVectorVelocityOfBallOne;
 		objectOne.speedY = normalYVectorVelocityOfBallOne + tangentYVectorVelocityOfBallOne;
 		objectTwo.speedX = normalXVectorVelocityOfBallTwo + tangentXVectorVelocityOfBallTwo;
 		objectTwo.speedY = normalYVectorVelocityOfBallTwo + tangentXVectorVelocityOfBallTwo;
 
-		// delay
-		/*
-		for(var i=0; i < 100000000; i++) {
-			var k = k*198;
-		}*/
 	}
 
 	//}

@@ -1,5 +1,4 @@
 // The keycodes that will be mapped when a user presses a button.
-// Original code by Doug McInnes
 KEY_CODES = {
   32: 'space',
   37: 'left',
@@ -27,14 +26,14 @@ document.onkeydown = function(e) {
   // return which key was pressed.
   var keyCode = (e.keyCode) ? e.keyCode : e.charCode;
   if (KEY_CODES[keyCode]) {
-	e.preventDefault();
-	KEY_STATUS[KEY_CODES[keyCode]] = true;
+    e.preventDefault();
+	  KEY_STATUS[KEY_CODES[keyCode]] = true;
   }
 }
 /**
  * Sets up the document to listen to ownkeyup events (fired when
  * any key on the keyboard is released). When a key is released,
- * it sets teh appropriate direction to false to let us know which
+ * it sets the appropriate direction to false to let us know which
  * key it was.
  */
 document.onkeyup = function(e) {
@@ -44,4 +43,3 @@ document.onkeyup = function(e) {
     KEY_STATUS[KEY_CODES[keyCode]] = false;
   }
 }
-

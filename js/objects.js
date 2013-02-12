@@ -1,6 +1,7 @@
 //Tracks the total number of balls generated at any time
 var counter = 0;
-
+var paddleTiltedDegree = 0;
+var paddleTiltedInRadians = 0;
 /**
  * Creates the Drawable object which will be the base class for
  * all drawable objects in the game. Sets up defualt variables
@@ -148,60 +149,112 @@ function Paddle() {
 	this.paddleIsInTheRightRegionOfCanvas = false;
 	this.paddleIsInTheLeftRegionOfCanvas = false;
 	this.paddleRegion = null;
+	this.xRight = 0;
+	this.yRight = 0;
 	/******************** added by beeb **************/
 
-	this.draw = function() {
-		this.context.drawImage(this.image, this.x, this.y);
-	};
-
-	this.move = function() {	
-
-	//added by beeb 
-	this.paddleTiltedDegree = 0;
-		// Determine if the action is move action
-		if (KEY_STATUS.left || KEY_STATUS.right) {
-			// The paddle moved, so erase it's current image so it can be redrawn in it's new location
-			this.context.clearRect(this.x, this.y, this.width, this.height);
-
-			// detect keypress
-			if (KEY_STATUS.left) {
-				this.x -= this.speed;
-				// Keep player within the screen
-				if (this.x <= 0) 
-					this.x = 0;
-			} else if (KEY_STATUS.right) {
-				this.x += this.speed;
-				if (this.x >= this.canvasWidth - this.width)
-					this.x = this.canvasWidth - this.width;
-			/********* added by beeb ***********/
-			}else if(KEY_STATUS.up){
-				if(paddleTiltedDegree != 45){
-					paddleTiltedDegree += 15;
-					tiltPaddle("up");
-				}
-			}else if(KEY_STATUS.down){
-				if(paddleTiltedDegree != -45){
-					paddleTiltedDegree -= 15;
-					this.paddle.y
-					tiltPaddle("down");
-				}
-			}
-			/********* added by beeb ***********/
-			// Finish by redrawing the paddle
-			this.draw();
+	this.draw = function(){
+		if(paddleTiltedDegree > 0){
+			//the angle to rotate has to be in radians
+			this.context.rotate(paddleTiltedInRadians);
+		}else if(paddleTiltedDegree < 0){
+			this.context.rotate(paddleTiltedInRadians);
 		}
+		this.context.drawImage(this.image, this.x, this.y);
+		//this.context.drawImage(this.image, this.x, this.y, this.xRight, this.yRight);
 	};
+
+	//by vic: "up" is clockwise, "down" is anticlockwise
+	this.tiltPaddle = function(paddleCenterPointXCoordinate, paddleCenterPointYCoordinate, paddleTiltedDegree) {
+	/* Required input: x and y coordinates of center of paddle, 
+	 * degree of tilt of paddle (negative value = " / "; positive value = " \ ")
+	 * Angles in radians
+	 * Remember to make sure the player can't un-tilt the paddle 
+	 * if the tilted paddle is touching the wall
+	 */
+	//console.log('paddleCenterPointXCoordinate is: ' + paddleCenterPointXCoordinate);
+	//console.log('paddleCenterPointYCoordinate is: ' + paddleCenterPointYCoordinate);
+	console.log('paddleTiltedDegree is: ' + paddleTiltedDegree);
+
+	var xDistanceFromCenterOfPaddle, yDistanceFromCenterOfPaddle;
+	var paddleLeftMostPointXCoordinate, paddleLeftMostPointYCoordinate;
+	var paddleRightMostPointXCoordinate, paddleRightMostPointYCoordinate;
+	
+	//Special case: paddleTiltedDegree = 0
+		if(paddleTiltedDegree == 0){
+			paddleLeftMostPointXCoordinate = paddleCenterPointXCoordinate - paddle.width;
+			paddleLeftMostPointYCoordinate = paddleCenterPointYCoordinate;
+			paddleRightMostPointXCoordinate = paddleCenterPointXCoordinate + paddle.width;
+			paddleRightMostPointYCoordinate = paddleCenterPointYCoordinate;
+		}else{
+			//Calculate x and y distance of leftmost point on paddle 
+			//from the center of paddle
+			xDistanceFromCenterOfPaddle = paddle.width * Math.cos(paddleTiltedDegree);
+			yDistanceFromCenterOfPaddle = paddle.width * Math.sin(paddleTiltedDegree);
+		
+			//Obtain new coordinates of leftmost point on paddle
+			paddle.x = paddleCenterPointXCoordinate - xDistanceFromCenterOfPaddle;
+			paddle.y = paddleCenterPointYCoordinate + yDistanceFromCenterOfPaddle;
+	
+			console.log('paddle x left after tilting is: ' + paddle.x);//for testing
+			console.log('paddle y left after tilting is: ' + paddle.y);
+			//Obtain new coordinates of rightmost point on paddle
+			paddle.xRight = paddleCenterPointXCoordinate + xDistanceFromCenterOfPaddle;
+			paddle.yRight = paddleCenterPointYCoordinate - xDistanceFromCenterOfPaddle;
+
+			console.log('paddle x right after tilting is: ' + paddle.xRight);
+			console.log('paddle y right after tilitng is: ' + paddle.yRight);
+
+		}
+	}//tiltPaddle
+
+	this.move = function(){	
+	// Determine if there was a move action and if he paddle moved,
+	// erase it's current image so it can be redrawn in it's new location
+	if (KEY_STATUS.left || KEY_STATUS.right || KEY_STATUS.up || KEY_STATUS.down) {
+		this.context.clearRect(this.x, this.y, this.width, this.height);
+		
+		if (KEY_STATUS.left) {
+			this.x -= this.speed;
+			// Keep player within the screen
+			if (this.x <= 0) 
+				this.x = 0;
+		}else if(KEY_STATUS.right){
+			this.x += this.speed;
+			if (this.x >= this.canvasWidth - this.width)
+				this.x = this.canvasWidth - this.width;
+			
+		/********* added by beeb ***********/
+		}else if(KEY_STATUS.up){
+			if(paddleTiltedDegree != 45){
+				paddleTiltedDegree += 15;
+				paddleTiltedInRadians = degreeToRadian(paddleTiltedDegree);
+				this.tiltPaddle(this.x + (this.width / 2),
+							   	this.y + (this.width / 2),
+							   	paddleTiltedDegree);
+			console.log('the current paddle tilted degree is: ' + paddleTiltedDegree);
+
+			}
+		}else if(KEY_STATUS.down){
+			if(paddleTiltedDegree != -45){
+				paddleTiltedDegree -= 15;
+				paddleTiltedInRadians = degreeToRadian(paddleTiltedDegree);
+				this.tiltPaddle(this.x + (this.width / 2),
+						   		this.y + (this.width / 2),
+						   		paddleTiltedDegree);
+			console.log('the current paddle titlted degree is: ' + paddleTiltedDegree);
+			}
+		}
+		/********* added by beeb ***********/
+		
+		// Finish by redrawing the paddle
+		this.draw();
+		}//key detecting if statement..
+	};//move function
 }
 Paddle.prototype = new Drawable();
-/********** added by beeb *************/
-Paddle.prototype.tiltPaddle = function(keyCode){
-	if(keyCode == "up"){
-		rotatePaddle();
 
-	}else if(keyCode == "down"){
-		rotatePaddle();
-	}
-}
+/********** added by beeb *************/
 function sin(x) {
     return Math.sin(x / 180 * Math.PI);
 }
@@ -209,12 +262,10 @@ function sin(x) {
 function cos(x) {
     return Math.cos(x / 180 * Math.PI);
 }
-function rotatePaddle(){
-	this.x += (cos (15) * this.x) + (sin (15) * this.y);
-	this.y += (sin (15) * this.x) + (cos (15) * this.y);
+function degreeToRadian(thisAngle){
+	return thisAngle * 0.0174532925199432957;
 }
 /********** added by beeb *************/
-
 function Shooter() {
 
 	this.enemyballPool = 30;
@@ -435,8 +486,8 @@ function Mainball() {
 	    	if (this.x + 25 > game.paddle.x && this.x < game.paddle.x + 64)
 	    		this.speedY = -this.speed; // reverse speed
 	    	else {
-	    		//this.speedY = -this.speed;
-	    		restartGame();
+	    		this.speedY = -this.speed;
+	    		//restartGame();
 	    	}
 	    		 
 	    		// temporary hold

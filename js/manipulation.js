@@ -98,13 +98,12 @@ function manipulateGameBall(){
 
 		case 'right': 	
 			//console.log('paddle is at the right');
-			//console.log('Gameball region is at ' +game.mainball.ballRegion);
+			//console.log('Gameball region is at ' + game.mainball.ballRegion);
 			if(game.mainball.collidedwithleftEdge){
 				game.mainball.speedY += 8;
 				manipulated++;
 				document.getElementById("executed-status-text").innerHTML = manipulated;
 				document.getElementById("executed-status-box").style.background = 'green';
-
 			}
 			break;
 
@@ -128,9 +127,9 @@ function gameTimer(){
 function manipulateEnemyBalls(){
 	//Concept: Get the enemy balls on the other region with respect to the main ball
 	//and make them move towards the mainball slowly but at an increasing rate
-	console.log('gonna manipulate the enemy balls!');
+	//console.log('gonna manipulate the enemy balls!');
 	regionMainBallIsIn = game.mainball.ballRegion;
-	console.log('region main ball is in: ' + regionMainBallIsIn);
+	//console.log('region main ball is in: ' + regionMainBallIsIn);
 	switch(regionMainBallIsIn){
 		case 'left':	
 			populateTheArray();
@@ -158,14 +157,14 @@ function populateTheArray(){
 		iter < lengthOfPopulatedArray;
 		iter++){
 		ballType = game.pool.allObj[iter].typeofball;
-		console.log('ballType is: ' + ballType);
+		//console.log('ballType is: ' + ballType);
 		if(ballType === 'enemyball' || ballType === 'enemyballBig'){
 			//thisBallObject = game.pool.allObj[iter];
 			arrayToPopulate.push(game.pool.allObj[iter]);
 			setEnemyBallRegion(game.pool.allObj[iter]);
 		}
 	}//for loop
-	console.log('contentsOfArray after populating is: ' + arrayToPopulate.toString());//for testing
+	//console.log('contentsOfArray after populating is: ' + arrayToPopulate.toString());//for testing
 }
 
 function getEnemyBallsInRightRegion(){
@@ -189,8 +188,7 @@ function getEnemyBallsInLeftRegion(){
 function executeManipulationOfEnemyBalls(thisRegion){
 	var i = 0;
 	for(i in arrayToManipulate){
-		console.log('this enemy ball is manipulated ' + arrayToManipulate[i].index);
-		//arrayToManipulate[i].speedX += 100;//increase the speed of the enemy balls
+		//console.log('this enemy ball is manipulated ' + arrayToManipulate[i].property);
 		switch(thisRegion){
 			case 'right':
 				arrayToManipulate[i].speedX -= 2;
