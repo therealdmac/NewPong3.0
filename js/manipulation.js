@@ -78,7 +78,7 @@ function isTimeForManipulation(){
 	    game.mainball.ballMovingDown){	
 			manipulateGameBall();
 	}else{
-		manipulateEnemyBalls();
+	//	manipulateEnemyBalls();
 	}
 }
 
@@ -200,6 +200,7 @@ function executeManipulationOfEnemyBalls(thisRegion){
 	}//for loop
 }
 
+/*
 function blinkingBallAttraction(mainBallXCoordinate, 
 								mainBallYCoordinate, 
 								blinkingBallXCoordinate, 
@@ -231,4 +232,32 @@ function blinkingBallAttraction(mainBallXCoordinate,
 	//console.log('mainball new x speed after pulled: ' + game.mainball.speedX);
 	game.mainball.speedY = yVelocityOfMainBall + attractionYVector;
 	//console.log('mainball new y speed after pulled: ' + game.mainball.speedY);
+}
+
+*/
+
+//Takes in an array containing the enemy balls to manipulate
+//towards the blinking ball
+var iter = 0;
+function blinkingBallAttraction(thisArray, 
+								blinkingBallXCoordinate, 
+								blinkingBallYCoordinate){
+	
+	var joiningXVector, joiningYVector, unitJoiningXVector, unitJoiningYVector;
+	var attractionXVector, attractionYVector;
+	var newXVelocityOfMainBall, newYVelocityOfMainBall;
+	
+	for(iter = 0; iter < thisArray.length; iter++){
+		joiningXVector = blinkingBallXCoordinate - thisArray[iter].x;
+		joiningYVector = blinkingBallYCoordinate - thisArray[iter].y;
+		unitJoiningXVector = joiningXVector / Math.sqrt(joiningXVector * joiningXVector + joiningYVector * joiningYVector);
+		unitJoiningYVector = joiningYVector / Math.sqrt(joiningXVector * joiningXVector + joiningYVector * joiningYVector);
+		attractionXVector = unitJoiningXVector * 0.1;
+		attractionYVector = unitJoiningYVector * 0.1;
+		//Find enemyBalls's new velocity vectors
+		thisArray[iter].speedX = thisArray[iter].speedX + attractionXVector;
+		//console.log('mainball new x speed after pulled: ' + game.mainball.speedX);
+		thisArray[iter].speedY = thisArray[iter].speedY + attractionYVector;
+		//console.log('mainball new y speed after pulled: ' + game.mainball.speedY);
+	}//for loop
 }

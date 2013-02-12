@@ -317,18 +317,37 @@ function shooterTimer() {
 	}
 
 }
+var	lengthOfSendingArray;
+var arrayToSend = new Array();
 
 function activateBlinkingBall() {
 
-	if(blinkingballPool == 1) {
+	/*if(blinkingballPool == 1) {
 		blinkingBallAttraction(game.mainball.x,
 		   game.mainball.y,
 		   game.shooter.createdBlinkingBall.x,
 		   game.shooter.createdBlinkingBall.y,
 		   game.mainball.speedX,
 		   game.mainball.speedY);
+	}*/
+	if(blinkingballPool == 1){
+		lengthOfSendingArray = game.pool.allObj.length;
+		for(var iter = 0;
+			iter < lengthOfSendingArray;
+			iter++){
+			ballType = game.pool.allObj[iter].typeofball;
+			//console.log('ballType is: ' + ballType);
+			if(ballType === 'enemyball' || ballType === 'enemyballBig'){
+				//thisBallObject = game.pool.allObj[iter];
+				arrayToSend.push(game.pool.allObj[iter]);
+			}
+		}//for loop
+		blinkingBallAttraction(arrayToSend,
+							   game.shooter.createdBlinkingBall.x,
+							   game.shooter.createdBlinkingBall.y);
 	}
-
+	//clear the array
+	arrayToSend.splice(0, arrayToSend.length);
 }
 
 

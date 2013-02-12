@@ -154,11 +154,21 @@ function Paddle() {
 	/******************** added by beeb **************/
 
 	this.draw = function(){
+		//need to establish the center (x,y) of the new location the image is to be drawn &
+		//the angle to rotate has to be in radians
 		if(paddleTiltedDegree > 0){
-			//the angle to rotate has to be in radians
+			//this.context.save();
+			this.context.translate( (this.x + (this.width / 2)), (this.y + (this.width/2)) );
 			this.context.rotate(paddleTiltedInRadians);
+			this.context.translate( (-this.x + (this.width / 2)), (-this.y + (this.width/2)) );
+			//this.context.restore();
+
 		}else if(paddleTiltedDegree < 0){
+			//this.context.save();
+			this.context.translate( (this.x + (this.width / 2)), (this.y + (this.width/2)) );
 			this.context.rotate(paddleTiltedInRadians);
+			this.context.translate( (-this.x + (this.width / 2)), (-this.y + (this.width/2)) );
+			//this.context.restore();
 		}
 		this.context.drawImage(this.image, this.x, this.y);
 		//this.context.drawImage(this.image, this.x, this.y, this.xRight, this.yRight);
@@ -196,14 +206,14 @@ function Paddle() {
 			paddle.x = paddleCenterPointXCoordinate - xDistanceFromCenterOfPaddle;
 			paddle.y = paddleCenterPointYCoordinate + yDistanceFromCenterOfPaddle;
 	
-			console.log('paddle x left after tilting is: ' + paddle.x);//for testing
-			console.log('paddle y left after tilting is: ' + paddle.y);
+			//console.log('paddle x left after tilting is: ' + paddle.x);//for testing
+			//console.log('paddle y left after tilting is: ' + paddle.y);
 			//Obtain new coordinates of rightmost point on paddle
 			paddle.xRight = paddleCenterPointXCoordinate + xDistanceFromCenterOfPaddle;
 			paddle.yRight = paddleCenterPointYCoordinate - xDistanceFromCenterOfPaddle;
 
-			console.log('paddle x right after tilting is: ' + paddle.xRight);
-			console.log('paddle y right after tilitng is: ' + paddle.yRight);
+			//console.log('paddle x right after tilting is: ' + paddle.xRight);
+			//console.log('paddle y right after tilitng is: ' + paddle.yRight);
 
 		}
 	}//tiltPaddle
@@ -223,7 +233,7 @@ function Paddle() {
 			this.x += this.speed;
 			if (this.x >= this.canvasWidth - this.width)
 				this.x = this.canvasWidth - this.width;
-			
+
 		/********* added by beeb ***********/
 		}else if(KEY_STATUS.up){
 			if(paddleTiltedDegree != 45){
@@ -486,8 +496,8 @@ function Mainball() {
 	    	if (this.x + 25 > game.paddle.x && this.x < game.paddle.x + 64)
 	    		this.speedY = -this.speed; // reverse speed
 	    	else {
-	    		this.speedY = -this.speed;
-	    		//restartGame();
+	    		//this.speedY = -this.speed;
+	    		restartGame();
 	    	}
 	    		 
 	    		// temporary hold
