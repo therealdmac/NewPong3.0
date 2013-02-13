@@ -245,7 +245,7 @@ function determineBlinkingBall(obj1, obj2){
            (obj1.typeofball == 'enemyball' || obj2.typeofball == 'enemyballBig') ){
     return 2;
   
-  }else if( (obj1.typeofball == 'blinkingball' || obj2.typeofball == 'blinking') && 
+  }else if( (obj1.typeofball == 'blinkingBall' || obj2.typeofball == 'blinkingBall') && 
             (obj1.typeofball == 'mainball' || obj2.typeofball == 'mainball') ){
     console.log('mainball collided with the blinking ball');
     return 3;
@@ -259,6 +259,7 @@ function modifyMainBall(thisObj){
    game.pool.thisObj.mass = 5;
    game.thisObj.init(thisObj.x, thisObj.y, imageRepository.enemyballBig);
 }
+
 /********* added by beeb ***********/
 function collisionDetection(obj1, obj2) {
 
@@ -297,31 +298,32 @@ function collisionDetection(obj1, obj2) {
   var blinkingFlag;
   //Case 1 & 2: the mainball is attracted to the blinking ball and
   //the blinking ball gets destroyed along with the mainball being modified
-  //console.log('obj1 is: ' + obj1.typeof);
-  //console.log('obj2 is: ' + obj2.typeof);
   if(overlapDistance > 0){
     //the blinking flag is used to indicate that 2 objects detected are:
     //a blinking ball and an enemy ball
-    //blinkingFlag = determineBlinkingBall(obj1, obj2);
-    blinkingFlag = 4;
+    blinkingFlag = determineBlinkingBall(obj1, obj2);
+    if(blinkingFlag != 4) console.log('blinkingFlag is: ' + blinkingFlag);
+    //blinkingFlag = 4;
     switch(blinkingFlag){
       case 1://since obj1 is blinking ball destroy the other
-        game.pool.destroyObj(obj2);
-        console.log('obj1 is: ' + obj1.typeof + ' and was destroyed');
+        console.log('obj2 is: ' + obj2.typeofball + ' and was destroyed');
+        game.pool.DeleteObj(obj2);
         //modifyMainBall(obj2);
         break;
 
       case 2://since obj2 is blinking ball destroy the other
-        game.pool.destroyObj(obj1);
-        console.log('obj2 is: ' + obj2.typeof + ' and was destroyed');
+        console.log('obj1 is: ' + obj1.typeofball + ' and was destroyed');
+        game.pool.DeleteObj(obj1);
         //modifyMainBall(obj1);
         break;
 
       case 3://to destroy the blinking upon collision with the mainball
-        if(obj1.typeofball == 'blinkingball'){
-          game.pool.destroyObj(obj1);
+        if(obj1.typeofball == 'blinkingBall'){
+          console.log('obj1 is: ' + obj1.typeofball + ' and was destroyed after collision with mainball');
+          game.pool.DeleteObj(obj1);
         }else{
-          game.pool.destroyObj(obj2);
+          console.log('obj2 is: ' + obj2.typeofball + ' and was destroyed after collision with mainball');
+          game.pool.DeleteObj(obj2);
         }
         break;
 

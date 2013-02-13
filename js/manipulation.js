@@ -78,7 +78,7 @@ function isTimeForManipulation(){
 	    game.mainball.ballMovingDown){	
 			manipulateGameBall();
 	}else{
-	//	manipulateEnemyBalls();
+		//manipulateEnemyBalls();
 	}
 }
 

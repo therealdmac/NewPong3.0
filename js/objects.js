@@ -141,7 +141,7 @@ Background.prototype = new Drawable();
  * drawn on the "paddle" canvas and uses dirty rectangles to move
  * around the screen.
  */
-function Paddle() {
+function Paddle(){
 
 	this.speed = 10;
 
@@ -243,7 +243,6 @@ function Paddle() {
 							   	this.y + (this.width / 2),
 							   	paddleTiltedDegree);
 			console.log('the current paddle tilted degree is: ' + paddleTiltedDegree);
-
 			}
 		}else if(KEY_STATUS.down){
 			if(paddleTiltedDegree != -45){
@@ -467,7 +466,7 @@ function Mainball() {
 	this.collidedwithleftEdge = null;
 	this.collidedwithrightEdge = null;
 	
-    	//Move the main ball
+    //Move the main ball
 	this.draw = function() {
 
 		this.collidedwithleftEdge = false;
@@ -496,8 +495,8 @@ function Mainball() {
 	    	if (this.x + 25 > game.paddle.x && this.x < game.paddle.x + 64)
 	    		this.speedY = -this.speed; // reverse speed
 	    	else {
-	    		//this.speedY = -this.speed;
-	    		restartGame();
+	    		this.speedY = -this.speed;
+	    		//restartGame();
 	    	}
 	    		 
 	    		// temporary hold
@@ -557,6 +556,7 @@ function Enemyball() {
 	    	// if hits paddle
 	    	if (this.x + 25 > game.paddle.x && this.x < game.paddle.x + 64)
 	    		this.speedY = -this.speed; // reverse speed
+	    		//game.pool.DeleteObj(this);//this causes the obj to freeze upon collision with the paddle
 
 	    	else if (this.y > this.bottomEdge) {
 	    		// temporary - make it bounce for easier debug
