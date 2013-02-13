@@ -233,24 +233,6 @@ function Paddle(){
 				this.x = this.canvasWidth - this.width;
 
 		/********* added by beeb ***********/
-		}else if(KEY_STATUS.up){
-			if(paddleTiltedDegree != 45){
-				paddleTiltedDegree += 15;
-				paddleTiltedInRadians = degreeToRadian(paddleTiltedDegree);
-				this.tiltPaddle(this.x + (this.width / 2),
-							   	this.y + (this.width / 2),
-							   	paddleTiltedDegree);
-			console.log('the current paddle tilted degree is: ' + paddleTiltedDegree);
-			}
-		}else if(KEY_STATUS.down){
-			if(paddleTiltedDegree != -45){
-				paddleTiltedDegree -= 15;
-				paddleTiltedInRadians = degreeToRadian(paddleTiltedDegree);
-				this.tiltPaddle(this.x + (this.width / 2),
-						   		this.y + (this.width / 2),
-						   		paddleTiltedDegree);
-			console.log('the current paddle titlted degree is: ' + paddleTiltedDegree);
-			}
 		}
 		/********* added by beeb ***********/
 		
@@ -258,12 +240,12 @@ function Paddle(){
 		this.draw();
 		}//key detecting if statement..
 	if(KEY_STATUS.space){
-			console.log("Game time: " + gameTime + "; Press time: " + presstime + "\n");
+			console.log("Game time: " + gameTime + "; Press time: " + pressspacetime + "\n");
 		}
 		
-		if(KEY_STATUS.space && ((gameTime - presstime) > 50 || presstime == 0) ){
+		if(KEY_STATUS.space && ((gameTime - pressspacetime) > 50 || pressspacetime == 0) ){
 			//alert("asdf");
-			presstime = gameTime;
+			pressspacetime = gameTime;
 			var newball = game.pool.CreateObj(1);
 			newball.init(this.x + (this.width / 2),
 						 this.y + (this.width / 2), 
@@ -271,9 +253,37 @@ function Paddle(){
 			newball.speedX = 0;
 			newball.speedY = -2.0;
 		}
+		
+		if(KEY_STATUS.space && ((gameTime - pressspacetime) > 50 || pressspacetime == 0) ){
+				alert("up");
+				pressspacetime = gameTime;/*
+				if(paddleTiltedDegree != 45){
+					paddleTiltedDegree += 15;
+					//paddleTiltedInRadians = degreeToRadian(paddleTiltedDegree);
+					/*this.tiltPaddle(this.x + (this.width / 2),
+									this.y + (this.width / 2),
+									paddleTiltedDegree);*/
+				//	console.log('the current paddle tilted degree is: ' + paddleTiltedDegree);
+				//}
+			//}
+		}
+		if(KEY_STATUS.down && ((gameTime - pressdowntime) > 50 || pressdowntime == 0) ){
+			alert("down");
+			pressdowntime = gameTime;
+			if(paddleTiltedDegree != -45){
+				//paddleTiltedDegree -= 15;
+				//paddleTiltedInRadians = degreeToRadian(paddleTiltedDegree);
+				/*this.tiltPaddle(this.x + (this.width / 2),
+						   		this.y + (this.width / 2),
+						   		paddleTiltedDegree);*/
+			console.log('the current paddle titlted degree is: ' + paddleTiltedDegree);
+			}
+		}
 	};//move function
 	
-var presstime = 0;
+var pressspacetime = 0;
+var pressuptime = 0;
+var pressdowntime = 0;
 
 }
 Paddle.prototype = new Drawable();
