@@ -165,16 +165,14 @@ function Paddle(){
 		//the angle to rotate has to be in radians
 		if(paddleTiltedDegree != 0){
 			this.context.clearRect(0, 0, paddle.width, paddle.height);//to clear the canvas
-			//this.context.width = this.context.width;//to clear the canvas
 			this.context.save();
 			this.context.translate(this.x, this.y);
-			//this.context.translate( (this.x + (this.width / 2)), (this.y + (this.height/2)) );
 			this.context.translate(this.width/2, this.height/2);
 			this.context.rotate(paddleTiltedInRadians);
-			this.context.drawImage(this.image, 0, 0);
+			this.context.drawImage(this.image, -this.width/2, -this.height/2);
 			this.context.restore();
 		}else{
-			this.context.clearRect(0, 0, paddle.width, paddle.height);//to clear the canvas
+			this.context.clearRect(0, 0, paddle.width, paddle.height);
 			this.context.drawImage(this.image, this.x, this.y);
 		}
 		//this.context.drawImage(this.image, this.x, this.y, this.xRight, this.yRight);

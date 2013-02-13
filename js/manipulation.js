@@ -14,6 +14,7 @@ var regionMainBallIsIn;
 var arrayToPopulate = new Array();
 var arrayToManipulate = new Array();
 var lengthOfPopulatedArray;
+var enemyBallManipulationCounter = 0;
 //var lengthOfManipulatedArray;
 
 function setGameBallYDirection(){
@@ -78,7 +79,9 @@ function isTimeForManipulation(){
 	    game.mainball.ballMovingDown){	
 			manipulateGameBall();
 	}else{
-		//manipulateEnemyBalls();
+		if(enemyBallManipulationCounter % 500 == 0)
+			manipulateEnemyBalls();
+		enemyBallManipulationCounter++;
 	}
 }
 
