@@ -512,7 +512,7 @@ function Mainball() {
 
     	//this.gravity(); 
     	// Y Collision
-	    if (this.y >= this.bottomEdge - this.height - 16) {
+	    if (this.y >= this.bottomEdge - this.height - 16 - 50) {
 
 	    	// if hits paddle
 	    	if (this.x + 25 > game.paddle.x && this.x < game.paddle.x + 64)
@@ -574,7 +574,7 @@ function Enemyball() {
 	this.boundaryYCollision = function() {
 
     	// Y Collision
-	    if (this.y >= this.bottomEdge - this.height - 16) {
+	    if (this.y >= this.bottomEdge - this.height - 16 - 50) {
 
 	    	// if hits paddle
 	    	if (this.x + 25 > game.paddle.x && this.x < game.paddle.x + 64)

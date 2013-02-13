@@ -218,7 +218,7 @@ function Game() {
 
 			// Set the paddle to start near the bottom middle of the canvas
 			var paddleStartX = this.paddleCanvas.width/2 - imageRepository.paddle.width;
-			var paddleStartY = this.paddleCanvas.height - imageRepository.paddle.height;
+			var paddleStartY = this.paddleCanvas.height - imageRepository.paddle.height -50;
 			this.paddle.init(paddleStartX, paddleStartY, imageRepository.paddle);
 
 			// Mainball starting location

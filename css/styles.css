@@ -132,6 +132,12 @@ output {
 
 
 }
+
+#dead-zone {
+	width: 700px;
+	height: 50px;
+	background-color: purple;
+}
 canvas {
 	position: absolute;
 	top: 0px;
