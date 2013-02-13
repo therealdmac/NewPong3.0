@@ -231,9 +231,6 @@ function Game() {
 			// this.enemyball.init(100, 100, imageRepository.enemyball);
 
 			// this.blinkingBall.init(60, 20, imageRepository.blinkingBall);
-			
-			
-
 			return true;
 		} else {
 			return false;
@@ -259,26 +256,13 @@ function Game() {
 		game.pool.draw();
 
 		checkFPS();
-
 		debugTool();
-
 		renderThread();
-
 		correctionThread();
-
 		physicsThread();
-
 		cycleCheck();
 
-		
-
-
-	
-
 	};
-
-
-
 	//console.log('blinkingBall X is ' +this.mainball.x);
 
 }
@@ -302,7 +286,7 @@ function shooterTimer() {
 			game.shooter.shootBlinkingBall();
 
 
-		}  else {
+		}else{
 			game.shooter.shoot();
 
 			if (enemyballPoolonScreen < 5) {

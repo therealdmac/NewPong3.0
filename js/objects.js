@@ -157,18 +157,18 @@ function Paddle(){
 		//need to establish the center (x,y) of the new location the image is to be drawn &
 		//the angle to rotate has to be in radians
 		if(paddleTiltedDegree > 0){
-			//this.context.save();
-			this.context.translate( (this.x + (this.width / 2)), (this.y + (this.width/2)) );
+			this.context.save();
+			this.context.translate( (this.x + (this.width / 2)), (this.y + (this.height/2)) );
 			this.context.rotate(paddleTiltedInRadians);
-			this.context.translate( (-this.x + (this.width / 2)), (-this.y + (this.width/2)) );
-			//this.context.restore();
+			//this.context.translate( (-this.x + (this.width / 2)), (-this.y + (this.width/2)) );
+			this.context.restore();
 
 		}else if(paddleTiltedDegree < 0){
-			//this.context.save();
-			this.context.translate( (this.x + (this.width / 2)), (this.y + (this.width/2)) );
+			this.context.save();
+			this.context.translate( (this.x + (this.width / 2)), (this.y + (this.height/2)) );
 			this.context.rotate(paddleTiltedInRadians);
-			this.context.translate( (-this.x + (this.width / 2)), (-this.y + (this.width/2)) );
-			//this.context.restore();
+			//this.context.translate( (-this.x + (this.width / 2)), (-this.y + (this.width/2)) );
+			this.context.restore();
 		}
 		this.context.drawImage(this.image, this.x, this.y);
 		//this.context.drawImage(this.image, this.x, this.y, this.xRight, this.yRight);
@@ -568,7 +568,7 @@ function Enemyball() {
 	    			blinkingballPool--;
 	    		}
 	    		 game.pool.DeleteObj(this);
-	    		// update enemyball 
+	    		//update enemyball 
 	    		
 	    		//console.log('enemyball on screen is ' +enemyballPoolonScreen);
 	    		
@@ -576,7 +576,7 @@ function Enemyball() {
 	    		 
 	    		// temporary hold
 	    		//restartGame();
-	    } else if (this.y <= this.topEdge) { // if hit the top
+	    }else if (this.y <= this.topEdge) { // if hit the top
 	    	this.speedY = this.speed;
 	    	
 	    }
@@ -589,3 +589,30 @@ Enemyball.prototype = new Ball();
 Array.prototype.clear = function() {
     this.splice(0, this.length);
 };
+
+
+/*
+
+// save the context's co-ordinate system before 
+// we screw with it
+context.save(); 
+ 
+// move the origin to 50, 35   
+context.translate(50, 35); 
+ 
+// now move across and down half the 
+// width and height of the image (which is 128 x 128)
+context.translate(64, 64); 
+ 
+// rotate around this point
+context.rotate(0.5); 
+ 
+// then draw the image back and up
+context.drawImage(logoImage, -64, -64); 
+ 
+// and restore the co-ordinate system to its default
+// top left origin with no rotation
+context.restore();
+
+*/
+
