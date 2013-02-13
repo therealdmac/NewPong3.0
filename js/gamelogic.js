@@ -255,9 +255,13 @@ function determineBlinkingBall(obj1, obj2){
   }
 }
 
+var enemyBallModifiedCounter = 0;
 function modifyEnemyBall(thisObj){
-   //game.pool.thisObj.mass = 5;
-  /*game.*/thisObj.init(thisObj.x, thisObj.y, imageRepository.mainball);
+  if(enemyBallModifiedCounter != 5){
+    thisObj.init(thisObj.x, thisObj.y, imageRepository.mainball);
+    enemyBallModifiedCounter++;
+  }
+  console.log('the no of times blinking ball was modified: ' + enemyBallModifiedCounter);
 }
 
 /********* added by beeb ***********/
@@ -308,7 +312,6 @@ function collisionDetection(obj1, obj2) {
       case 1://since obj1 is blinking ball destroy the other
         console.log('obj2 is: ' + obj2.typeofball + ' and was destroyed');
         game.pool.DeleteObj(obj2);
-        console.log('obj2 is: ' + obj1.typeofball);
         modifyEnemyBall(obj1);
         break;
 
@@ -322,9 +325,11 @@ function collisionDetection(obj1, obj2) {
         if(obj1.typeofball == 'blinkingBall'){
           console.log('obj1 is: ' + obj1.typeofball + ' and was destroyed after collision with mainball');
           game.pool.DeleteObj(obj1);
+          enemyBallModifiedCounter = 0;
         }else{
           console.log('obj2 is: ' + obj2.typeofball + ' and was destroyed after collision with mainball');
           game.pool.DeleteObj(obj2);
+          enemyBallModifiedCounter = 0;
         }
         break;
 

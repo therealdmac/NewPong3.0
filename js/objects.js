@@ -156,20 +156,26 @@ function Paddle(){
 	this.draw = function(){
 		//need to establish the center (x,y) of the new location the image is to be drawn &
 		//the angle to rotate has to be in radians
-		if(paddleTiltedDegree > 0){
+		if(paddleTiltedDegree != 0){
 			this.context.save();
-			this.context.translate( (this.x + (this.width / 2)), (this.y + (this.height/2)) );
+			this.context.translate(this.x, this.y + this.height);
+			//this.context.translate( (this.x + (this.width / 2)), (this.y + (this.height/2)) );
+			this.context.translate(this.width/2, this.height/2);
 			this.context.rotate(paddleTiltedInRadians);
+			//this.context.drawImage(this.image, (-this.x + (this.width / 2)), (-this.y + (this.height/2)));
+			this.context.drawImage(this.image, 0, 0);
 			//this.context.translate( (-this.x + (this.width / 2)), (-this.y + (this.width/2)) );
 			this.context.restore();
 
-		}else if(paddleTiltedDegree < 0){
+		}/*else if(paddleTiltedDegree < 0){
 			this.context.save();
+			this.context.translate(this.x, this.y + this.height);
 			this.context.translate( (this.x + (this.width / 2)), (this.y + (this.height/2)) );
 			this.context.rotate(paddleTiltedInRadians);
+			this.context.drawImage(this.image, -(this.x + (this.width / 2)), -(this.y + (this.height/2)));
 			//this.context.translate( (-this.x + (this.width / 2)), (-this.y + (this.width/2)) );
 			this.context.restore();
-		}
+		}*/
 		this.context.drawImage(this.image, this.x, this.y);
 		//this.context.drawImage(this.image, this.x, this.y, this.xRight, this.yRight);
 	};
