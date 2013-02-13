@@ -259,7 +259,24 @@ function Paddle(){
 		// Finish by redrawing the paddle
 		this.draw();
 		}//key detecting if statement..
+	if(KEY_STATUS.space){
+			console.log("Game time: " + gameTime + "; Press time: " + presstime + "\n");
+		}
+		
+		if(KEY_STATUS.space && ((gameTime - presstime) > 50 || presstime == 0) ){
+			//alert("asdf");
+			presstime = gameTime;
+			var newball = game.pool.CreateObj(1);
+			newball.init(this.x + (this.width / 2),
+						 this.y + (this.width / 2), 
+						 imageRepository.mainball);
+			newball.speedX = 0;
+			newball.speedY = -2.0;
+		}
 	};//move function
+	
+var presstime = 0;
+
 }
 Paddle.prototype = new Drawable();
 
