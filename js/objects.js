@@ -142,6 +142,12 @@ Background.prototype = new Drawable();
  * drawn on the "paddle" canvas and uses dirty rectangles to move
  * around the screen.
  */
+ 	var upkeyDetect = 0;
+	var downKeyDetect = 0;
+	var leftKeyDetect = 0;
+	var rightKeyDetect = 0;
+	var spaceKeyDetect = 0;
+
 function Paddle(){
 
 	this.speed = 10;
@@ -158,16 +164,17 @@ function Paddle(){
 		//need to establish the center (x,y) of the new location the image is to be drawn &
 		//the angle to rotate has to be in radians
 		if(paddleTiltedDegree != 0){
+			this.context.clearRect(0, 0, paddle.width, paddle.height);//to clear the canvas
+			//this.context.width = this.context.width;//to clear the canvas
 			this.context.save();
 			this.context.translate(this.x, this.y);
 			//this.context.translate( (this.x + (this.width / 2)), (this.y + (this.height/2)) );
 			this.context.translate(this.width/2, this.height/2);
 			this.context.rotate(paddleTiltedInRadians);
-			//this.context.drawImage(this.image, (-this.x + (this.width / 2)), (-this.y + (this.height/2)));
 			this.context.drawImage(this.image, 0, 0);
-			//this.context.translate( (-this.x + (this.width / 2)), (-this.y + (this.width/2)) );
 			this.context.restore();
 		}else{
+			this.context.clearRect(0, 0, paddle.width, paddle.height);//to clear the canvas
 			this.context.drawImage(this.image, this.x, this.y);
 		}
 		//this.context.drawImage(this.image, this.x, this.y, this.xRight, this.yRight);
@@ -220,7 +227,7 @@ function Paddle(){
 	this.move = function(){	
 	// Determine if there was a move action and if he paddle moved,
 	// erase it's current image so it can be redrawn in it's new location
-	if (KEY_STATUS.left || KEY_STATUS.right || KEY_STATUS.up || KEY_STATUS.down){
+	if (KEY_STATUS.left || KEY_STATUS.right ){//|| KEY_STATUS.up || KEY_STATUS.down){
 		this.context.clearRect(this.x, this.y, this.width, this.height);
 		
 		if (KEY_STATUS.left) {
@@ -233,76 +240,57 @@ function Paddle(){
 			this.x += this.speed;
 			if (this.x >= this.canvasWidth - this.width)
 				this.x = this.canvasWidth - this.width;
+		}
+		// Finish by redrawing the paddle
+		this.draw();
+	}//key detecting if statement..
 
-		/********* added by beeb ***********/
-		}else if(KEY_STATUS.up){
-			
-			if(paddleTiltedDegree != 45){
-				paddleTiltedDegree += 15;
-				paddleTiltedInRadians = degreeToRadian(paddleTiltedDegree);
-				this.tiltPaddle(this.x + (this.width / 2),
-							   	this.y + (this.width / 2),
-							   	paddleTiltedDegree);
-			console.log('the current paddle tilted degree is: ' + paddleTiltedDegree);
-			}
-
-		}else if(KEY_STATUS.down){
-			
-			if(paddleTiltedDegree != -45){
+	if(KEY_STATUS.space){
+		console.log("Game time: " + gameTime + "; Press time: " + pressspacetime + "\n");
+	}
+		
+	if(KEY_STATUS.space && ((gameTime - pressspacetime) > 50 || pressspacetime == 0) ){
+		//alert("asdf");
+		console.log('up key detected count is: ' + spaceKeyDetect);
+		pressspacetime = gameTime;
+		var newball = game.pool.CreateObj(1);
+		newball.init(this.x + (this.width / 2),
+					 this.y + (this.width / 2), 
+					 imageRepository.mainball);
+		newball.speedX = 0;
+		newball.speedY = -2.0;
+	}
+		
+	if(KEY_STATUS.up && ((gameTime - pressspacetime) > 50 || pressspacetime == 0) ){
+		//alert("up");
+		console.log('up key detected count is: ' + upkeyDetect++);
+		pressspacetime = gameTime;
+				if(paddleTiltedDegree != 45){
+					paddleTiltedDegree += 15;
+					paddleTiltedInRadians = degreeToRadian(paddleTiltedDegree);
+					this.tiltPaddle(this.x + (this.width / 2),
+									this.y + (this.width / 2),
+									paddleTiltedDegree);
+				//	console.log('the current paddle tilted degree is: ' + paddleTiltedDegree);
+				}
+			//}
+		//this.draw();
+	}
+	if(KEY_STATUS.down && ((gameTime - pressdowntime) > 50 || pressdowntime == 0) ){
+		//alert("down");
+		console.log('down key detected count is: ' + downKeyDetect++);
+		pressdowntime = gameTime;
+		if(paddleTiltedDegree != -45){
 				paddleTiltedDegree -= 15;
 				paddleTiltedInRadians = degreeToRadian(paddleTiltedDegree);
 				this.tiltPaddle(this.x + (this.width / 2),
 						   		this.y + (this.width / 2),
 						   		paddleTiltedDegree);
-			console.log('the current paddle titlted degree is: ' + paddleTiltedDegree);
-			}
+			//console.log('the current paddle titlted degree is: ' + paddleTiltedDegree);
+		}
+		//this.draw();
+	}
 
-		}
-		/********* added by beeb ***********/
-		
-		// Finish by redrawing the paddle
-		this.draw();
-		}//key detecting if statement..
-	if(KEY_STATUS.space){
-			console.log("Game time: " + gameTime + "; Press time: " + pressspacetime + "\n");
-		}
-		
-		if(KEY_STATUS.space && ((gameTime - pressspacetime) > 50 || pressspacetime == 0) ){
-			//alert("asdf");
-			pressspacetime = gameTime;
-			var newball = game.pool.CreateObj(1);
-			newball.init(this.x + (this.width / 2),
-						 this.y + (this.width / 2), 
-						 imageRepository.mainball);
-			newball.speedX = 0;
-			newball.speedY = -2.0;
-		}
-		
-		if(KEY_STATUS.space && ((gameTime - pressspacetime) > 50 || pressspacetime == 0) ){
-				alert("up");
-				pressspacetime = gameTime;/*
-				if(paddleTiltedDegree != 45){
-					paddleTiltedDegree += 15;
-					//paddleTiltedInRadians = degreeToRadian(paddleTiltedDegree);
-					/*this.tiltPaddle(this.x + (this.width / 2),
-									this.y + (this.width / 2),
-									paddleTiltedDegree);*/
-				//	console.log('the current paddle tilted degree is: ' + paddleTiltedDegree);
-				//}
-			//}
-		}
-		if(KEY_STATUS.down && ((gameTime - pressdowntime) > 50 || pressdowntime == 0) ){
-			alert("down");
-			pressdowntime = gameTime;
-			if(paddleTiltedDegree != -45){
-				//paddleTiltedDegree -= 15;
-				//paddleTiltedInRadians = degreeToRadian(paddleTiltedDegree);
-				/*this.tiltPaddle(this.x + (this.width / 2),
-						   		this.y + (this.width / 2),
-						   		paddleTiltedDegree);*/
-			console.log('the current paddle titlted degree is: ' + paddleTiltedDegree);
-			}
-		}
 	};//move function
 	
 var pressspacetime = 0;
