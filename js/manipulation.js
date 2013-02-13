@@ -114,7 +114,7 @@ function manipulateGameBall(){
 }
 
 function gameTimer(){
-	if (gameTime > 1000 && enemyballPoolonScreen > 5) {
+	if (gameTime > 3000 && enemyballPoolonScreen > 5) {
 		document.getElementById("mani-status-text").innerHTML = 'ON';
 		document.getElementById("mani-status-box").style.background = 'green';
 		isTimeForManipulation();
