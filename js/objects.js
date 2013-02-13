@@ -136,7 +136,8 @@ Background.prototype = new Drawable();
 
 
 
-/**
+/*
+ *
  * Create the Paddle object that the player controls. The paddle is
  * drawn on the "paddle" canvas and uses dirty rectangles to move
  * around the screen.
@@ -158,7 +159,7 @@ function Paddle(){
 		//the angle to rotate has to be in radians
 		if(paddleTiltedDegree != 0){
 			this.context.save();
-			this.context.translate(this.x, this.y + this.height);
+			this.context.translate(this.x, this.y);
 			//this.context.translate( (this.x + (this.width / 2)), (this.y + (this.height/2)) );
 			this.context.translate(this.width/2, this.height/2);
 			this.context.rotate(paddleTiltedInRadians);
@@ -219,7 +220,7 @@ function Paddle(){
 	this.move = function(){	
 	// Determine if there was a move action and if he paddle moved,
 	// erase it's current image so it can be redrawn in it's new location
-	if (KEY_STATUS.left || KEY_STATUS.right || KEY_STATUS.up || KEY_STATUS.down) {
+	if (KEY_STATUS.left || KEY_STATUS.right || KEY_STATUS.up || KEY_STATUS.down){
 		this.context.clearRect(this.x, this.y, this.width, this.height);
 		
 		if (KEY_STATUS.left) {
@@ -227,12 +228,35 @@ function Paddle(){
 			// Keep player within the screen
 			if (this.x <= 0) 
 				this.x = 0;
+
 		}else if(KEY_STATUS.right){
 			this.x += this.speed;
 			if (this.x >= this.canvasWidth - this.width)
 				this.x = this.canvasWidth - this.width;
 
 		/********* added by beeb ***********/
+		}else if(KEY_STATUS.up){
+			
+			if(paddleTiltedDegree != 45){
+				paddleTiltedDegree += 15;
+				paddleTiltedInRadians = degreeToRadian(paddleTiltedDegree);
+				this.tiltPaddle(this.x + (this.width / 2),
+							   	this.y + (this.width / 2),
+							   	paddleTiltedDegree);
+			console.log('the current paddle tilted degree is: ' + paddleTiltedDegree);
+			}
+
+		}else if(KEY_STATUS.down){
+			
+			if(paddleTiltedDegree != -45){
+				paddleTiltedDegree -= 15;
+				paddleTiltedInRadians = degreeToRadian(paddleTiltedDegree);
+				this.tiltPaddle(this.x + (this.width / 2),
+						   		this.y + (this.width / 2),
+						   		paddleTiltedDegree);
+			console.log('the current paddle titlted degree is: ' + paddleTiltedDegree);
+			}
+
 		}
 		/********* added by beeb ***********/
 		
