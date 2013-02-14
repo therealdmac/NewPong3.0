@@ -1,112 +1,3 @@
-function setPriority(obj1,obj2){
-	
-	currPair = new Pair(obj1, obj2);
-	
-	priority.heapSort();
-	for(var i=0; i<priority.size(); i++){
-		processPairs(currPair, priority.content[i])
-	}		
-}
-
-function processPairs(pair1, pair2) {
-	var pairFlag = pair1.compare(pair2);
-	// Pair 1 is the new pair that may be pushed into the heap
-	// Pair 2 is the pair in the heap currently being compared against
-	switch(pairFlag){
-	case 0: // Object ids in the pairs are an exact match
-		pair2.decrement(time);
-	case 1: // Only one object id in the pair are a match
-		if(pair1.colTime > pair2.colTime){
-			// Reject the new pair			
-		}
-		else if(pair1.colTime < pair2.colTime){
-			// Delete the pair in the queue
-			// Push the new pair into the heap
-			// Call physics engine
-			priority.remove(pair2);
-			priority.push(pair1);
-			physicsEngine(pair1);		
-		}
-	case 2: // No matches
-		// Push the new pair into the heap
-		// Call physics engine
-		priority.push(pair1);
-		physicsEngine(pair1);
-	}
-}
-
-function Pair(obj1,obj2){
-	this.obj1 = obj1;
-	this.obj2 = obj2;
-	this.colTime = this.computeCollisionTime();
-	this.heapID = -1;
-	
-	this.computeCollisionLocation = function(){
-		
-		var location1 = []; //0 for x axis value, 1 for y axis value
-		
-		location1[0] = 100;
-		location1[1] = 100;
-		
-		
-		return location1; //Need only one ball's location
-	}
-	
-	this.computeCollisionTime = function() {
-		
-		var coldistance = Math.sqrt((obj1.x - location[0])*(obj1.x - location[0]) 
-						          + (obj1.y - location[1])*(obj1.y - location[1]));
-		var colspeed = Math.sqrt(obj1.speedX*obj1.speedX + obj1.speedY*obj1.speedY);
-		var coltime = coldistance / colspeed;
-	
-		return coltime;
-	}
-	
-	this.decrementTime = function(frameRate) {
-		this.colTime -= frameRate;//collision time minus the frame rate
-	}
-	
-	this.compare = function(pair) {
-		if(this.obj1.id == pair.obj1.id && this.obj2.id == pair.obj2.id)
-			return 0;
-		if(this.obj1.id == pair.obj1.id || this.obj1.id == pair.obj2.id)
-			return 1;
-		if(this.obj2.id == pair.obj1.id || this.obj2.id == pair.obj2.id)
-			return 1;
-		return 2;
-	}
-	
-	//Newly computed trajectory
-	this.obj1newSpeedX = obj1newSpeedX;
-	this.obj1newSpeedY = obj1newSpeedY;
-	this.obj2newSpeedX = obj2newSpeedX;
-	this.obj2newSpeedY = obj2newSpeedY;
-	
-	//this.obj1ExpectedCollisionX = obj1.x+obj1newSpeedX*n;
-	//this.obj1ExpectedCollisionY = obj1.y+obj1newSpeedY*n;
-	
-	//Update Expected Distance at new frame
-	//this.updateDistance(){
-	//	distance -= decrement;
-	//}
-	
-	//Checks if ball has completed the collision course
-	//i.e. not deflected by the wall or other balls
-	//this.collisionSuccess(buffer){
-	//	if(this.obj1ExpectedCollisionX > this.obj1.x - buffer &&
-	//		this.obj1ExpectedCollisionX < this.obj1.x + buffer &&
-	//		this.obj1ExpectedCollisionY > this.obj1.y - buffer &&
-	//		this.obj1ExpectedCollisionY < this.obj1.y + buffer)
-	//		 
-	//		 return true;
-	//	else
-	//		return false;
-	//}
-}
-	for(x in thisArray){
-		
-	}
-
 function BinaryHeap(){
   this.content = [];
   this.scoreFunction = function(pair){
@@ -285,5 +176,111 @@ BinaryHeap.prototype = {
 
 var priority = new BinaryHeap();
 
+function processPairs(pair1, pair2) {
+	console.log("asdfsafds" + pair1.obj1.x);
+	var pairFlag = pair1.compare(pair2);
+	// Pair 1 is the new pair that may be pushed into the heap
+	// Pair 2 is the pair in the heap currently being compared against
+	switch(pairFlag){
+	case 0: // Object ids in the pairs are an exact match
+		pair2.decrement(cycleCheck());
+	case 1: // Only one object id in the pair are a match
+		if(pair1.colTime > pair2.colTime){
+			// Reject the new pair			
+		}
+		else if(pair1.colTime < pair2.colTime){
+			// Delete the pair in the queue
+			// Push the new pair into the heap
+			// Call physics engine
+			priority.remove(pair2);
+			priority.push(pair1);
+			physicsEngine(pair1);		
+		}
+	case 2: // No matches
+		// Push the new pair into the heap
+		// Call physics engine
+		priority.push(pair1);
+		physicsEngine(pair1);
+	}
+}
 
+function Pair(obj1,obj2){
+	this.obj1 = obj1;
+	this.obj2 = obj2;
+	this.heapID = -1;
+	
+	this.computeCollisionLocation = function(){
+		
+		var location1 = []; //0 for x axis value, 1 for y axis value
+		
+		location1[0] = 100;
+		location1[1] = 100;
+		
+		
+		return location1; //Need only one ball's location
+	}
+	
+	this.computeCollisionTime = function() {
+		
+		var coldistance = Math.sqrt((obj1.x - location[0])*(obj1.x - location[0]) 
+						          + (obj1.y - location[1])*(obj1.y - location[1]));
+		var colspeed = Math.sqrt(obj1.speedX*obj1.speedX + obj1.speedY*obj1.speedY);
+		var coltime = coldistance / colspeed;
+	
+		return coltime;
+	}
+	
+	this.colTime = this.computeCollisionTime();
+	
+	
+	this.decrementTime = function(frameRate) {
+		this.colTime -= frameRate;
+	}
+	
+	this.compare = function(pair) {
+		if(this.obj1.id == pair.obj1.id && this.obj2.id == pair.obj2.id)
+			return 0;
+		if(this.obj1.id == pair.obj1.id || this.obj1.id == pair.obj2.id)
+			return 1;
+		if(this.obj2.id == pair.obj1.id || this.obj2.id == pair.obj2.id)
+			return 1;
+		return 2;
+	}
+	
+	//Newly computed trajectory
+	this.obj1newSpeedX = 0;
+	this.obj1newSpeedY = 0;
+	this.obj2newSpeedX = 0;
+	this.obj2newSpeedY = 0;
+	
+	//this.obj1ExpectedCollisionX = obj1.x+obj1newSpeedX*n;
+	//this.obj1ExpectedCollisionY = obj1.y+obj1newSpeedY*n;
+	
+	//Update Expected Distance at new frame
+	//this.updateDistance(){
+	//	distance -= decrement;
+	//}
+	
+	//Checks if ball has completed the collision course
+	//i.e. not deflected by the wall or other balls
+	//this.collisionSuccess(buffer){
+	//	if(this.obj1ExpectedCollisionX > this.obj1.x - buffer &&
+	//		this.obj1ExpectedCollisionX < this.obj1.x + buffer &&
+	//		this.obj1ExpectedCollisionY > this.obj1.y - buffer &&
+	//		this.obj1ExpectedCollisionY < this.obj1.y + buffer)
+	//		 
+	//		 return true;
+	//	else
+	//		return false;
+	//}
+}
 
+function setPriority(obj1,obj2){
+	
+	var currPair = new Pair(obj1, obj2);
+	//console.log(obj1.x);
+	priority.heapSort();
+	for(var i=0; i<priority.size(); i++){
+		processPairs(currPair, priority.content[i])
+	}		
+}
