@@ -79,8 +79,9 @@ function isTimeForManipulation(){
 	    game.mainball.ballMovingDown){	
 			manipulateGameBall();
 	}else{
-		if(enemyBallManipulationCounter % 500 == 0)
-			manipulateEnemyBalls();
+		manipulateEnemyBalls();
+		//if(enemyBallManipulationCounter % 500 == 0)
+			//manipulateEnemyBalls();
 		enemyBallManipulationCounter++;
 	}
 }
@@ -117,7 +118,7 @@ function manipulateGameBall(){
 }
 
 function gameTimer(){
-	if (gameTime > 3000 && enemyballPoolonScreen > 5) {
+	if (gameTime > 3000 && enemyballPoolonScreen > 2) {
 		document.getElementById("mani-status-text").innerHTML = 'ON';
 		document.getElementById("mani-status-box").style.background = 'green';
 		isTimeForManipulation();

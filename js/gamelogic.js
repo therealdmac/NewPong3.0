@@ -258,7 +258,7 @@ function determineBlinkingBall(obj1, obj2){
 var enemyBallModifiedCounter = 0;
 function modifyEnemyBall(thisObj){
   if(enemyBallModifiedCounter != 5){
-    thisObj.init(thisObj.x, thisObj.y, imageRepository.mainball);
+    thisObj.init(thisObj.x, thisObj.y, imageRepository.enemyballBig);
     enemyBallModifiedCounter++;
   }
   console.log('the no of times blinking ball was modified: ' + enemyBallModifiedCounter);
