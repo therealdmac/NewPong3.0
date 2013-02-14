@@ -1,3 +1,5 @@
+console.log('manipulation was created');
+
 /*************** added by beeb ********************/
 var ballMovingDown = false;
 var ballMovingRight = false;

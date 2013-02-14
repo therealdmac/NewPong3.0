@@ -1,3 +1,5 @@
+console.log('correction was created');
+
 function correction(obj1,obj2, overlapDistance, radian) {
 
 	// obj2 is the object on the left

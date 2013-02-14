@@ -1,3 +1,5 @@
+console.log('predict was created');
+
 function BinaryHeap(){
   this.content = [];
   this.scoreFunction = function(pair){
@@ -274,10 +276,10 @@ function Pair(obj1,obj2){
 	//		return false;
 	//}
 }
-
+var currPair;
 function setPriority(obj1,obj2){
 	
-	var currPair = new Pair(obj1, obj2);
+	currPair = new Pair(obj1, obj2);
 	//console.log(obj1.x);
 	priority.heapSort();
 	for(var i=0; i<priority.size(); i++){

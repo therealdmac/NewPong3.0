@@ -1,3 +1,5 @@
+ console.log('pong was created');
+
  /**
  * Initialize the Game and start it
  */

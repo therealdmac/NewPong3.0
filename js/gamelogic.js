@@ -1,3 +1,5 @@
+console.log('gamelogic was created');
+
 var debugCanvas = document.getElementById('debugcanvas');
 var debugContext = debugCanvas.getContext('2d');
 

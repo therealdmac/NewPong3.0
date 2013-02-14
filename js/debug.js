@@ -1,3 +1,5 @@
+console.log('debug was created');
+
 // ***************************************** 
 // calculate frames per second
 // http://stackoverflow.com/questions/5078913/html5-canvas-performance-calculating-loops-frames-per-second
