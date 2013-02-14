@@ -195,10 +195,10 @@ function executeManipulationOfEnemyBalls(thisRegion){
 		//console.log('this enemy ball is manipulated ' + arrayToManipulate[i].property);
 		switch(thisRegion){
 			case 'right':
-				arrayToManipulate[i].speedX -= 0.5;
+				arrayToManipulate[i].speedX -= 2;
 				break;
 			case 'left':
-				arrayToManipulate[i].speedX += 0.5;
+				arrayToManipulate[i].speedX += 2;
 				break;
 		}//switch case statement
 	}//for loop

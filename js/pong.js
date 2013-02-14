@@ -379,10 +379,10 @@ function renderThread() {
 	activateBlinkingBall();
 
 	
-	console.log("--------------Ball Indexes-------------------------");
+/*	console.log("--------------Ball Indexes-------------------------");
 	for(var i=0; i<game.pool.allObj.length; i++){
 		console.log("" + game.pool.allObj[i].typeofball + " Ball "+i+" index:"+game.pool.allObj[i].index + " " + game.pool.num[i]);
-	}
+	}*/
 
 	// Start counting game timer
 	gameTimer();

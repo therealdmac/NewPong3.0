@@ -57,6 +57,7 @@ function Drawable() {
 		counter++;
 		newObj.index = objCount;
 		objCount++;
+		newObj.id = objCount;
 		this.num.push(counter);
 		return newObj;
 	}
@@ -412,6 +413,7 @@ function Ball() {
  	//this.direction = 0;
 
  	this.index = -1;
+	this.id = -1;
 	this.speed = 5;
 	this.speedX = this.speed;
 	this.speedY = this.speed;

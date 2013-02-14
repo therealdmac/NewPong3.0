@@ -300,6 +300,14 @@ function collisionDetection(obj1, obj2) {
   // Object2 must be on the left side of Object1
   var object1, object2;
   var blinkingFlag;
+  //Update trajectories
+  while(priority.content[0].colTime < 1){
+	var pair  = priority.pop();
+	pair.obj1.speedX = pair.obj1newSpeedX;
+	pair.obj1.speedY = pair.obj1newSpeedY;
+	pair.obj2.speedX = pair.obj2newSpeedX;
+	pair.obj2.speedY = pair.obj2newSpeedY;
+	}
   //Case 1 & 2: the mainball is attracted to the blinking ball and
   //the blinking ball gets destroyed along with the mainball being modified
   if(overlapDistance > 0){
@@ -343,7 +351,8 @@ function collisionDetection(obj1, obj2) {
           object1 = obj2;
         }
         correction(object1, object2);
-        physicsEngine(object1, object2);
+		setPriority(object1, object2);
+        //physicsEngine(object1, object2);
         break;
     }//switch case
      
