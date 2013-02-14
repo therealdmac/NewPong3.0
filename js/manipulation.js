@@ -204,7 +204,7 @@ function executeManipulationOfEnemyBalls(thisRegion){
 	}//for loop
 }
 
-/*
+
 function blinkingBallAttraction(mainBallXCoordinate, 
 								mainBallYCoordinate, 
 								blinkingBallXCoordinate, 
@@ -238,12 +238,12 @@ function blinkingBallAttraction(mainBallXCoordinate,
 	//console.log('mainball new y speed after pulled: ' + game.mainball.speedY);
 }
 
-*/
+
 
 //Takes in an array containing the enemy balls to manipulate
 //towards the blinking ball
 var iter = 0;
-function blinkingBallAttraction(thisArray, 
+/*function blinkingBallAttraction(thisArray, 
 								blinkingBallXCoordinate, 
 								blinkingBallYCoordinate){
 	
@@ -264,4 +264,4 @@ function blinkingBallAttraction(thisArray,
 		thisArray[iter].speedY = thisArray[iter].speedY + attractionYVector;
 		//console.log('mainball new y speed after pulled: ' + game.mainball.speedY);
 	}//for loop
-}
+}*/

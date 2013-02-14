@@ -306,15 +306,15 @@ var arrayToSend = new Array();
 
 function activateBlinkingBall() {
 
-	/*if(blinkingballPool == 1) {
+	if(blinkingballPool == 1) {
 		blinkingBallAttraction(game.mainball.x,
 		   game.mainball.y,
 		   game.shooter.createdBlinkingBall.x,
 		   game.shooter.createdBlinkingBall.y,
 		   game.mainball.speedX,
 		   game.mainball.speedY);
-	}*/
-	if(blinkingballPool == 1){
+	}
+	/*if(blinkingballPool == 1){
 		lengthOfSendingArray = game.pool.allObj.length;
 		for(var iter = 0;
 			iter < lengthOfSendingArray;
@@ -331,7 +331,7 @@ function activateBlinkingBall() {
 							   game.shooter.createdBlinkingBall.y);
 	}
 	//clear the array
-	arrayToSend.splice(0, arrayToSend.length);
+	arrayToSend.splice(0, arrayToSend.length);*/
 }
 
 
@@ -372,17 +372,17 @@ function renderThread() {
 	game.paddle.move();
 	game.paddle.draw();
 	game.shooter.draw();
-
+ 
 	game.pool.animate();
 
 	// activate blinking ball
 	activateBlinkingBall()
 
 	
-/*	console.log("--------------Ball Indexes-------------------------");
+	console.log("--------------Ball Indexes-------------------------");
 	for(var i=0; i<game.pool.allObj.length; i++){
-		console.log("Ball "+i+" index:"+game.pool.allObj[i].index);
-	}*/
+		console.log("" + game.pool.allObj[i].typeofball + " Ball "+i+" index:"+game.pool.allObj[i].index + " " + game.pool.num[i]);
+	}
 
 	// Start counting game timer
 	gameTimer();
