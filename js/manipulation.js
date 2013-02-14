@@ -91,7 +91,7 @@ function manipulateGameBall(){
 		case 'left': 	
 	
 			if(game.mainball.collidedwithrightEdge){
-				game.mainball.speedY += 8;
+				game.mainball.speedY += 5;
 				manipulated++;
 				document.getElementById("executed-status-text").innerHTML = manipulated;
 				document.getElementById("executed-status-box").style.background = 'green';
@@ -103,7 +103,7 @@ function manipulateGameBall(){
 			//console.log('paddle is at the right');
 			//console.log('Gameball region is at ' + game.mainball.ballRegion);
 			if(game.mainball.collidedwithleftEdge){
-				game.mainball.speedY += 8;
+				game.mainball.speedY += 5;
 				manipulated++;
 				document.getElementById("executed-status-text").innerHTML = manipulated;
 				document.getElementById("executed-status-box").style.background = 'green';

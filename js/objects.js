@@ -527,8 +527,29 @@ function Mainball() {
 	    if (this.y >= this.bottomEdge - this.height - 16 - 50) {
 
 	    	// if hits paddle
-	    	if (this.x + 25 > game.paddle.x && this.x < game.paddle.x + 64)
-	    		this.speedY = -this.speed; // reverse speed
+	    	if (this.x + 25 > game.paddle.x && this.x < game.paddle.x + 64){
+	    		//if paddle tilted trajectory changes
+	    		if(paddleTiltedDegree != 0){
+	    			console.log('called the ball hit trajectory function');
+	    			console.log('sent this parameters: ' + paddleTiltedDegree); 
+	    			console.log('paddle.x is:  ' + paddle.x);
+	    			console.log('paddle.y is: ' + paddle.y); 
+	    			console.log('paddle.x right is: ' + paddle.x + 64);
+	    			console.log('paddle.y right is: ' + paddle.y + 16);
+	    			console.log('mainball.speedX is: ' + this.speedX);
+	    			console.log('mainball.speedY is: ' + this.speedY);
+	    			ballHitPaddleTrajectory(paddleTiltedDegree,
+	    									paddle.x,
+	    									paddle.y,
+	    									paddle.x + 64,
+	    									paddle.y + 16,
+	    									this.speedX,
+	    									this.speedY);
+	    		}else{
+	    			//paddle not tilted thus a normal reflection
+	    			this.speedY = -this.speed; // reverse speed
+	    		}
+	    	}
 	    	else {
 	    		this.speedY = -this.speed;
 	    		//restartGame();
@@ -545,6 +566,57 @@ function Mainball() {
 
 }
 Mainball.prototype = new Ball();
+
+//added by vic
+function ballHitPaddleTrajectory(paddleTiltedDegree, 
+								 paddleLeftMostPointXCoordinate, 
+								 paddleLeftMostPointYCoordinate, 
+								 paddleRightMostPointXCoordinate, 
+								 paddleRightMostPointYCoordinate, 
+								 xVelocityOfBall, 
+								 yVelocityOfBall) {
+	console.log('inside ball hit trajectory function');
+	//Required input: degree of tilt of paddle, x and y coordinates of 2 points on the paddle, x and y velocity of ball
+	
+	var tangentXVector, tangentYVector, unitTangentXVector, unitTangentYVector, unitNormalXVector, unitNormalYVector;
+	var normalScalarVelocityOfBall, tangentScalarVelocityOfBall;
+	var normalXVectorVelocityOfBall, normalYVectorVelocityOfBall, tangentXVectorVelocityOfBall, tangentYVectorVelocityOfBall;
+	//var newXVelocityOfBall, newYVelocityOfBall;
+	
+	/*//Special case: paddleTiltedDegree = 0
+	if(paddleTiltedDegree == 0){
+		newXVelocityOfBall = xVelocityOfBall;
+		newYVelocityOfBall = -yVelocityOfBall;
+	}*/
+
+	//Find unit normal and unit tangent vectors
+	tangentXVector = paddleRightMostPointXCoordinate - paddleLeftMostPointXCoordinate;
+	tangentYVector = paddleRightMostPointYCoordinate - paddleLeftMostPointYCoordinate;
+	unitTangentXVector = tangentXVector / Math.sqrt(tangentXVector * tangentXVector + tangentYVector * tangentYVector);
+	unitTangentYVector = tangentYVector / Math.sqrt(tangentXVector * tangentXVector + tangentYVector * tangentYVector);
+	unitNormalXVector = unitTangentYVector;
+	unitNormalYVector = -unitTangentXVector;
+	
+	//Resolve velocity of ball into normal and tangential components
+	normalScalarVelocityOfBall = unitNormalXVector * xVelocityOfBall + unitNormalYVector * yVelocityOfBall;
+	tangentScalarVelocityOfBall = unitTangentXVector * xVelocityOfBall + unitTangentYVector * yVelocityOfBall;
+	
+	//Convert scalar normal and tangential velocities into vectors
+	normalXVectorVelocityOfBall = normalScalarVelocityOfBall * unitNormalXVector;
+	normalYVectorVelocityOfBall = normalScalarVelocityOfBall * unitNormalYVector;
+	tangentXVectorVelocityOfBall = tangentScalarVelocityOfBall * unitTangentXVector;
+	tangentYVectorVelocityOfBall = tangentScalarVelocityOfBall * unitTangentYVector;
+	
+	//Reverse ball's normal velocity
+	normalXVectorVelocityOfBall = -normalXVectorVelocityOfBall;
+	normalYVectorVelocityOfBall = -normalYVectorVelocityOfBall;
+	
+	//Find final velocity vectors
+	this.speedX = normalXVectorVelocityOfBall + tangentXVectorVelocityOfBall;
+	this.speedY = normalYVectorVelocityOfBall + tangentYVectorVelocityOfBall;
+	console.log();
+	
+}
 
 
 function Enemyball() {
