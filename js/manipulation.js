@@ -120,7 +120,7 @@ function manipulateGameBall(){
 }
 
 function gameTimer(){
-	if (gameTime > 3000 && enemyballPoolonScreen > 2) {
+	if (gameTime > 300) {
 		document.getElementById("mani-status-text").innerHTML = 'ON';
 		document.getElementById("mani-status-box").style.background = 'green';
 		isTimeForManipulation();
@@ -197,10 +197,11 @@ function executeManipulationOfEnemyBalls(thisRegion){
 		//console.log('this enemy ball is manipulated ' + arrayToManipulate[i].property);
 		switch(thisRegion){
 			case 'right':
-				arrayToManipulate[i].speedX -= 2;
+
+				arrayToManipulate[i].speedX -= 0.1;
 				break;
 			case 'left':
-				arrayToManipulate[i].speedX += 2;
+				arrayToManipulate[i].speedX += 0.1;
 				break;
 		}//switch case statement
 	}//for loop

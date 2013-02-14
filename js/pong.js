@@ -259,9 +259,16 @@ function Game() {
 
 		checkFPS();
 		debugTool();
+		
+
+		// Thread 1 = Rendering Thread
 		renderThread();
-		correctionThread();
+		//correctionThread();
+
+		// Thread 2 = Physics Thread
 		physicsThread();
+		
+		// Thread 3 = Synchronizer
 		cycleCheck();
 
 	};
@@ -365,6 +372,8 @@ function physicsTimeFunc() {
 function renderThread() {
 	
 	requestAnimFrame( renderThread );
+
+	//settimeout(this, 60);
 	
 	// Rendering
 	debugContext.clearRect(0,0,debugCanvas.width, debugCanvas.height);
@@ -404,6 +413,7 @@ function physicsThread() {
 	requestAnimFrame( physicsThread );
 	physicsTimeFunc();
 	game.colHandler.subDivide(game.pool.allObj);
+	correction();
 	physicsEngine();
 	//setTimeout("physicsThread()", 2);
 

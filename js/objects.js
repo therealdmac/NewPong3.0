@@ -558,8 +558,8 @@ function Mainball() {
 	    		}
 	    	}
 	    	else {
-	    		this.speedY = -this.speed;
-	    		//restartGame();
+	    		//this.speedY = -this.speed;
+	    		restartGame();
 	    	}
 	    		 
 	    		// temporary hold
