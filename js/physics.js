@@ -119,8 +119,7 @@ function setObjectTwoParameters(thisObject){
 //function physicsEngine(objectOne, objectTwo){
 function physicsEngine(pair){
 	
-	var objectOne = pair.obj1;
-	var objectTwo = pair.obj2;
+	
 	//console.log('physics engine called');
 
 	/* To implement the interaction with the shooter object, 
@@ -136,6 +135,8 @@ function physicsEngine(pair){
 	 	//console.log('object is undefined');
 	 }else{
 	 	//The 2 references belong to normal ball objects
+	 	var objectOne = pair.obj1;
+		var objectTwo = pair.obj2;
 		setObjectOneParameters(objectOne);
 		setObjectTwoParameters(objectTwo);
 		resolveBallCollisons();
