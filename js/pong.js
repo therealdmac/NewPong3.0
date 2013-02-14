@@ -376,7 +376,7 @@ function renderThread() {
 	game.pool.animate();
 
 	// activate blinking ball
-	activateBlinkingBall()
+	activateBlinkingBall();
 
 	
 	console.log("--------------Ball Indexes-------------------------");

@@ -527,7 +527,7 @@ function Mainball() {
 	    if (this.y >= this.bottomEdge - this.height - 16 - 50) {
 
 	    	// if hits paddle
-	    	if (this.x + 25 > game.paddle.x && this.x < game.paddle.x + 64){
+	    	if ( (this.x + 25 > game.paddle.x && this.x < game.paddle.x + 64) ){
 	    		//if paddle tilted trajectory changes
 	    		if(paddleTiltedDegree != 0){
 	    			console.log('called the ball hit trajectory function');
