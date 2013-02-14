@@ -196,13 +196,13 @@ function processPairs(pair1, pair2) {
 			// Call physics engine
 			priority.remove(pair2);
 			priority.push(pair1);
-			physicsEngine(pair1);		
+			physicsEngine(pair1.obj1, pair1.obj2);		
 		}
 	case 2: // No matches
 		// Push the new pair into the heap
 		// Call physics engine
 		priority.push(pair1);
-		physicsEngine(pair1);
+		physicsEngine(pair1.obj1, pair1.obj2);
 	}
 }
 

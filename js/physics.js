@@ -1,4 +1,4 @@
-
+console.log('physics was created');
 
 /* We need to find a way to initialise these global variables only once...
  * not everytime the physics engine is called - maybe that could also be a problem of 
@@ -116,10 +116,12 @@ function setObjectTwoParameters(thisObject){
 }
 
 //This is the function that will be called by the program, the rest of them are private functions
-//function physicsEngine(objectOne, objectTwo){
-function physicsEngine(pair){
-	
-	
+function physicsEngine(objectOne, objectTwo){
+//function physicsEngine(pair){
+
+	//var objectOne = pair.obj1;
+	//var objectTwo = pair.obj2;
+
 	//console.log('physics engine called');
 
 	/* To implement the interaction with the shooter object, 
@@ -142,16 +144,16 @@ function physicsEngine(pair){
 		resolveBallCollisons();
 
 		//Find final velocity vectors
-		//objectOne.speedX = normalXVectorVelocityOfBallOne + tangentXVectorVelocityOfBallOne;
-		//objectOne.speedY = normalYVectorVelocityOfBallOne + tangentYVectorVelocityOfBallOne;
-		//objectTwo.speedX = normalXVectorVelocityOfBallTwo + tangentXVectorVelocityOfBallTwo;
-		//objectTwo.speedY = normalYVectorVelocityOfBallTwo + tangentXVectorVelocityOfBallTwo;
+		objectOne.speedX = normalXVectorVelocityOfBallOne + tangentXVectorVelocityOfBallOne;
+		objectOne.speedY = normalYVectorVelocityOfBallOne + tangentYVectorVelocityOfBallOne;
+		objectTwo.speedX = normalXVectorVelocityOfBallTwo + tangentXVectorVelocityOfBallTwo;
+		objectTwo.speedY = normalYVectorVelocityOfBallTwo + tangentXVectorVelocityOfBallTwo;
 		
-		obj1newSpeedX = normalXVectorVelocityOfBallOne + tangentXVectorVelocityOfBallOne;
+		/*obj1newSpeedX = normalXVectorVelocityOfBallOne + tangentXVectorVelocityOfBallOne;
 		obj1newSpeedY = normalYVectorVelocityOfBallOne + tangentYVectorVelocityOfBallOne;
 		obj2newSpeedX = normalXVectorVelocityOfBallTwo + tangentXVectorVelocityOfBallTwo;
 		obj2newSpeedY = normalYVectorVelocityOfBallTwo + tangentXVectorVelocityOfBallTwo;
-
+		*/
 	}
 
 	//}
