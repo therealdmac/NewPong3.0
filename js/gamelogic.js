@@ -163,13 +163,17 @@ function QuadTree(boundBox, lvl) {
     var horizontalMidpoint = this.bounds.y + this.bounds.height / 2;
      
     // Object can fit completely within the top quadrant
-    var topQuadrant = (obj.y < horizontalMidpoint && obj.y + obj.height < horizontalMidpoint);
+    //var topQuadrant = (obj.y < horizontalMidpoint && obj.y + obj.height < horizontalMidpoint);
+	var topQuadrant = (obj.pY < horizontalMidpoint && obj.pY + obj.pHeight < horizontalMidpoint);
     // Object can fit completely within the bottom quandrant
-    var bottomQuadrant = (obj.y > horizontalMidpoint);
+    //var bottomQuadrant = (obj.y > horizontalMidpoint);
+	var bottomQuadrant = (obj.pY > horizontalMidpoint);
    
     // Object can fit completely within the left quadrants
-    if (obj.x < verticalMidpoint &&
-        obj.x + obj.width < verticalMidpoint) {
+    //if (obj.x < verticalMidpoint &&
+        //obj.x + obj.width < verticalMidpoint) {
+	if (obj.pX < verticalMidpoint &&
+		obj.pX + obj.Width < verticalMidpoint) {
       if (topQuadrant) {
         index = 1;
       }
@@ -178,7 +182,8 @@ function QuadTree(boundBox, lvl) {
       }
     }
     // Object can fix completely within the right quandrants
-    else if (obj.x > verticalMidpoint) {
+    //else if (obj.x > verticalMidpoint) {
+	else if (obj.pX > verticalMidpoint) {
       if (topQuadrant) {
         index = 0;
       }
@@ -267,18 +272,26 @@ function modifyEnemyBall(thisObj){
 /********* added by beeb ***********/
 function collisionDetection(obj1, obj2) {
 
-	var x1 = obj1.x;
+/*	var x1 = obj1.x;
 	var y1 = obj1.y;
 
 	var x2 = obj2.x;
-	var y2 = obj2.y;
+	var y2 = obj2.y;*/
+	
+	var x1 = obj1.pX;
+	var y1 = obj1.pY;
+
+	var x2 = obj2.pX;
+	var y2 = obj2.pY;
 
   var goodToGo = 0;
 
-  var combinedRadius = obj1.width/2 + obj2.width/2;
+  //var combinedRadius = obj1.width/2 + obj2.width/2;
+  var combinedRadius = obj1.pWidth/2 + obj2.pWidth/2;
 
 	// Distance between 2 balls
-  var distance = distanceMachine(obj1.x, obj1.y, obj2.x, obj2.y);
+  //var distance = distanceMachine(obj1.x, obj1.y, obj2.x, obj2.y);
+  var distance = distanceMachine(obj1.pX, obj1.pY, obj2.pX, obj2.pY);
 
   
 	var distanceX = (x2 - x1)*(x2 - x1);
@@ -301,7 +314,7 @@ function collisionDetection(obj1, obj2) {
   var object1, object2;
   var blinkingFlag;
   //Update trajectories
-  while(priority.content[0].colTime < 1){
+  while(priority.content[0] && priority.content[0].colTime < 1){
 	var pair  = priority.pop();
 	pair.obj1.speedX = pair.obj1newSpeedX;
 	pair.obj1.speedY = pair.obj1newSpeedY;
@@ -352,6 +365,7 @@ function collisionDetection(obj1, obj2) {
         }
         correction(object1, object2);
 		setPriority(object1, object2);
+		//console.log(object1.x);
         //physicsEngine(object1, object2);
         break;
     }//switch case

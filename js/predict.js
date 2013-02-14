@@ -63,7 +63,7 @@ function Pair(obj1,obj2){
 	}
 	
 	this.decrementTime = function(frameRate) {
-		this.colTime -= frameRate;
+		this.colTime -= frameRate;//collision time minus the frame rate
 	}
 	
 	this.compare = function(pair) {
@@ -235,7 +235,7 @@ BinaryHeap.prototype = {
         break;
       }
     }
-  }
+  },
   
   heapSort: function()
     {
@@ -255,7 +255,7 @@ BinaryHeap.prototype = {
         this.content[i] = temp;
 		this.siftDown(0, i-1);
       }
-    }
+    },
 	
 	siftDown: function(root, bottom){
 		var done, maxChild, temp;
@@ -284,3 +284,6 @@ BinaryHeap.prototype = {
 };
 
 var priority = new BinaryHeap();
+
+
+

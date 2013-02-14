@@ -417,6 +417,11 @@ function Ball() {
 	this.speed = 5;
 	this.speedX = this.speed;
 	this.speedY = this.speed;
+	
+	this.pWidth = this.width + 100;
+	this.pHeight = this.height + 100;
+	this.pX = this.x - (this.pWidth-this.width)/2;
+	this.pY = this.y - (this.pHeight-this.height)/2;
 
 	this.typeofball = null;
 
