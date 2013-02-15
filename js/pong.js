@@ -26,6 +26,7 @@ var blinkingBall = 0;
 // Keep track of manipulation times
 var manipulated = 0;
 
+
 function init() {
 	if(game.init()) {
 		game.start();
@@ -310,6 +311,7 @@ function shooterTimer() {
 	}
 
 }
+
 var	lengthOfSendingArray;
 var arrayToSend = new Array();
 
@@ -365,6 +367,18 @@ function physicsTimeFunc() {
 	// setTimeout("physicsTimeFunc", 1);
 }
 
+function cycleCheck() {
+	requestAnimFrame( cycleCheck );
+
+	if (renderingTime > physicsTime) {
+		renderingFaster++;
+		renderingTime = 0;
+		physicsTime = 0;
+	}
+
+	shooterTimer();
+
+}
 
 // *******************************************
 // Threads
@@ -398,20 +412,25 @@ function renderThread() {
 	// Start counting game timer
 	gameTimer();
 
+	// Synchronizer
 	renderingTimeFunc(); // plus count
 	
 }
 
+/*
 function correctionThread() {
 	requestAnimFrame( correctionThread );
 	correction();
 	//setTimeout('correctionThread()', 1)
-}
+} */
 
 
 function physicsThread() {
 	requestAnimFrame( physicsThread );
+
+	// Synchronizer
 	physicsTimeFunc();
+
 	game.colHandler.subDivide(game.pool.allObj);
 	correction();
 	physicsEngine();
@@ -419,18 +438,7 @@ function physicsThread() {
 
 }
 
-function cycleCheck() {
-	requestAnimFrame( cycleCheck );
 
-	if (renderingTime > physicsTime) {
-		renderingFaster++;
-		renderingTime = 0;
-		physicsTime = 0;
-	}
-
-	shooterTimer();
-
-}
 
 /**	
  * requestAnim shim layer by Paul Irish
